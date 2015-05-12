@@ -1,0 +1,61 @@
+{
+  "name": "richmondatlas-overlandtrails",
+  "version": "0.0.0",
+  "description": "Overland trails",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stamen/richmondatlas-overlandtrails.git"
+  },
+  "author": "connelley@stamen.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stamen/richmondatlas-overlandtrails/issues"
+  },
+  "homepage": "https://github.com/stamen/richmondatlas-overlandtrails",
+  "dependencies": {
+    "bower": "~1.3.12",
+    "browserify": "^9.0.7",
+    "cartodb-client": "git://github.com/stamen/cartodb-client.git#3958e15b9eab6f52a17fd0b7b396e59c0db408ca",
+    "colorbrewer": "0.0.2",
+    "d3": "^3.5.5",
+    "escape-string-regexp": "~1.0.2",
+    "flux": "^2.0.1",
+    "flux-react": "^2.6.5",
+    "glob": "^5.0.3",
+    "gulp": "~3.8.11",
+    "gulp-autopolyfiller": "~1.2.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-connect": "^2.2.0",
+    "gulp-copy": "0.0.2",
+    "gulp-cssmin": "^0.1.6",
+    "gulp-if": "^1.2.5",
+    "gulp-jasmine2-phantomjs": "^0.2.0",
+    "gulp-jshint": "~1.9.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-shell": "^0.4.0",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.4",
+    "gulp-watch": "~3.0.0",
+    "jshint-stylish": "~1.0.0",
+    "leaflet": "^0.7.3",
+    "main-bower-files": "~2.5.0",
+    "object-assign": "^2.0.0",
+    "react": "^0.13.1",
+    "react-addons": "^0.9.1-deprecated",
+    "react-router": "^0.13.3",
+    "react-simpletabs": "^0.6.1",
+    "react-tabs": "^0.1.2",
+    "reactify": "^1.1.0",
+    "rimraf": "^2.3.2",
+    "topojson": "^1.6.19",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.1.0"
+  }
+}
