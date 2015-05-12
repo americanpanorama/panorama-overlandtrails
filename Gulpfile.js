@@ -157,7 +157,8 @@ function copyTask(options) {
 function webserverTask(options) {
   return connect.server({
     root: './build/',
-    livereload: false
+    livereload: false,
+    port: 8888
   });
 }
 
