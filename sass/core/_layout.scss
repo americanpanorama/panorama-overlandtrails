@@ -1,0 +1,35 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  padding: 0 20px !important;
+}
+
+header {
+  margin: 0;
+  padding: 0;
+  height: $header-height;
+  overflow: hidden;
+}
+
+header h1 {
+  margin: 0;
+  line-height: $header-height;
+}
+
+#map-wrapper {
+  @include calc(height, ($header-height + $chart-height));
+}
+
+#narrative-wrapper {
+  @include calc(height, ($header-height + $chart-height));
+  background: #eee;
+}
+

@@ -1,0 +1,12 @@
+// Usage: @include calc( width, '100% - 50px' );
+@mixin calc ($attr, $value, $tb-property: false, $lr-property: false, $base: 100%, $operator: '-') {
+  @if $tb-property == 0 {
+    #{$attr}: 0 calc(#{$base} #{$operator} #{$value});
+  }
+  @elseif $lr-property == 0 {
+    #{$attr}: calc(#{$base} #{$operator} #{$value}) 0;
+  }
+  @else {
+    #{$attr}: calc(#{$base} #{$operator} #{$value});
+  }
+}
