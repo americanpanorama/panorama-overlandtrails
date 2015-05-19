@@ -25,6 +25,7 @@ header h1 {
 }
 
 #map-wrapper {
+  position: relative;
   @include calc(height, ($header-height + $chart-height));
 }
 
