@@ -5,15 +5,42 @@
 
 .diary-lines {
     fill: transparent;
-    stroke:black;
-    stroke-opacity:1;
-    stroke-width:1px;
-    cursor:pointer;
+    stroke: black;
+    stroke-opacity: 1;
+    stroke-width: 2px;
+    cursor: pointer;
 
     &.selected {
-      stroke:rgba(0,0,0,.7);
+      stroke: rgba(0,0,0,.7);
       &.hide {
-        display:none;
+        display: none;
       }
     }
   }
+
+.or-trail {
+  stroke: $oregon;
+}
+
+.ca-trail {
+  stroke: $california;
+}
+
+.ut-trail {
+  stroke: $mormon;
+}
+
+.trail-show-or .ca-trail,
+.trail-show-or .ut-trail {
+  display: none;
+}
+
+.trail-show-ca .or-trail,
+.trail-show-ca .ut-trail {
+  display: none;
+}
+
+.trail-show-ut .ca-trail,
+.trail-show-ut .or-trail {
+  display: none;
+}

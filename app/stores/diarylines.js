@@ -27,24 +27,7 @@ function getInitialData(_state) {
       return false;
     }
 
-    console.log(response);
     setData(response);
-    /*
-
-    var trails = {};
-    response.features.forEach(function(feature){
-      var props = feature.properties;
-      var trail = props.trail;
-
-      if (!trails.trail) trails.trail = [];
-
-      feature.geometry.coordinates.forEach(function(pt){
-        trails.trail.push(pt);
-      })
-
-    });
-
-    */
 
   }, {"format":"geojson"});
 }
@@ -52,11 +35,45 @@ function getInitialData(_state) {
 var nullResponse = {
   features: []
 };
+
+var currentKlass;
 var DiaryLinesStore = assign({}, EventEmitter.prototype, {
 
+  onEachFeature: function(feature, layer) {
+    var trail = layer.feature.properties.trail || "unknown";
+    var klass = "";
+    switch(trail) {
+      case "California Trail":
+        klass = "ca-trail";
+      break;
+
+      case "Oregon Trail":
+        klass = "or-trail";
+      break;
+
+      case "Mormon Trail":
+        klass = "ut-trail";
+      break;
+
+      default:
+        klass = "unknown-trail";
+      break;
+    }
+    layer.options.className += " " + klass;
+  },
 
   getData: function() {
     return data || nullResponse;
+  },
+
+  setFiltered: function(trail) {
+    var bdy = document.querySelector('body');
+    if (currentKlass) L.DomUtil.removeClass(bdy, currentKlass);
+    currentKlass = (trail != 'all') ? 'trail-show-' + trail : null;
+
+    if (currentKlass) {
+      L.DomUtil.addClass(bdy, currentKlass);
+    }
   },
 
   emitChange: function(_caller) {

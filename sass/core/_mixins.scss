@@ -1,4 +1,4 @@
-// Usage: @include calc( width, '100% - 50px' );
+
 @mixin calc ($attr, $value, $tb-property: false, $lr-property: false, $base: 100%, $operator: '-') {
   @if $tb-property == 0 {
     #{$attr}: 0 calc(#{$base} #{$operator} #{$value});
@@ -9,4 +9,9 @@
   @else {
     #{$attr}: calc(#{$base} #{$operator} #{$value});
   }
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
 }

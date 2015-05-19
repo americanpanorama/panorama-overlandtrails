@@ -90,19 +90,11 @@ var GeoJSONLayer = React.createClass({
   },
 
   addFeatures: function() {
-
-
     var that = this;
 
     this.props.featuregroup.features.forEach(function(feature) {
-      /*
-      feature.geometry.coordinates = feature.geometry.coordinates.sort(function(a,b){
-        return b[0]-a[0];
-      });
-      */
       that.layer.addData(feature);
     });
-
 
     if (this.props.onClick) {
       this.layer.eachLayer(function(layer) {
@@ -117,9 +109,7 @@ var GeoJSONLayer = React.createClass({
   componentDidMount: function() {
 
     this.layer = L.geoJson(null, this.props);
-
     this.props.leafletLayer = this.layer;
-
     this.addFeatures();
 
   },
