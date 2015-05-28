@@ -449,11 +449,14 @@ header h1 {
   height: calc(100% - 208px); }
 
 #narrative-wrapper {
-  height: calc(100% - 208px);
+  height: calc(100% - 300px);
   background: #eee; }
 
 #marey-chart-wrapper {
   height: 150px; }
+
+#flow-map-wrapper {
+  height: 300px; }
 
 .button, button, input[type="submit"], input[type="reset"], input[type="button"] {
   display: inline-block;
@@ -580,3 +583,50 @@ button[data-trail="ut"] {
   fill: none;
   stroke-opacity: 0.8;
   stroke-width: 1.5px; }
+
+.flow-map {
+  position: relative;
+  height: 100%; }
+
+.flow-map .graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5; }
+
+.flow-map .land {
+  stroke: #d0d0d0;
+  fill: #e6e6e6; }
+
+.flow-map .boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px; }
+
+.flow-map path.flow {
+  stroke: #777;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 0.6; }
+
+.flow-map .state-label {
+  font-size: 13px;
+  fill: #000; }
+
+.flow-map path.flow.oregon {
+  stroke: #cd5640; }
+
+.flow-map .state-label.oregon {
+  fill: #cd5640; }
+
+.flow-map path.flow.utah {
+  stroke: #505c64; }
+
+.flow-map .state-label.utah {
+  fill: #505c64; }
+
+.flow-map path.flow.california {
+  stroke: #fba10a; }
+
+.flow-map .state-label.california {
+  fill: #fba10a; }

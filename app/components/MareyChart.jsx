@@ -2,9 +2,7 @@
 var React   = require("react");
 var d3      = require("d3");
 
-//
-// Button Group
-//
+
 var MareyChart = React.createClass({
   svgElm: null,
   margin: {top: 30, right: 80, bottom: 12, left: 40},

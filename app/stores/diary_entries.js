@@ -50,12 +50,10 @@ var state = {
 }
 
 function setData() {
-  if(state.loaded) return;
-  console.log('SET DATA');
+  if(state.loaded) return false;
   data = tmpData;
   state.loaded = true;
-  DiaryEntriesStore.emitChange({"action":"setData", "source":"diaryentries"});
-
+  DiaryEntriesStore.emitChange({});
 }
 
 function queryData() {

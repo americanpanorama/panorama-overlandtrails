@@ -30,11 +30,14 @@ header h1 {
 }
 
 #narrative-wrapper {
-  @include calc(height, ($header-height + $chart-height));
+  @include calc(height, ($flow-map-height));
   background: #eee;
 }
 
 #marey-chart-wrapper{
   height: $chart-height;
+}
+#flow-map-wrapper {
+  height: $flow-map-height;
 }
 

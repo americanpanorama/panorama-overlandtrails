@@ -11,6 +11,7 @@ var Actions = require("./actions/app");
 // Stores
 var DiaryLinesStore = require("./stores/diarylines.js");
 var DiaryEntriesStore = require("./stores/diary_entries.js");
+var EmigrationsStore = require("./stores/emigration.js");
 
 // Misc
 var config = require("../.env.json");
@@ -24,6 +25,7 @@ var GeoJSONLayer = LeafletMap.GeoJSONLayer;
 var CartoTileLayer = require("./components/LeafletCartoDBTileLayer.jsx");
 var ButtonGroup = require("./components/ButtonGroup.jsx");
 var MareyChart = require("./components/MareyChart.jsx");
+var FlowMap = require("./components/FlowMap.jsx");
 
 
 var App = React.createClass({
@@ -47,6 +49,7 @@ var App = React.createClass({
 
     DiaryLinesStore.addChangeListener(this.onChange);
     DiaryEntriesStore.addChangeListener(this.onChange);
+    EmigrationsStore.addChangeListener(this.onChange);
   },
 
   componentWillUnmount: function() {
@@ -159,7 +162,7 @@ var App = React.createClass({
               </ButtonGroup>
 
             </div>
-            <div id="marey-chart-wrapper"className='row'>
+            <div id="marey-chart-wrapper" className='row'>
               <div className='columns twelve full-height'>
                 <MareyChart chartdata={DiaryEntriesStore.getData()}/>
               </div>
@@ -172,9 +175,9 @@ var App = React.createClass({
                 <h3>Narratives</h3>
               </div>
             </div>
-            <div className='row'>
-              <div className='columns twelve'>
-                <h3 id='flow-map'>Flow map</h3>
+            <div id="flow-map-wrapper" className='row'>
+              <div className='columns twelve full-height'>
+                <FlowMap flowdata={EmigrationsStore.getData()}/>
               </div>
             </div>
 
