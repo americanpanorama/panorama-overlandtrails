@@ -446,11 +446,14 @@ header h1 {
 
 #map-wrapper {
   position: relative;
-  height: calc(100% - 158px); }
+  height: calc(100% - 208px); }
 
 #narrative-wrapper {
-  height: calc(100% - 158px);
+  height: calc(100% - 208px);
   background: #eee; }
+
+#marey-chart-wrapper {
+  height: 150px; }
 
 .button, button, input[type="submit"], input[type="reset"], input[type="button"] {
   display: inline-block;
@@ -550,3 +553,30 @@ button[data-trail="ut"] {
   background: #616E75;
   /* The Fallback */
   background: rgba(97, 110, 117, 0.8); }
+
+.marey-chart {
+  position: relative;
+  height: 100%; }
+
+.marey-chart .axis path, .marey-chart .axis line {
+  fill: none; }
+
+.marey-chart .axis path {
+  stroke: none; }
+
+.marey-chart .axis line {
+  stroke: #d0d0d0; }
+
+.marey-chart text {
+  font-family: sans-serif;
+  font-size: 12px;
+  fill: #d0d0d0; }
+
+.marey-chart circle.dot {
+  fill: #222;
+  opacity: 0.6; }
+
+.marey-chart path.journey {
+  fill: none;
+  stroke-opacity: 0.8;
+  stroke-width: 1.5px; }

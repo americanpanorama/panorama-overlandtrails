@@ -10,6 +10,7 @@ var Actions = require("./actions/app");
 
 // Stores
 var DiaryLinesStore = require("./stores/diarylines.js");
+var DiaryEntriesStore = require("./stores/diary_entries.js");
 
 // Misc
 var config = require("../.env.json");
@@ -22,6 +23,7 @@ var TileLayer = LeafletMap.TileLayer;
 var GeoJSONLayer = LeafletMap.GeoJSONLayer;
 var CartoTileLayer = require("./components/LeafletCartoDBTileLayer.jsx");
 var ButtonGroup = require("./components/ButtonGroup.jsx");
+var MareyChart = require("./components/MareyChart.jsx");
 
 
 var App = React.createClass({
@@ -44,6 +46,7 @@ var App = React.createClass({
     Actions.getInitialData({});
 
     DiaryLinesStore.addChangeListener(this.onChange);
+    DiaryEntriesStore.addChangeListener(this.onChange);
   },
 
   componentWillUnmount: function() {
@@ -75,11 +78,18 @@ var App = React.createClass({
   },
 
   onChange: function(e) {
+    this.setState(e);
+    /*
     switch(e.caller.source) {
       case 'diarylines':
         this.setState({'diaryData': true});
       break;
+
+      case 'diaryentries':
+        //this.setState({'diaryEntryData': true});
+      break;
     }
+    */
   },
 
   handleMapMove: function(evt) {
@@ -149,9 +159,9 @@ var App = React.createClass({
               </ButtonGroup>
 
             </div>
-            <div className='row'>
-              <div className='columns twelve'>
-                <h3>Chart</h3>
+            <div id="marey-chart-wrapper"className='row'>
+              <div className='columns twelve full-height'>
+                <MareyChart chartdata={DiaryEntriesStore.getData()}/>
               </div>
             </div>
           </div>
