@@ -15,6 +15,7 @@ var label_push = {
   "oregon": -10,
   "utah": 10
 }
+var selectedYear;
 
 var FlowMap = React.createClass({
   svgElm: null,
@@ -92,11 +93,14 @@ var FlowMap = React.createClass({
     if (!this.hasData && data.rows && data.rows.length) {
       this.visualize(data.rows);
       this.hasData = true;
+    } else if(this.hasData && selectedYear !== this.props.year) {
+      this.updateYear(this.props.year);
     }
 
   },
 
   updateYear: function(year) {
+    selectedYear = this.props.year;
     var that = this;
     this.svgElm.select(".california")
       .style("stroke-width", this.thicknessScale(this.years[year].california));
@@ -145,7 +149,7 @@ var FlowMap = React.createClass({
       .attr("alignment-baseline", "middle")
       .attr("transform", function(d) { return "translate(" + that.geo.projection(flow_trails[d].coordinates[flow_trails[d].coordinates.length-1]) + ")" });
 
-    this.updateYear(1850);
+    this.updateYear(this.props.year);
 
   },
 
@@ -159,10 +163,7 @@ var FlowMap = React.createClass({
   render: function() {
     return (
         <div className="component flow-map">
-          <input type="range" id="yearpicker" min="1840" value={this.state.year} max="1860" step="1" onChange={this.handleChange}/>
-          <span id="year-output">1840</span>
           <div id="flow-map"></div>
-          <div id="tooltip"></div>
         </div>
     );
 

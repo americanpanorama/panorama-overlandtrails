@@ -429,7 +429,8 @@ body, html {
   width: 100%; }
 
 body {
-  margin: 0; }
+  margin: 0;
+  background: #EDE8E0; }
 
 .container {
   padding: 0 20px !important; }
@@ -446,16 +447,19 @@ header h1 {
 
 #map-wrapper {
   position: relative;
-  height: calc(100% - 208px); }
+  height: 450px; }
 
 #narrative-wrapper {
+  position: relative;
   height: calc(100% - 300px);
   background: #eee; }
 
 #marey-chart-wrapper {
-  height: 150px; }
+  position: relative;
+  height: 90px; }
 
 #flow-map-wrapper {
+  position: relative;
   height: 300px; }
 
 .button, button, input[type="submit"], input[type="reset"], input[type="button"] {
@@ -583,6 +587,38 @@ button[data-trail="ut"] {
   fill: none;
   stroke-opacity: 0.8;
   stroke-width: 1.5px; }
+
+.marey-chart rect {
+  fill: #ffffff; }
+
+#marey-slider {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2; }
+
+.slider {
+  width: 100%;
+  height: 100%;
+  border: 1px solid grey; }
+
+.handle {
+  width: 10px;
+  height: 100%;
+  margin-left: -5px;
+  background-color: black;
+  cursor: pointer; }
+
+.handle.active {
+  background-color: grey; }
+
+.slider .handle path {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  pointer-events: none; }
 
 .flow-map {
   position: relative;

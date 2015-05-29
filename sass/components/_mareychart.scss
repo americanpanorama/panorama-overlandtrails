@@ -26,3 +26,44 @@
   stroke-opacity: 0.8;
   stroke-width: 1.5px;
 }
+
+.marey-chart rect {
+  fill: #ffffff;
+}
+
+
+#marey-slider {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+.handle {
+  width: 10px;
+  height: 100%;
+  margin-left: -5px;
+  background-color: black;
+  cursor: pointer;
+}
+
+.handle.active {
+  background-color: grey;
+}
+
+
+.slider .handle path {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+

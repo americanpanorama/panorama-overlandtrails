@@ -6,6 +6,7 @@ html {
 
 body {
   margin: 0;
+  background: $background-color;
 }
 
 .container {
@@ -26,18 +27,21 @@ header h1 {
 
 #map-wrapper {
   position: relative;
-  @include calc(height, ($header-height + $chart-height));
+  height: $map-height;
 }
 
 #narrative-wrapper {
+  position: relative;
   @include calc(height, ($flow-map-height));
   background: #eee;
 }
 
 #marey-chart-wrapper{
+  position: relative;
   height: $chart-height;
 }
 #flow-map-wrapper {
+  position: relative;
   height: $flow-map-height;
 }
 

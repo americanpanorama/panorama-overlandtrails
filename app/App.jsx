@@ -28,7 +28,6 @@ var MareyChart = require("./components/MareyChart.jsx");
 var FlowMap = require("./components/FlowMap.jsx");
 var DiaristList = require("./components/ListView/List.jsx");
 
-
 var App = React.createClass({
 
   mixins: [RouterMixin],
@@ -42,7 +41,9 @@ var App = React.createClass({
   },
 
   getInitialState: function () {
-    return {};
+    return {
+      year: 1840
+    };
   },
 
   componentDidMount: function() {
@@ -104,6 +105,13 @@ var App = React.createClass({
     DiaryLinesStore.setFiltered(elm.getAttribute('data-trail'));
   },
 
+  mareySliderChange: function(date) {
+    //console.log("SLIDER CHANGE: ", date.getFullYear(), this.state.year);
+    if (this.state.year != date.getFullYear()) {
+      this.setState({year:date.getFullYear()});
+    }
+  },
+
   render: function() {
     return this.renderCurrentRoute();
   },
@@ -136,6 +144,7 @@ var App = React.createClass({
     }
 
     return (
+
       <div className='container full-height'>
         <div className='row full-height'>
           <div className='columns eight full-height'>
@@ -165,7 +174,8 @@ var App = React.createClass({
             </div>
             <div id="marey-chart-wrapper" className='row'>
               <div className='columns twelve full-height'>
-                <MareyChart chartdata={DiaryEntriesStore.getData()}/>
+
+                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange}/>
               </div>
             </div>
           </div>
@@ -178,7 +188,7 @@ var App = React.createClass({
             </div>
             <div id="flow-map-wrapper" className='row'>
               <div className='columns twelve full-height'>
-                <FlowMap flowdata={EmigrationsStore.getData()}/>
+                <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>
 
