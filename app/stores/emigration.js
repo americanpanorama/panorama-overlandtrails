@@ -7,14 +7,20 @@ var CHANGE_EVENT  = "change";
 var QUERY         = "SELECT year, california, oregon, utah, cumulative_grand_total, cumulative_west_coast_total, yearly_west_coast_total FROM site_overland_trails_emigration_numbers_materialized"
 
 
-var data = null;
+var data = {
+  lastUpdated: null,
+  rows: null
+};
+
 var state = {
   loaded: false
-}
+};
 
-function setData(newData) {
-  if(state.loaded) return;
-  data = newData;
+
+function setData(newData, ts) {
+  if(state.loaded || ts === data.lastUpdated) return;
+  data.rows = newData;
+  data.lastUpdated = ts;
   state.loaded = true;
   EmigrationStore.emitChange();
 
@@ -27,7 +33,7 @@ function getInitialData(_state) {
       return false;
     }
 
-    setData(response.rows || []);
+    setData(response.rows || [], +new Date());
 
   }, {"format":"JSON"});
 }
@@ -36,7 +42,7 @@ function getInitialData(_state) {
 var EmigrationStore = assign({}, EventEmitter.prototype, {
 
   getData: function() {
-    return data || [];
+    return data;
   },
 
   emitChange: function(_caller) {

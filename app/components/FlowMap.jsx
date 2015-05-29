@@ -54,7 +54,6 @@ var FlowMap = React.createClass({
     return {year: 1840};
   },
 
-
   componentDidMount: function() {
     var that = this;
     var container = this.getDOMNode();
@@ -83,9 +82,15 @@ var FlowMap = React.createClass({
 
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return true;
+  },
+
   componentDidUpdate: function() {
-    if (!this.hasData && this.props.flowdata && this.props.flowdata.length) {
-      this.visualize(this.props.flowdata);
+    var data = this.props.flowdata;
+
+    if (!this.hasData && data.rows && data.rows.length) {
+      this.visualize(data.rows);
       this.hasData = true;
     }
 

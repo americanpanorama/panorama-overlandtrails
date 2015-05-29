@@ -630,3 +630,29 @@ button[data-trail="ut"] {
 
 .flow-map .state-label.california {
   fill: #fba10a; }
+
+.list-view {
+  position: relative;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box; }
+
+.list-view-wrapper {
+  height: 100%;
+  overflow: scroll; }
+
+.list-view-wrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.list-group-item {
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 1px; }
+
+.list-group-item:last-child {
+  margin-bottom: 0; }
+
+.item-name {
+  font-weight: bold; }

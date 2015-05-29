@@ -51,6 +51,7 @@ var state = {
 
 function setData() {
   if(state.loaded) return false;
+  console.log(tmpData)
   data = tmpData;
   state.loaded = true;
   DiaryEntriesStore.emitChange({});
@@ -108,7 +109,25 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
     });
   },
 
+  getDiarists: function() {
+    if (!data || !data.entries) return [];
 
+    var rows = this.getEntryData();
+    var nested = d3.nest()
+      .key(function(d){ return d['journal_id']; })
+      .entries(rows);
+
+    nested.forEach(function(row){
+      row.trail = data.source[row.key].trail;
+      row.name = row.values[0].name || '???????????';
+      row.begins = d3.min(row.values, function(d){return d.date});
+    })
+    nested.sort(function(a,b){
+      return d3.ascending(a.begins, b.begins);
+    });
+
+    return nested;
+  },
 
   emitChange: function(_caller) {
 

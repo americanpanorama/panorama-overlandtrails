@@ -26,6 +26,7 @@ var CartoTileLayer = require("./components/LeafletCartoDBTileLayer.jsx");
 var ButtonGroup = require("./components/ButtonGroup.jsx");
 var MareyChart = require("./components/MareyChart.jsx");
 var FlowMap = require("./components/FlowMap.jsx");
+var DiaristList = require("./components/ListView/List.jsx");
 
 
 var App = React.createClass({
@@ -171,8 +172,8 @@ var App = React.createClass({
 
           <div className='columns four full-height'>
             <div id="narrative-wrapper" className='row'>
-              <div className='columns twelve'>
-                <h3>Narratives</h3>
+              <div className='columns twelve full-height'>
+                <DiaristList items={DiaryEntriesStore.getDiarists()}/>
               </div>
             </div>
             <div id="flow-map-wrapper" className='row'>
