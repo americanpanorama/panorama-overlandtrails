@@ -4,18 +4,21 @@
   right: 0;
 }
 
+.button-group button {
+  color: #fff;
+}
 button[data-trail="all"] {
-  @include background-opacity(#666, 0.8);
+  @include background-opacity(#3E3531, 1);
 }
 
 button[data-trail="or"] {
-  @include background-opacity($oregon, 0.8);
+  @include background-opacity($oregon, 1);
 }
 
 button[data-trail="ca"] {
-  @include background-opacity($california, 0.8);
+  @include background-opacity($california, 1);
 }
 
 button[data-trail="ut"] {
-  @include background-opacity($mormon, 0.8);
+  @include background-opacity($mormon, 1);
 }

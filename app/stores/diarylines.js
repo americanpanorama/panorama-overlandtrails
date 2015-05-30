@@ -15,7 +15,7 @@ function setData(newData) {
 
   data = newData;
   state.loaded = true;
-  DiaryLinesStore.emitChange({"action":"setData", "source":"diarylines"});
+  DiaryLinesStore.emitChange();
 
 }
 

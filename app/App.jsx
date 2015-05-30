@@ -5,6 +5,8 @@ var React = require("react");
 var RouterMixin = require('react-mini-router').RouterMixin;
 var navigate = require('react-mini-router').navigate;
 
+var CONSTANTS = require('./Constants.json');
+
 // Actions
 var Actions = require("./actions/app");
 
@@ -22,6 +24,7 @@ var helpers = require("./utils/helpers");
 var LeafletMap = require("./components/LeafletMap.jsx");
 var TileLayer = LeafletMap.TileLayer;
 var GeoJSONLayer = LeafletMap.GeoJSONLayer;
+var MarkerLayer = LeafletMap.MarkerLayer;
 var CartoTileLayer = require("./components/LeafletCartoDBTileLayer.jsx");
 var ButtonGroup = require("./components/ButtonGroup.jsx");
 var MareyChart = require("./components/MareyChart.jsx");
@@ -42,7 +45,8 @@ var App = React.createClass({
 
   getInitialState: function () {
     return {
-      year: 1840
+      year: 1840,
+      currentDate: new Date("Jan 1, 1840")
     };
   },
 
@@ -59,7 +63,7 @@ var App = React.createClass({
   },
 
   componentDidUpdate: function() {
-    console.log("APP DID UPDATE")
+    //console.log("APP DID UPDATE")
   },
 
   updateURL: function(params, silent) {
@@ -107,9 +111,9 @@ var App = React.createClass({
 
   mareySliderChange: function(date) {
     //console.log("SLIDER CHANGE: ", date.getFullYear(), this.state.year);
-    if (this.state.year != date.getFullYear()) {
-      this.setState({year:date.getFullYear()});
-    }
+    //if (this.state.year != date.getFullYear()) {
+      this.setState({year:date.getFullYear(), currentDate: date});
+    //}
   },
 
   render: function() {
@@ -124,7 +128,8 @@ var App = React.createClass({
     params = params || {};
 
     var mapOptions = {
-      scrollWheelZoom: false
+      scrollWheelZoom: false,
+      attributionControl: false
     };
 
     var mapEvents = {
@@ -142,6 +147,8 @@ var App = React.createClass({
         zoom = o.zoom;
       }
     }
+
+    var that = this;
 
     return (
 
@@ -161,6 +168,7 @@ var App = React.createClass({
                     cartocss="#unified_basemap_layers[layer='ne_10m_coastline_2163']{  line-color: #aacccc;  line-width: 0.75;  line-opacity: 1;  line-join: round;  line-cap: round;}#unified_basemap_layers[layer='ne_10m_lakes_2163'] {  line-color: #aacccc;  line-width: 2.5;  line-opacity: 1;  line-join: round;  line-cap: round;  /* Soften lines at lower zooms */  [zoom<=7] {    line-width: 2.5;    line-color: lighten(desaturate(#aacccc,2%),2%);  }  [zoom<=5] {    line-width: 1.5;    line-color: lighten(desaturate(#aacccc,5%),5%);  }  /* Separate attachment because seams */  ::fill {    polygon-fill: #ddeeee;    polygon-opacity: 1;  }  /* Remove small lakes at lower zooms */  [scalerank>3][zoom<=5] {    ::fill {      polygon-opacity: 0;    }    line-opacity: 0;  }  [scalerank>6][zoom<=7] {    ::fill {      polygon-opacity: 0;    }    line-opacity: 0;  }}#unified_basemap_layers[layer='ne_10m_rivers_lake_centerlines_2163'] {  line-color: #aacccc;  line-width: 1.5;  line-opacity: 1;  line-join: round;  line-cap: round;  [name='Mississippi'],  [name='St. Lawrence'],  [name='Rio Grande'] {    line-width: 4;  }  [zoom<=8][name='Mississippi'],  [zoom<=8][name='St. Lawrence'],  [zoom<=8][name='Rio Grande'] {    line-width: 2;  }  [zoom<=8][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'],  [zoom<=6][name='Mississippi'],  [zoom<=6][name='Rio Grande'] {    line-width: 1;    line-color: lighten(desaturate(#aacccc,2%),2%);  }  [zoom<=6][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'] {    line-width: 0.5;    line-color: lighten(desaturate(#aacccc,5%),5%);  }  [zoom<=5][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande']{    line-width: 0;  }  [zoom<=5][name='Mississippi'],  [zoom<=5][name='St. Lawrence'],  [zoom<=5][name='Rio Grande'] {    line-width: 0.5;    line-color: lighten(desaturate(#aacccc,2%),2%);  }}#unified_basemap_layers[layer='ne_10m_admin_0_countries_lakes_2163'] {  line-color: white;  line-width: 1;  line-opacity: 1;  line-join: round;  line-cap: round;  polygon-fill: white;  polygon-opacity: 1;}"/>
                   <TileLayer src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors | Designed by <a href='http://stamen.com?from=richmondatlas'>Stamen Design</a>" />
                   <GeoJSONLayer featuregroup={DiaryLinesStore.getData()} className='diary-lines' onEachFeature={DiaryLinesStore.onEachFeature} />
+                  <MarkerLayer map={null} markers={DiaryEntriesStore.getEntriesByDate(that.state.currentDate)}/>
                 </LeafletMap>
               </div>
 
@@ -174,7 +182,6 @@ var App = React.createClass({
             </div>
             <div id="marey-chart-wrapper" className='row'>
               <div className='columns twelve full-height'>
-
                 <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange}/>
               </div>
             </div>
@@ -191,9 +198,7 @@ var App = React.createClass({
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
     );

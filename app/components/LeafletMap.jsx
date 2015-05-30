@@ -22,8 +22,12 @@ var LeafletMap = React.createClass({
 
     React.Children.forEach(this.props.children, function(child, i) {
 
-      child.props.leafletLayer.setZIndex(i+10);
-      child.props.leafletLayer.addTo(map);
+      if (!child.props.leafletLayer.isManager) {
+        child.props.leafletLayer.setZIndex(i+10);
+        child.props.leafletLayer.addTo(map);
+      } else {
+        child.props.leafletLayer.setMap(map);
+      }
 
     });
 
@@ -143,6 +147,87 @@ var GeoJSONLayer = React.createClass({
 
 });
 
+var MarkerLayer = React.createClass({
+  markers: [],
+  isManager: true,
+  needsUpdating: false,
+  pathOptions: {
+    radius: 6,
+    stroke: true,
+    color: '#ff0099',
+    weight: 3,
+    opacity: 1,
+    fill: true,
+    fillColor: '#000000',
+    fillOpacity: 1,
+    className: 'entry'
+  },
+  hasData: false,
+
+  getInitialState: function () {
+    return {};
+  },
+
+  setMap: function(map) {
+    this.map = map;
+    if(this.needsUpdating) this.addMarkers(this.props.markers);
+  },
+
+  addMarkers: function(markers) {
+    if (!this.map) {
+      this.needsUpdating = true;
+      return;
+    }
+
+    this.needsUpdating = false;
+    var that = this;
+    markers.forEach(function(marker){
+      var opts = L.Util.extend({},that.pathOptions);
+      opts.color = marker.strokeColor || '#000000';
+      console.log(opts.color)
+      var m = L.circleMarker(marker.coordinates,opts).addTo(that.map)
+      that.markers.push(m);
+    });
+
+  },
+
+  removeMarkers: function() {
+    if (!this.map) {
+      return;
+    }
+    var that = this;
+    this.markers.forEach(function(m){
+      if (that.map.hasLayer(m)) that.map.removeLayer(m);
+    });
+    this.markers.length = 0;
+
+  },
+
+  componentDidMount: function() {
+    this.props.leafletLayer = this;
+
+  },
+
+  componentWillUnmount: function() {
+    this.removeMarkers();
+    this.map = null;
+
+  },
+
+  componentDidUpdate: function() {
+    this.removeMarkers();
+    this.addMarkers(this.props.markers);
+  },
+
+  render: function() {
+
+    return false;
+
+  }
+
+});
+
 module.exports = LeafletMap;
 module.exports.TileLayer = TileLayer;
 module.exports.GeoJSONLayer = GeoJSONLayer;
+module.exports.MarkerLayer = MarkerLayer;

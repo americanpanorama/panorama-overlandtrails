@@ -519,13 +519,13 @@ button[disabled], html input[disabled] {
       display: none; }
 
 .or-trail {
-  stroke: #D06A50; }
+  stroke: #6F6D29; }
 
 .ca-trail {
-  stroke: #F2AD05; }
+  stroke: #EBA50E; }
 
 .ut-trail {
-  stroke: #616E75; }
+  stroke: #3B4887; }
 
 .trail-show-or .ca-trail, .trail-show-or .ut-trail {
   display: none; }
@@ -541,25 +541,28 @@ button[disabled], html input[disabled] {
   top: 0;
   right: 0; }
 
+.button-group button {
+  color: #fff; }
+
 button[data-trail="all"] {
-  background: #666;
+  background: #3E3531;
   /* The Fallback */
-  background: rgba(102, 102, 102, 0.8); }
+  background: #3e3531; }
 
 button[data-trail="or"] {
-  background: #D06A50;
+  background: #6F6D29;
   /* The Fallback */
-  background: rgba(208, 106, 80, 0.8); }
+  background: #6f6d29; }
 
 button[data-trail="ca"] {
-  background: #F2AD05;
+  background: #EBA50E;
   /* The Fallback */
-  background: rgba(242, 173, 5, 0.8); }
+  background: #eba50e; }
 
 button[data-trail="ut"] {
-  background: #616E75;
+  background: #3B4887;
   /* The Fallback */
-  background: rgba(97, 110, 117, 0.8); }
+  background: #3b4887; }
 
 .marey-chart {
   position: relative;

@@ -1,0 +1,9 @@
+{
+  "VERSION": "0.0.0",
+  "COLORS": {
+    "oregon": "#6F6D29",
+    "mormon": "#3B4887",
+    "california": "#EBA50E",
+    "all" : "#3E3531"
+  }
+}
