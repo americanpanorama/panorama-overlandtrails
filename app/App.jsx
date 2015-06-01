@@ -28,7 +28,7 @@ var MarkerLayer = LeafletMap.MarkerLayer;
 var CartoTileLayer = require("./components/LeafletCartoDBTileLayer.jsx");
 var ButtonGroup = require("./components/ButtonGroup.jsx");
 var MareyChart = require("./components/MareyChart.jsx");
-var FlowMap = require("./components/FlowMap.jsx");
+var FlowMap = require("./components/FlowMapLeaflet.jsx");
 var DiaristList = require("./components/ListView/List.jsx");
 
 var App = React.createClass({
@@ -198,7 +198,7 @@ var App = React.createClass({
                 <DiaristList items={DiaryEntriesStore.getDiarists()}/>
               </div>
             </div>
-            <div id="flow-map-wrapper" className='row'>
+            <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>

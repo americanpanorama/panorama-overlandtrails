@@ -451,7 +451,7 @@ header h1 {
 
 #narrative-wrapper {
   position: relative;
-  height: calc(100% - 300px);
+  height: 508px;
   background: #eee; }
 
 #marey-chart-wrapper {
@@ -460,7 +460,7 @@ header h1 {
 
 #flow-map-wrapper {
   position: relative;
-  height: 300px; }
+  height: 150px; }
 
 .button, button, input[type="submit"], input[type="reset"], input[type="button"] {
   display: inline-block;
@@ -653,23 +653,9 @@ button[data-trail="mormon-trail"] {
   position: relative;
   height: 100%; }
 
-.flow-map .graticule {
-  fill: none;
-  stroke: #777;
-  stroke-width: .5px;
-  stroke-opacity: .5; }
-
-.flow-map .land {
-  stroke: #d0d0d0;
-  fill: #e6e6e6; }
-
-.flow-map .boundary {
-  fill: none;
-  stroke: #fff;
-  stroke-width: .5px; }
-
 .flow-map path.flow {
   stroke: #777;
+  stroke-opacity: 1;
   stroke-linecap: round;
   fill: none;
   opacity: 0.6; }
@@ -679,22 +665,44 @@ button[data-trail="mormon-trail"] {
   fill: #000; }
 
 .flow-map path.flow.oregon {
-  stroke: #cd5640; }
+  stroke: #6F6D29; }
 
-.flow-map .state-label.oregon {
-  fill: #cd5640; }
+.flow-map .flow-label.oregon {
+  color: #6F6D29; }
 
-.flow-map path.flow.utah {
-  stroke: #505c64; }
+.flow-map path.flow.mormon {
+  stroke: #3B4887; }
 
-.flow-map .state-label.utah {
-  fill: #505c64; }
+.flow-map .flow-label.mormon {
+  color: #3B4887; }
 
 .flow-map path.flow.california {
-  stroke: #fba10a; }
+  stroke: #EBA50E; }
 
-.flow-map .state-label.california {
-  fill: #fba10a; }
+.flow-map .flow-label.california {
+  color: #EBA50E; }
+
+.flow-label {
+  background: transparent;
+  background-clip: padding-box;
+  border: none;
+  color: #111;
+  display: block;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 1px 6px;
+  position: absolute;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 6; }
+
+.leaflet-label.leaflet-clickable {
+  cursor: pointer;
+  pointer-events: auto; }
 
 .list-view {
   position: relative;

@@ -32,7 +32,8 @@ header h1 {
 
 #narrative-wrapper {
   position: relative;
-  @include calc(height, ($flow-map-height));
+  height: ($map-height + $header-height);
+  //@include calc(height, ($map-height + $header-height));
   background: #eee;
 }
 
@@ -40,6 +41,7 @@ header h1 {
   position: relative;
   height: $chart-height;
 }
+
 #flow-map-wrapper {
   position: relative;
   height: $flow-map-height;
