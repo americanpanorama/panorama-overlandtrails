@@ -59,17 +59,17 @@
 }
 
 
-.trail-show-oregon-trail .california-trail,
-.trail-show-oregon-trail .mormon-trail {
+#map-wrapper .trail-show-oregon-trail .california-trail,
+#map-wrapper .trail-show-oregon-trail .mormon-trail {
   display: none;
 }
 
-.trail-show-california-trail .oregon-trail,
-.trail-show-california-trail .mormon-trail {
+#map-wrapper .trail-show-california-trail .oregon-trail,
+#map-wrapper .trail-show-california-trail .mormon-trail {
   display: none;
 }
 
-.trail-show-mormon-trail .california-trail,
-.trail-show-mormon-trail .oregon-trail {
+#map-wrapper .trail-show-mormon-trail .california-trail,
+#map-wrapper .trail-show-mormon-trail .oregon-trail {
   display: none;
 }
