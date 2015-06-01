@@ -44,15 +44,15 @@ var DiaryLinesStore = assign({}, EventEmitter.prototype, {
     var klass = "";
     switch(trail) {
       case "California Trail":
-        klass = "ca-trail";
+        klass = "california-trail";
       break;
 
       case "Oregon Trail":
-        klass = "or-trail";
+        klass = "oregon-trail";
       break;
 
       case "Mormon Trail":
-        klass = "ut-trail";
+        klass = "mormon-trail";
       break;
 
       default:

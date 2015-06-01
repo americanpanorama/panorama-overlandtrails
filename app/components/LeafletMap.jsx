@@ -182,9 +182,8 @@ var MarkerLayer = React.createClass({
     this.needsUpdating = false;
     var that = this;
     markers.forEach(function(marker){
-      var opts = L.Util.extend({},that.pathOptions);
-      opts.color = marker.strokeColor || '#000000';
-      console.log(opts.color)
+      var opts = L.Util.extend({},that.pathOptions, marker.markerOptions);
+
       var m = L.circleMarker(marker.coordinates,opts).addTo(that.map)
       that.markers.push(m);
     });

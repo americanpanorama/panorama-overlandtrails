@@ -11,14 +11,14 @@ button[data-trail="all"] {
   @include background-opacity(#3E3531, 1);
 }
 
-button[data-trail="or"] {
+button[data-trail="oregon-trail"] {
   @include background-opacity($oregon, 1);
 }
 
-button[data-trail="ca"] {
+button[data-trail="california-trail"] {
   @include background-opacity($california, 1);
 }
 
-button[data-trail="ut"] {
+button[data-trail="mormon-trail"] {
   @include background-opacity($mormon, 1);
 }

@@ -20,8 +20,12 @@ var QUERY         = [
                             for(var k in row.properties) {
                               obj[k] = row.properties[k];
                             }
-                            obj['date'] = new Date(obj['date']);
-                            obj['datestamp'] = [obj['date'].getMonth(), obj['date'].getDate(), obj['date'].getFullYear()].join(''),
+                            obj.date = new Date(obj['date']);
+                            if (isNaN(obj.date.getTime())) return false;
+
+
+                            obj.datestamp = [obj.date.getMonth()+1, obj.date.getDate(), obj.date.getFullYear()].join(''),
+                            obj.time = +obj.datestamp;
                             obj.mercatorCoords = [obj.lat, obj.long];
                             delete obj.lat;
                             delete obj.long;
@@ -29,6 +33,8 @@ var QUERY         = [
                             obj['coordinates'] = [row.geometry.coordinates[1], row.geometry.coordinates[0]];
 
                             return obj;
+                          }).sort(function(a,b){
+                            return d3.ascending(a.time, b.time);
                           });
                         },
                       },
@@ -60,6 +66,8 @@ var state = {
   loaded: false
 }
 
+var entriesByTrail = {};
+
 function getTrailColor(trail) {
   if(trail.toLowerCase().indexOf('california') > -1) return CONSTANTS.COLORS['california'];
   if(trail.toLowerCase().indexOf('oregon') > -1) return CONSTANTS.COLORS['oregon'];
@@ -67,34 +75,59 @@ function getTrailColor(trail) {
   return CONSTANTS.COLORS['all'];
 }
 
-function setData() {
-  console.log('set')
-  if(state.loaded) return false;
-  console.log(data)
+function getTrailKlass(trail) {
+  return 'trail-dot ' + trail.toLowerCase().replace(' ','-');
+}
 
+function setData() {
+  if(state.loaded) return false;
+  state.loaded = true;
 
   data.entries = data.entries.filter(function(d){
     return data.source.hasOwnProperty(d.journal_id) && data.source[d.journal_id].trail.indexOf("Sant") < 0;
   });
 
-  data.entries.forEach(function(d){
-    d.strokeColor = getTrailColor(data.source[d.journal_id].trail);
+  data.entries.forEach(function(d,i){
+    d.idx = i;
+    d.markerOptions = {
+      color: getTrailColor(data.source[d.journal_id].trail),
+      className: getTrailKlass(data.source[d.journal_id].trail)
+    }
   });
 
   groupEntriesByDate();
-  state.loaded = true;
+
   DiaryEntriesStore.emitChange();
 }
 
 function groupEntriesByDate() {
-  data.entriesByDate = {};
+
   var nested = d3.nest()
-      .key(function(d){ return d.datestamp; })
+      .key(function(d){ return data.source[d.journal_id].trail; })
       .entries(data.entries);
 
-  nested.forEach(function(d){
-    data.entriesByDate[d.key] = d.values.slice(0);
+  nested.forEach(function(trail){
+    entriesByTrail[trail.key] = {};
+
+    var trailGroup = d3.nest()
+      .key(function(d){return d.datestamp;})
+      .entries(trail.values);
+
+    trailGroup.sort(function(a,b){
+      return d3.ascending(+a.key, +b.key);
+    });
+
+    trailGroup.forEach(function(d,i){
+      entriesByTrail[trail.key][d.key] = {
+        values: d.values,
+        next: (trailGroup[i+1]) ?  trailGroup[i+1].key : null,
+        prev: (trailGroup[i-1]) ?  trailGroup[i-1].key : null
+      }
+    });
+
   });
+
+  console.log(entriesByTrail)
 }
 
 function queryData() {
@@ -153,9 +186,38 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
   getEntriesByDate: function(date) {
     if(!state.loaded) return [];
     if (!date || !data) return [];
-    var d = [date.getMonth(), date.getDate(), date.getFullYear()].join('');
-    if (!data.entriesByDate.hasOwnProperty(d)) return [];
-    return data.entriesByDate[d];
+
+
+    var rsp = [];
+    // make key
+    var d = [date.getMonth()+1, date.getDate(), date.getFullYear()].join('');
+
+    for(var trail in entriesByTrail) {
+      if (entriesByTrail[trail].hasOwnProperty(d)) {
+        entriesByTrail[trail][d].values.slice(0).forEach(function(m){
+          rsp.push(m)
+        });
+
+        if (entriesByTrail[trail][d].next) {
+          entriesByTrail[trail][entriesByTrail[trail][d].next].values.slice(0).forEach(function(m){
+            m.markerOptions.className += ' minor';
+            m.markerOptions.radius = 5;
+            rsp.push(m)
+          });
+        }
+
+        if (entriesByTrail[trail][d].prev) {
+          entriesByTrail[trail][entriesByTrail[trail][d].prev].values.slice(0).forEach(function(m){
+            m.markerOptions.className += ' minor';
+            m.markerOptions.radius = 5;
+            rsp.push(m)
+          });
+        }
+      }
+    }
+
+    return rsp;
+
   },
 
 

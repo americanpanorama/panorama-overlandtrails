@@ -106,7 +106,12 @@ var App = React.createClass({
   },
 
   trailSelectorChange: function(elm, idx) {
-    DiaryLinesStore.setFiltered(elm.getAttribute('data-trail'));
+    var val = elm.getAttribute('data-trail');
+    DiaryLinesStore.setFiltered(val);
+
+    if (val === 'all') val = '';
+    if (this.state.trail === val) return;
+    this.setState({trail: val});
   },
 
   mareySliderChange: function(date) {
@@ -137,7 +142,7 @@ var App = React.createClass({
     };
 
     // set various things from URL params
-    var loc = [-5.200,0.330];
+    var loc = [-5.200, 0.330];
     var zoom = 5;
 
     if (params.loc) {
@@ -174,9 +179,9 @@ var App = React.createClass({
 
               <ButtonGroup onChange={this.trailSelectorChange} selectedIndex={0}>
                 <button data-trail="all">All Trails</button>
-                <button data-trail="or">Oregon Trail</button>
-                <button data-trail="ca">CA trail</button>
-                <button data-trail="ut">UT trail</button>
+                <button data-trail="oregon-trail">Oregon Trail</button>
+                <button data-trail="california-trail">Califonia trail</button>
+                <button data-trail="mormon-trail">Mormon trail</button>
               </ButtonGroup>
 
             </div>

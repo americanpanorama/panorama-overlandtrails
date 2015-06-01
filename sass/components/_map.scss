@@ -18,29 +18,58 @@
     }
   }
 
-.or-trail {
+.diary-lines.oregon-trail {
   stroke: $oregon;
 }
 
-.ca-trail {
+.diary-lines.california-trail {
   stroke: $california;
 }
 
-.ut-trail {
+.diary-lines.mormon-trail {
   stroke: $mormon;
 }
 
-.trail-show-or .ca-trail,
-.trail-show-or .ut-trail {
+.trail-dot {
+  stroke: #000000;
+  fill: #000000;
+  stroke-width: 4;
+}
+
+.trail-dot.california-trail {
+  stroke: $california;
+}
+.trail-dot.mormon-trail {
+  stroke: $mormon;
+}
+.trail-dot.oregon-trail {
+  stroke: $oregon;
+}
+.trail-dot.minor {
+  stroke-width: 0 !important;
+}
+.trail-dot.california-trail.minor {
+  fill: $california;
+}
+.trail-dot.mormon-trail.minor {
+  fill: $mormon;
+}
+.trail-dot.oregon-trail.minor {
+  fill: $oregon;
+}
+
+
+.trail-show-oregon-trail .california-trail,
+.trail-show-oregon-trail .mormon-trail {
   display: none;
 }
 
-.trail-show-ca .or-trail,
-.trail-show-ca .ut-trail {
+.trail-show-california-trail .oregon-trail,
+.trail-show-california-trail .mormon-trail {
   display: none;
 }
 
-.trail-show-ut .ca-trail,
-.trail-show-ut .or-trail {
+.trail-show-mormon-trail .california-trail,
+.trail-show-mormon-trail .oregon-trail {
   display: none;
 }

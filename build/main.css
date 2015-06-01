@@ -518,22 +518,48 @@ button[disabled], html input[disabled] {
     .diary-lines.selected.hide {
       display: none; }
 
-.or-trail {
+.diary-lines.oregon-trail {
   stroke: #6F6D29; }
 
-.ca-trail {
+.diary-lines.california-trail {
   stroke: #EBA50E; }
 
-.ut-trail {
+.diary-lines.mormon-trail {
   stroke: #3B4887; }
 
-.trail-show-or .ca-trail, .trail-show-or .ut-trail {
+.trail-dot {
+  stroke: #000000;
+  fill: #000000;
+  stroke-width: 4; }
+
+.trail-dot.california-trail {
+  stroke: #EBA50E; }
+
+.trail-dot.mormon-trail {
+  stroke: #3B4887; }
+
+.trail-dot.oregon-trail {
+  stroke: #6F6D29; }
+
+.trail-dot.minor {
+  stroke-width: 0 !important; }
+
+.trail-dot.california-trail.minor {
+  fill: #EBA50E; }
+
+.trail-dot.mormon-trail.minor {
+  fill: #3B4887; }
+
+.trail-dot.oregon-trail.minor {
+  fill: #6F6D29; }
+
+.trail-show-oregon-trail .california-trail, .trail-show-oregon-trail .mormon-trail {
   display: none; }
 
-.trail-show-ca .or-trail, .trail-show-ca .ut-trail {
+.trail-show-california-trail .oregon-trail, .trail-show-california-trail .mormon-trail {
   display: none; }
 
-.trail-show-ut .ca-trail, .trail-show-ut .or-trail {
+.trail-show-mormon-trail .california-trail, .trail-show-mormon-trail .oregon-trail {
   display: none; }
 
 #map-wrapper .button-group {
@@ -549,17 +575,17 @@ button[data-trail="all"] {
   /* The Fallback */
   background: #3e3531; }
 
-button[data-trail="or"] {
+button[data-trail="oregon-trail"] {
   background: #6F6D29;
   /* The Fallback */
   background: #6f6d29; }
 
-button[data-trail="ca"] {
+button[data-trail="california-trail"] {
   background: #EBA50E;
   /* The Fallback */
   background: #eba50e; }
 
-button[data-trail="ut"] {
+button[data-trail="mormon-trail"] {
   background: #3B4887;
   /* The Fallback */
   background: #3b4887; }
