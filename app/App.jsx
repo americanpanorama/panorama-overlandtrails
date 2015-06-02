@@ -46,7 +46,8 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       year: 1840,
-      currentDate: new Date("Jan 1, 1840")
+      currentDate: new Date("Jan 1, 1840"),
+      selectedDiarist: null
     };
   },
 
@@ -195,7 +196,7 @@ var App = React.createClass({
           <div className='columns four full-height'>
             <div id="narrative-wrapper" className='row'>
               <div className='columns twelve full-height'>
-                <DiaristList items={DiaryEntriesStore.getDiarists()}/>
+                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist}/>
               </div>
             </div>
             <div id="flow-map-wrapper" className='row flow-map'>

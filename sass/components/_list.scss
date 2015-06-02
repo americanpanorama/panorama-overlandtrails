@@ -3,6 +3,7 @@
   height: 100%;
   padding: 10px;
   box-sizing: border-box;
+  background: white;
 }
 
 .list-view-wrapper {
@@ -16,11 +17,21 @@
   padding: 0;
 }
 
+.storyview {
+  position: absolute;
+  display: none;
+  overflow: scroll;
+  top: 120px;
+  bottom: 0;
+  padding: 0 10px;
+}
+
 .list-group-item {
   position: relative;
   padding: 10px;
   background-color: white;
   margin-bottom: 1px;
+  cursor: pointer;
 }
 .list-group-item:last-child {
   margin-bottom: 0;
@@ -54,4 +65,14 @@
 .trail-show-mormon-trail .list-view-wrapper .california-trail .list-group-disabler,
 .trail-show-mormon-trail .list-view-wrapper .oregon-trail .list-group-disabler {
   display: block;
+}
+
+.selected .list-group-item { display: none; }
+.selected .list-group-item.selected,
+.selected .storyview {
+  display: block !important;
+}
+
+.selected .list-group-item.selected {
+  border-bottom: 1px solid #666;
 }

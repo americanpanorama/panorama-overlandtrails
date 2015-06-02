@@ -6,6 +6,12 @@ var AppActions = {
       actionType: "getInitialData",
       state: state
     });
+  },
+  listItemSelected: function(state) {
+    AppDispatcher.dispatch({
+      actionType: "listItemSelected",
+      state: state
+    });
   }
 }
 

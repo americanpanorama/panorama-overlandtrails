@@ -156,6 +156,7 @@ var nullResponse = [];
 
 var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
 
+  selectedDiarist: null,
 
   getData: function() {
     if(!state.loaded) return {};
@@ -280,6 +281,12 @@ AppDispatcher.register(function(action) {
 
       getInitialData(action.state);
 
+      break;
+
+    case 'listItemSelected':
+        console.log(action.state.content)
+        DiaryEntriesStore.selectedDiarist = (action.state.content.selected) ? action.state.content.key : null;
+        DiaryEntriesStore.emitChange();
       break;
 
 

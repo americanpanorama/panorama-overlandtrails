@@ -658,11 +658,10 @@ button[data-trail="mormon-trail"] {
   stroke-opacity: 1;
   stroke-linecap: round;
   fill: none;
-  opacity: 0.6; }
+  opacity: 0.9; }
 
-.flow-map .state-label {
-  font-size: 13px;
-  fill: #000; }
+.flow-map .flow-label {
+  font-size: 12px; }
 
 .flow-map path.flow.oregon {
   stroke: #6F6D29; }
@@ -708,7 +707,8 @@ button[data-trail="mormon-trail"] {
   position: relative;
   height: 100%;
   padding: 10px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  background: white; }
 
 .list-view-wrapper {
   height: 100%;
@@ -719,11 +719,20 @@ button[data-trail="mormon-trail"] {
   margin: 0;
   padding: 0; }
 
+.storyview {
+  position: absolute;
+  display: none;
+  overflow: scroll;
+  top: 120px;
+  bottom: 0;
+  padding: 0 10px; }
+
 .list-group-item {
   position: relative;
   padding: 10px;
   background-color: white;
-  margin-bottom: 1px; }
+  margin-bottom: 1px;
+  cursor: pointer; }
 
 .list-group-item:last-child {
   margin-bottom: 0; }
@@ -749,3 +758,12 @@ button[data-trail="mormon-trail"] {
 
 .trail-show-mormon-trail .list-view-wrapper .california-trail .list-group-disabler, .trail-show-mormon-trail .list-view-wrapper .oregon-trail .list-group-disabler {
   display: block; }
+
+.selected .list-group-item {
+  display: none; }
+
+.selected .list-group-item.selected, .selected .storyview {
+  display: block !important; }
+
+.selected .list-group-item.selected {
+  border-bottom: 1px solid #666; }

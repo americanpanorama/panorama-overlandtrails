@@ -173,7 +173,7 @@ var FlowMap = React.createClass({
     for (var layer in trailLayers) {
       var k = (layer === 'mormon') ? 'utah' : layer;
       var val = this.years[year][k];
-      console.log(this.thicknessScale(val))
+
       trailLayers[layer].setStyle({
         weight: this.thicknessScale(val)
       });

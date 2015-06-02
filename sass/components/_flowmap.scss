@@ -9,12 +9,11 @@
   stroke-opacity: 1;
   stroke-linecap: round;
   fill: none;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
-.flow-map .state-label {
-  font-size: 13px;
-  fill: #000;
+.flow-map .flow-label {
+  font-size: 12px;
 }
 
 .flow-map path.flow.oregon {
