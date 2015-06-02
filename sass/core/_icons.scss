@@ -1,9 +1,10 @@
 .icon {
   display: inline-block;
-  vertical-align: middle;
   background-image: url("static/icons.png");
   background-repeat: no-repeat;
   background-size: 83px 158px;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 
@@ -22,6 +23,7 @@ only screen and (min-resolution: 240dpi) {
   height: 41px;
   background-position: 0px 0px;
 }
+
 .icon.writer.california-trail {
 
 }
@@ -40,4 +42,10 @@ only screen and (min-resolution: 240dpi) {
   width: 8px;
   height: 14px;
   background-position: 0px -144px;
+}
+
+.icon.info {
+  width: 16px;
+  height: 16px;
+  background-position: 0px -128px;
 }

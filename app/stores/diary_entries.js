@@ -50,6 +50,8 @@ var QUERY         = [
                             if (row.trail.indexOf('Oregon') > -1) row.trail = "Oregon Trail";
                             if (row.trail.indexOf('Mormon') > -1) row.trail = "Mormon Trail";
 
+                            row.trailColor = getTrailColor(row.trail);
+
                             obj[row.journal_id] = row;
                           });
                           return obj;

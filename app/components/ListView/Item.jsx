@@ -27,7 +27,7 @@ var Item = React.createClass({
         <div className="icon-spot"><Icon iconName={"writer " + trailClass + " " + this.props.item.gender}/></div>
         <div className="list-group-item-content">
           <p><span className="item-name">{this.props.item.name}</span> - <span className="item-trail">{this.props.item.trail}</span></p>
-          <p>Diary begins {dateFormat(this.props.item.begins)} ({this.props.item.values.length} entries)</p>
+          <p className="item-meta">Diary begins {dateFormat(this.props.item.begins)} <span className="item-count">({this.props.item.values.length} entries)</span></p>
         </div>
         <Icon iconName="right-arrow"/>
 

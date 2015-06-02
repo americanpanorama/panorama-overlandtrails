@@ -36,12 +36,9 @@
   white-space: nowrap;
   min-height: 41px;
 }
+
 .list-group-item:last-child {
   margin-bottom: 0;
-}
-
-.item-name {
-  font-weight: bold;
 }
 
 .list-group-disabler {
@@ -102,4 +99,17 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.list-group-item-content p:first-child {
+  margin-bottom: 4px;
+}
+
+.mormon-trail .item-trail {
+  color: $mormon;
+}
+.oregon-trail .item-trail {
+  color: $oregon;
+}
+.california-trail .item-trail {
+  color: $california;
 }

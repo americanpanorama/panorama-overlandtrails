@@ -3,10 +3,11 @@ var React   = require("react");
 var d3      = require("d3");
 //var ReactSlider = require("../components/Slider.js");
 
-
+var fullYearFormatter = d3.time.format('%Y');
+var yearFormatter = d3.time.format('%y');
 var MareyChart = React.createClass({
   svgElm: null,
-  margin: {top: 30, right: 40, bottom: 12, left: 40},
+  margin: {top: 20, right: 40, bottom: 10, left: 40},
   width: null,
   height: null,
   xscale: null,
@@ -29,7 +30,14 @@ var MareyChart = React.createClass({
 
     this.yscale = d3.scale.linear()
       .range([0, this.height])
-      .domain([-85,-124]);
+      .domain([-70,-140]);
+  },
+
+  getWidthOfAYear: function() {
+    var x0 = this.xscale(new Date("Jan 1, 1840")),
+      x1 = this.xscale(new Date("Dec 31, 1841"));
+
+    return x1-x0;
   },
 
   setBrush: function() {
@@ -57,13 +65,23 @@ var MareyChart = React.createClass({
   setXYAxis: function () {
     this.xAxis = d3.svg.axis()
       .scale(this.xscale)
+      .ticks(d3.time.years, 1)
       .orient("top")
-      .tickSize(-this.height);
+      .tickSize(-this.height)
+      .tickPadding(7)
+      .tickFormat(function(d){
+        if (d.getFullYear() % 10 === 0) {
+          return fullYearFormatter(d);
+        } else {
+          return "'" + yearFormatter(d);
+        }
+      });
 
     this.yAxis = d3.svg.axis()
                   .scale(this.yscale)
                   .orient("left")
                   .tickValues([-86, -123])
+                  .tickPadding(5)
                   .tickSize(-this.width)
                   .tickFormat(function(d) { return (-d) + "°W"; });
   },
@@ -150,9 +168,9 @@ var MareyChart = React.createClass({
     });
 
     this.svgElm.append("rect")
-      .attr('x', this.xscale(this.xscale.domain()[0]))
+      .attr('x', this.xscale(this.xscale.domain()[0]) - 50)
       .attr('y',  this.yscale(this.yscale.domain()[0]))
-      .attr('width', this.xscale(this.xscale.domain()[1]))
+      .attr('width', this.xscale(this.xscale.domain()[1]) + 50)
       .attr('height',  this.yscale(this.yscale.domain()[1]));
 
     this.svgElm.append("g")
@@ -165,6 +183,11 @@ var MareyChart = React.createClass({
       .attr("class", "x axis")
       .call(that.xAxis);
 
+    this.svgElm.selectAll('.x.axis .tick')
+      .filter(function(d){ return d.getFullYear() % 10 === 0;})
+      .select('text')
+      .attr('class', 'major')
+
     var nested = d3.nest()
       .key(function(d) { return d.journal_id; })
       .entries(data);
@@ -176,13 +199,12 @@ var MareyChart = React.createClass({
     .enter().append("path")
       .attr("class", "journey")
       .attr("d", function(d) {return that.line(d.values); })
-      .style("stroke", function(d) { return d.key in journals ? that.color(journals[d.key].trail) : "#d0d0d0"; })
+      .style("stroke", function(d) { return journals[d.key].trailColor || "#d0d0d0"; })
       .on("mouseover", function(d) {
         console.log("mouseOver: ",d.key);
       });
 
     if (this.hasSlider) {
-      console.log("Slider")
       this.slider = this.svgElm.append("g")
         .attr("class", "slider")
         .call(that.brush);
@@ -198,7 +220,30 @@ var MareyChart = React.createClass({
 
       this.handle.append("path")
         .attr("transform", "translate(0," + this.height / 2 + ")")
-        .attr("d", "M 0 -20 V 20");
+        .attr("d", "M 0 -" +(this.height / 2)+ " V " + (this.height / 2));
+
+      this.handle.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .style("fill", "#686562")
+        .attr("width", 19)
+        .attr("height", 4)
+        .attr("transform", "translate(-9.5,-4)");
+
+      this.handle.append("polygon")
+        .style("fill", "#686562")
+        .attr("points", "17,0 8.5,12 0,0")
+        .attr("transform", "translate(-8.5, 0)");
+
+      var yearWidthHalf = this.getWidthOfAYear()/2;
+
+      this.handle.append("polyline")
+        .style("stroke", "#686562")
+        .style("fill", "none")
+        .style("stroke-width", 2)
+        .style("stroke-miterlimit", 10)
+        .attr("points", "1,0 1,4.4 " + yearWidthHalf + ",4.4 " + yearWidthHalf + ",0")
+        .attr("transform", "translate(-" + yearWidthHalf/2 + "," + this.height + ")");
 
       this.slider
         .call(that.brush.event)

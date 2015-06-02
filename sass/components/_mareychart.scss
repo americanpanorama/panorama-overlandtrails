@@ -10,27 +10,29 @@
   stroke: none;
 }
 .marey-chart .axis line {
-  stroke: #d0d0d0;
+  stroke: #d1cfcd;
+  stroke-width: 1;
 }
+
 .marey-chart text {
-  font-family: sans-serif;
+  fill: $medium-grey;
+  font-size: 11px;
+}
+
+.marey-chart text.major {
+  font-weight: bold;
   font-size: 12px;
-  fill: #d0d0d0;
 }
-.marey-chart circle.dot {
-  fill: #222;
-  opacity: 0.6;
+
+.marey-chart rect {
+  fill: #fbfaf9;
 }
+
 .marey-chart path.journey {
   fill: none;
   stroke-opacity: 0.8;
   stroke-width: 1.5px;
 }
-
-.marey-chart rect {
-  fill: #ffffff;
-}
-
 
 #marey-slider {
   display: none;
@@ -61,9 +63,9 @@
 
 
 .slider .handle path {
-  stroke: red;
-  stroke-width: 3px;
-  stroke-linecap: round;
+  stroke: #686562;
+  stroke-width: 2px;
+  stroke-linecap: square;
   pointer-events: none;
 }
 

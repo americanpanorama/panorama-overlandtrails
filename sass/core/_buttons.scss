@@ -67,3 +67,28 @@ html input[disabled] {
   cursor: default;
   border-color: #eee;
 }
+
+button.link {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  border: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+button.link span {
+
+}
+button.link span:first-child {
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: 5px;
+}
+
+button.text-extra-small {
+  height: 24px;
+  line-height: 22px;
+  padding: 0 15px;
+  font-weight: 200;
+}

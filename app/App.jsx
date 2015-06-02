@@ -30,6 +30,7 @@ var ButtonGroup = require("./components/ButtonGroup.jsx");
 var MareyChart = require("./components/MareyChart.jsx");
 var FlowMap = require("./components/FlowMapLeaflet.jsx");
 var DiaristList = require("./components/ListView/List.jsx");
+var Icon = require("./components/Icon.jsx");
 
 var App = React.createClass({
 
@@ -162,8 +163,10 @@ var App = React.createClass({
         <div className='row full-height'>
           <div className='columns eight full-height'>
             <header className='row'>
-              <h1 className='u-full-width'>Overland Trails</h1>
+              <h1 className='u-full-width headline'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
+              <button id="about-btn" className="link text-small">About This Map</button>
             </header>
+
             <div id='map-wrapper' className='row'>
               <div className='columns twelve full-height'>
                 <LeafletMap ref="map" location={loc} zoom={zoom} mapEvents={mapEvents} mapOptions={mapOptions}>
@@ -179,10 +182,10 @@ var App = React.createClass({
               </div>
 
               <ButtonGroup onChange={this.trailSelectorChange} selectedIndex={0}>
-                <button data-trail="all">All Trails</button>
-                <button data-trail="oregon-trail">Oregon Trail</button>
-                <button data-trail="california-trail">Califonia trail</button>
-                <button data-trail="mormon-trail">Mormon trail</button>
+                <button className="text-extra-small" data-trail="all">All Trails</button>
+                <button className="text-extra-small" data-trail="oregon-trail">Oregon Trail</button>
+                <button className="text-extra-small" data-trail="california-trail">Califonia trail</button>
+                <button className="text-extra-small" data-trail="mormon-trail">Mormon trail</button>
               </ButtonGroup>
 
             </div>
@@ -196,11 +199,13 @@ var App = React.createClass({
           <div className='columns four full-height'>
             <div id="narrative-wrapper" className='row'>
               <div className='columns twelve full-height'>
+                <div className="component-header"><button className="link text-small">Diarists<Icon iconName="info"/></button></div>
                 <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist}/>
               </div>
             </div>
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
+                <div className="component-header overlaid"><button className="link text-small">How Many People Traveled in 1847?<Icon iconName="info"/></button></div>
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>

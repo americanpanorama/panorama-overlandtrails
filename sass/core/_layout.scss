@@ -1,3 +1,15 @@
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
 body,
 html {
   height: 100%;
@@ -14,6 +26,7 @@ body {
 }
 
 header {
+  position: relative;
   margin: 0;
   padding: 0;
   height: $header-height;
@@ -33,8 +46,10 @@ header h1 {
 #narrative-wrapper {
   position: relative;
   height: ($map-height + $header-height);
-  //@include calc(height, ($map-height + $header-height));
   background: #eee;
+}
+#narrative-wrapper .list-view {
+  height: (($map-height + $header-height) - 22);
 }
 
 #marey-chart-wrapper{
@@ -45,5 +60,41 @@ header h1 {
 #flow-map-wrapper {
   position: relative;
   height: $flow-map-height;
+  margin-top: 10px;
+}
+
+.component-header {
+  background: $medium-brown;
+  text-align: center;
+  height: 22px;
+}
+.component-header.overlaid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  @include background-opacity($medium-brown, 0.8);
+  z-index: 2;
+}
+
+.header-wrapper {
+  position: relative;
+}
+
+.header-wrapper span:last-child {
+  font-size: 15px;
+  position: absolute;
+  width: auto;
+  white-space: nowrap;
+  line-height: 1;
+  bottom: -14px;
+  left: 100%;
+  margin-left: -30px;
+}
+
+#about-btn {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
 }
 

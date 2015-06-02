@@ -424,6 +424,16 @@ td, th {
   display: table;
   clear: both; }
 
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit; }
+
 body, html {
   height: 100%;
   width: 100%; }
@@ -436,14 +446,15 @@ body {
   padding: 0 20px !important; }
 
 header {
+  position: relative;
   margin: 0;
   padding: 0;
-  height: 58px;
+  height: 70px;
   overflow: hidden; }
 
 header h1 {
   margin: 0;
-  line-height: 58px; }
+  line-height: 70px; }
 
 #map-wrapper {
   position: relative;
@@ -451,16 +462,78 @@ header h1 {
 
 #narrative-wrapper {
   position: relative;
-  height: 508px;
+  height: 520px;
   background: #eee; }
+
+#narrative-wrapper .list-view {
+  height: 498px; }
 
 #marey-chart-wrapper {
   position: relative;
-  height: 90px; }
+  height: 100px; }
 
 #flow-map-wrapper {
   position: relative;
-  height: 150px; }
+  height: 150px;
+  margin-top: 10px; }
+
+.component-header {
+  background: #dcd3c6;
+  text-align: center;
+  height: 22px; }
+
+.component-header.overlaid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #dcd3c6;
+  /* The Fallback */
+  background: rgba(220, 211, 198, 0.8);
+  z-index: 2; }
+
+.header-wrapper {
+  position: relative; }
+
+.header-wrapper span:last-child {
+  font-size: 15px;
+  position: absolute;
+  width: auto;
+  white-space: nowrap;
+  line-height: 1;
+  bottom: -14px;
+  left: 100%;
+  margin-left: -30px; }
+
+#about-btn {
+  position: absolute;
+  left: 0;
+  bottom: 5px; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
+
+.headline {
+  font-size: 28px;
+  color: #3e3531;
+  font-size: 28px;
+  position: relative;
+  text-align: center;
+  top: -6px; }
+
+.item-name, .item-trail {
+  font-size: 15px;
+  font-weight: 600; }
+
+.item-meta, .text-small {
+  font-size: 13px;
+  font-weight: 400; }
+
+.text-extra-small {
+  font-size: 11px; }
+
+.item-count {
+  font-style: italic; }
 
 .button, button, input[type="submit"], input[type="reset"], input[type="button"] {
   display: inline-block;
@@ -500,12 +573,33 @@ button[disabled], html input[disabled] {
   cursor: default;
   border-color: #eee; }
 
-.icon {
+button.link {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  border: 0;
+  text-transform: none;
+  letter-spacing: 0; }
+
+button.link span:first-child {
   display: inline-block;
   vertical-align: middle;
+  padding-right: 5px; }
+
+button.text-extra-small {
+  height: 24px;
+  line-height: 22px;
+  padding: 0 15px;
+  font-weight: 200; }
+
+.icon {
+  display: inline-block;
   background-image: url("static/icons.png");
   background-repeat: no-repeat;
-  background-size: 83px 158px; }
+  background-size: 83px 158px;
+  line-height: 1;
+  vertical-align: middle; }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
   .icon {
@@ -529,6 +623,11 @@ button[disabled], html input[disabled] {
   width: 8px;
   height: 14px;
   background-position: 0px -144px; }
+
+.icon.info {
+  width: 16px;
+  height: 16px;
+  background-position: 0px -128px; }
 
 .full-height {
   height: 100%; }
@@ -583,19 +682,21 @@ button[disabled], html input[disabled] {
 .trail-dot.oregon-trail.minor {
   fill: #6F6D29; }
 
-#map-wrapper .trail-show-oregon-trail .california-trail, #map-wrapper .trail-show-oregon-trail .mormon-trail {
+.trail-show-oregon-trail #map-wrapper .california-trail, .trail-show-oregon-trail #map-wrapper .mormon-trail {
   display: none; }
 
-#map-wrapper .trail-show-california-trail .oregon-trail, #map-wrapper .trail-show-california-trail .mormon-trail {
+.trail-show-california-trail #map-wrapper .oregon-trail, .trail-show-california-trail #map-wrapper .mormon-trail {
   display: none; }
 
-#map-wrapper .trail-show-mormon-trail .california-trail, #map-wrapper .trail-show-mormon-trail .oregon-trail {
+.trail-show-mormon-trail #map-wrapper .california-trail, .trail-show-mormon-trail #map-wrapper .oregon-trail {
   display: none; }
 
 #map-wrapper .button-group {
   position: absolute;
   top: 0;
-  right: 0; }
+  right: 0;
+  width: 100%;
+  text-align: center; }
 
 .button-group button {
   color: #fff; }
@@ -631,24 +732,24 @@ button[data-trail="mormon-trail"] {
   stroke: none; }
 
 .marey-chart .axis line {
-  stroke: #d0d0d0; }
+  stroke: #d1cfcd;
+  stroke-width: 1; }
 
 .marey-chart text {
-  font-family: sans-serif;
-  font-size: 12px;
-  fill: #d0d0d0; }
+  fill: #8b8683;
+  font-size: 11px; }
 
-.marey-chart circle.dot {
-  fill: #222;
-  opacity: 0.6; }
+.marey-chart text.major {
+  font-weight: bold;
+  font-size: 12px; }
+
+.marey-chart rect {
+  fill: #fbfaf9; }
 
 .marey-chart path.journey {
   fill: none;
   stroke-opacity: 0.8;
   stroke-width: 1.5px; }
-
-.marey-chart rect {
-  fill: #ffffff; }
 
 #marey-slider {
   display: none;
@@ -674,9 +775,9 @@ button[data-trail="mormon-trail"] {
   background-color: grey; }
 
 .slider .handle path {
-  stroke: red;
-  stroke-width: 3px;
-  stroke-linecap: round;
+  stroke: #686562;
+  stroke-width: 2px;
+  stroke-linecap: square;
   pointer-events: none; }
 
 .flow-map {
@@ -770,9 +871,6 @@ button[data-trail="mormon-trail"] {
 .list-group-item:last-child {
   margin-bottom: 0; }
 
-.item-name {
-  font-weight: bold; }
-
 .list-group-disabler {
   display: none;
   position: absolute;
@@ -822,3 +920,15 @@ button[data-trail="mormon-trail"] {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis; }
+
+.list-group-item-content p:first-child {
+  margin-bottom: 4px; }
+
+.mormon-trail .item-trail {
+  color: #3B4887; }
+
+.oregon-trail .item-trail {
+  color: #6F6D29; }
+
+.california-trail .item-trail {
+  color: #EBA50E; }
