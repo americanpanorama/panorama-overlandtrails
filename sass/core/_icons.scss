@@ -1,0 +1,43 @@
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url("static/icons.png");
+  background-repeat: no-repeat;
+  background-size: 83px 158px;
+}
+
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-resolution: 240dpi) {
+.icon {
+    background-image: url(static/icons@2x.png);
+  }
+}
+
+
+.icon.writer {
+  width: 41px;
+  height: 41px;
+  background-position: 0px 0px;
+}
+.icon.writer.california-trail {
+
+}
+.icon.writer.oregon-trail {
+  background-position: 0px -42px;
+}
+.icon.writer.mormon-trail {
+  background-position: 0px -85px;
+}
+
+.icon.writer.female {
+  background-position-x: -43px;
+}
+
+.icon.right-arrow {
+  width: 8px;
+  height: 14px;
+  background-position: 0px -144px;
+}

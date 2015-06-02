@@ -89,6 +89,7 @@ function setData() {
 
   data.entries.forEach(function(d,i){
     d.idx = i;
+    d.gender = data.source[d.journal_id].gender || 'M';
     d.markerOptions = {
       color: getTrailColor(data.source[d.journal_id].trail),
       className: getTrailKlass(data.source[d.journal_id].trail)
@@ -233,6 +234,7 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
 
     nested.forEach(function(row){
       row.trail = data.source[row.key].trail;
+      row.gender = (row.values[0].gender === 'M') ? "male" : "female";
       row.name = row.values[0].name || '???????????';
       row.begins = d3.min(row.values, function(d){return d.date});
     })

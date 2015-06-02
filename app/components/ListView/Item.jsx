@@ -3,6 +3,7 @@ var React   = require("react");
 var d3 = require('d3');
 var Actions = require("../../actions/app");
 var dateFormat = d3.time.format("%x");
+var Icon = require("../Icon.jsx");
 
 var Item = React.createClass({
 
@@ -17,13 +18,20 @@ var Item = React.createClass({
 
   render: function() {
     var trailClass = this.props.item.trail.toLowerCase().replace(' ', '-');
-    if (this.props.selected) trailClass += " selected";
+    var selectedClass = (this.props.selected) ? " selected" : "";
 
     return (
-      <li className={"list-group-item pointer " + trailClass} onClick={this.toggle}>
+      <li className={"list-group-item pointer " + trailClass + selectedClass} onClick={this.toggle}>
         <div className="list-group-disabler"></div>
-        <p><span className="item-name">{this.props.item.name}</span> - <span className="item-trail">{this.props.item.trail}</span></p>
-        <p>Diary begins {dateFormat(this.props.item.begins)} ({this.props.item.values.length} entries)</p>
+
+        <div className="icon-spot"><Icon iconName={"writer " + trailClass + " " + this.props.item.gender}/></div>
+        <div className="list-group-item-content">
+          <p><span className="item-name">{this.props.item.name}</span> - <span className="item-trail">{this.props.item.trail}</span></p>
+          <p>Diary begins {dateFormat(this.props.item.begins)} ({this.props.item.values.length} entries)</p>
+        </div>
+        <Icon iconName="right-arrow"/>
+
+
       </li>
     );
 

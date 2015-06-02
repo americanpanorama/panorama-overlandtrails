@@ -44,7 +44,6 @@ var List = React.createClass({
       var anchor = document.getElementsByName(d);
       if (anchor && anchor.length) {
         var top = anchor[0].offsetTop;
-        console.log('t: ', top)
         if (top) React.findDOMNode(this.refs.storyContainer).scrollTop = top;
       }
 

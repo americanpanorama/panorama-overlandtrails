@@ -28,10 +28,13 @@
 
 .list-group-item {
   position: relative;
-  padding: 10px;
+  padding: 10px 0;
   background-color: white;
   margin-bottom: 1px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  min-height: 41px;
 }
 .list-group-item:last-child {
   margin-bottom: 0;
@@ -75,4 +78,28 @@
 
 .selected .list-group-item.selected {
   border-bottom: 1px solid #666;
+}
+.list-group-item-content {
+  position: relative;
+  margin: 0 15px 0 50px;
+}
+
+.list-group-item .icon-spot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -20px;
+}
+.list-group-item .right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -6.5px;
+}
+
+.list-group-item-content p {
+  margin:0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

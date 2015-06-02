@@ -500,6 +500,36 @@ button[disabled], html input[disabled] {
   cursor: default;
   border-color: #eee; }
 
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url("static/icons.png");
+  background-repeat: no-repeat;
+  background-size: 83px 158px; }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
+  .icon {
+    background-image: url(static/icons@2x.png); } }
+
+.icon.writer {
+  width: 41px;
+  height: 41px;
+  background-position: 0px 0px; }
+
+.icon.writer.oregon-trail {
+  background-position: 0px -42px; }
+
+.icon.writer.mormon-trail {
+  background-position: 0px -85px; }
+
+.icon.writer.female {
+  background-position-x: -43px; }
+
+.icon.right-arrow {
+  width: 8px;
+  height: 14px;
+  background-position: 0px -144px; }
+
 .full-height {
   height: 100%; }
 
@@ -729,10 +759,13 @@ button[data-trail="mormon-trail"] {
 
 .list-group-item {
   position: relative;
-  padding: 10px;
+  padding: 10px 0;
   background-color: white;
   margin-bottom: 1px;
-  cursor: pointer; }
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  min-height: 41px; }
 
 .list-group-item:last-child {
   margin-bottom: 0; }
@@ -767,3 +800,25 @@ button[data-trail="mormon-trail"] {
 
 .selected .list-group-item.selected {
   border-bottom: 1px solid #666; }
+
+.list-group-item-content {
+  position: relative;
+  margin: 0 15px 0 50px; }
+
+.list-group-item .icon-spot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -20px; }
+
+.list-group-item .right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -6.5px; }
+
+.list-group-item-content p {
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
