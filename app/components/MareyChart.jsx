@@ -7,7 +7,7 @@ var fullYearFormatter = d3.time.format('%Y');
 var yearFormatter = d3.time.format('%y');
 var MareyChart = React.createClass({
   svgElm: null,
-  margin: {top: 20, right: 40, bottom: 10, left: 40},
+  margin: {top: 18, right: 40, bottom: 10, left: 40},
   width: null,
   height: null,
   xscale: null,

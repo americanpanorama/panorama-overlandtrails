@@ -212,7 +212,7 @@ var FlowMap = React.createClass({
     this.updateYear(e.target.value);
   },
   handleMapMove: function(e) {
-    //console.log(e.target.getCenter());
+    console.log(e.target.getCenter());
   },
   onEachFeature: function(feature, layer) {
     if (feature.geometry.type !== 'Point') {
@@ -234,7 +234,7 @@ var FlowMap = React.createClass({
   },
 
   render: function() {
-    var loc = [-3.16245553, -2.065429];
+    var loc = [-2.28455066, -1.450195];
     var zoom = 4;
     var mapOptions = {
       zoomControl: false,

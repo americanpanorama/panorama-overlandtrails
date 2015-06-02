@@ -470,7 +470,8 @@ header h1 {
 
 #marey-chart-wrapper {
   position: relative;
-  height: 100px; }
+  height: 100px;
+  margin-top: 8px; }
 
 #flow-map-wrapper {
   position: relative;
