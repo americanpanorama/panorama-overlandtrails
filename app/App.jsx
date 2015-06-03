@@ -5,6 +5,7 @@ var React = require("react");
 var RouterMixin = require('react-mini-router').RouterMixin;
 var navigate = require('react-mini-router').navigate;
 
+// Constants
 var CONSTANTS = require('./Constants.json');
 
 // Actions
@@ -15,6 +16,7 @@ var DiaryLinesStore = require("./stores/diarylines.js");
 var DiaryEntriesStore = require("./stores/diary_entries.js");
 var EmigrationsStore = require("./stores/emigration.js");
 var OverlandTrailsCopy = require("./stores/overland-trails-copy.js");
+var Intro = require("./stores/intro.js");
 
 // Misc
 var config = require("../.env.json");
@@ -59,10 +61,16 @@ var App = React.createClass({
     DiaryLinesStore.addChangeListener(this.onChange);
     DiaryEntriesStore.addChangeListener(this.onChange);
     EmigrationsStore.addChangeListener(this.onChange);
+
+    Intro.init();
   },
 
   componentWillUnmount: function() {
+    DiaryLinesStore.removeChangeListener(this.onChange);
+    DiaryEntriesStore.removeChangeListener(this.onChange);
+    EmigrationsStore.removeChangeListener(this.onChange);
 
+    Intro.destroy();
   },
 
   componentDidUpdate: function() {
@@ -91,17 +99,10 @@ var App = React.createClass({
 
   onChange: function(e) {
     this.setState(e);
-    /*
-    switch(e.caller.source) {
-      case 'diarylines':
-        this.setState({'diaryData': true});
-      break;
+  },
 
-      case 'diaryentries':
-        //this.setState({'diaryEntryData': true});
-      break;
-    }
-    */
+  triggerIntro: function(e){
+    Intro.open(e);
   },
 
   handleMapMove: function(evt) {
@@ -165,7 +166,7 @@ var App = React.createClass({
           <div className='columns eight full-height'>
             <header className='row'>
               <h1 className='u-full-width headline'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
-              <button id="about-btn" className="link text-small">About This Map</button>
+              <button id="about-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>About This Map</button>
             </header>
 
             <div id='map-wrapper' className='row'>
@@ -213,13 +214,13 @@ var App = React.createClass({
           <div className='columns four full-height'>
             <div id="narrative-wrapper" className='row'>
               <div className='columns twelve full-height'>
-                <div className="component-header"><button className="link text-small">Diarists<Icon iconName="info"/></button></div>
+                <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
                 <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist}/>
               </div>
             </div>
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
-                <div className="component-header overlaid"><button className="link text-small">How Many People Traveled in 1847?<Icon iconName="info"/></button></div>
+                <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small">How Many People Traveled in 1847?<Icon iconName="info"/></button></div>
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>

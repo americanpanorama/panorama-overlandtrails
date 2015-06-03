@@ -56,6 +56,7 @@
     "rimraf": "^2.3.2",
     "topojson": "^1.6.19",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.1.0"
+    "watchify": "^3.1.0",
+    "intro.js": "^0.9.0"
   }
 }
