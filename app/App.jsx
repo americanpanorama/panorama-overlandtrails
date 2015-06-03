@@ -53,11 +53,13 @@ var App = React.createClass({
     return {
       year: 1840,
       currentDate: new Date("Jan 1, 1840"),
-      selectedDiarist: null
+      selectedDiarist: null,
+      heights:{}
     };
   },
 
   componentWillMount: function() {
+    this.computeHeight();
     Modal.setAppElement(document.querySelector("body"));
   },
 
@@ -69,6 +71,8 @@ var App = React.createClass({
     EmigrationsStore.addChangeListener(this.onChange);
 
     Intro.init();
+
+    d3.select(window).on('resize', helpers.debounce(this.onResize, 250));
   },
 
   componentWillUnmount: function() {
@@ -103,6 +107,20 @@ var App = React.createClass({
 
   },
 
+  computeHeight: function() {
+    var h = {};
+    h.diaries = window.innerHeight - 150 - 10;
+    h.diariesInner = h.diaries - 22;
+    h.map = h.diaries - 70;
+
+    this.setState({ heights: h });
+  },
+
+  onResize: function(e) {
+    this.computeHeight();
+    console.log('resize');
+  },
+
   onChange: function(e) {
     this.setState(e);
   },
@@ -112,6 +130,7 @@ var App = React.createClass({
     if (this.state.showAbout) this.toggleAbout();
     Intro.open(e);
   },
+
   toggleAbout: function() {
     if (Intro.state) Intro.exit();
     this.setState({"showAbout":!this.state.showAbout});
@@ -181,7 +200,7 @@ var App = React.createClass({
               <button id="about-btn" className="link text-small" data-step="0" onClick={this.toggleAbout}>About This Map</button>
             </header>
 
-            <div id='map-wrapper' className='row'>
+            <div id='map-wrapper' className='row' style={{height: this.state.heights.map + "px"}}>
               <div className='columns twelve full-height'>
                 <LeafletMap ref="map" location={loc} zoom={zoom} mapEvents={mapEvents} mapOptions={mapOptions}>
                   <CartoTileLayer
@@ -225,10 +244,10 @@ var App = React.createClass({
           </div>
 
           <div className='columns four full-height'>
-            <div id="narrative-wrapper" className='row'>
+            <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
                 <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
-                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist}/>
+                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.heights.diariesInner}/>
               </div>
             </div>
             <div id="flow-map-wrapper" className='row flow-map'>

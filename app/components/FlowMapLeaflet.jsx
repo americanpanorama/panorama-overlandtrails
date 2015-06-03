@@ -213,7 +213,7 @@ var FlowMap = React.createClass({
   },
 
   handleMapMove: function(e) {
-    console.log(e.target.getCenter());
+    //console.log(e.target.getCenter());
   },
 
   onEachFeature: function(feature, layer) {

@@ -130,7 +130,7 @@ function groupEntriesByDate() {
 
   });
 
-  console.log(entriesByTrail)
+  //console.log(entriesByTrail)
 }
 
 function queryData() {
@@ -150,7 +150,7 @@ function queryData() {
 }
 
 function getInitialData(_state) {
-  console.log('Initial')
+  //console.log('Initial')
   queryData();
 }
 

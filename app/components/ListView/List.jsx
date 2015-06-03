@@ -87,10 +87,12 @@ var List = React.createClass({
   },
 
   render: function() {
+    var hgt = (this.props.height) ?  this.props.height + 'px' : '100%';
     var baseClass = 'component list-view';
     baseClass += (this.props.selectedKey) ? ' selected' : '';
+
     return (
-      <div className={baseClass}>
+      <div className={baseClass} style={{height: hgt}}>
         <div className="list-view-wrapper">
           <ul className="list-group">
             {this.renderItems()}

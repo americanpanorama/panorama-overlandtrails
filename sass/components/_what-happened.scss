@@ -18,7 +18,8 @@
   width: 30%;
   font-size: 15px;
   font-weight: bold;
-  @include color-opacity($dark-brown, 0.5);
+  color: $dark-brown-50alpha;
+  //@include color-opacity($dark-brown, 0.5);
   vertical-align: middle;
   text-align: center;
 }

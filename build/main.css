@@ -838,7 +838,7 @@ header h1 {
 
 #marey-chart-wrapper {
   position: relative;
-  height: 100px;
+  height: 90px;
   margin-top: 8px; }
 
 #flow-map-wrapper {
@@ -860,6 +860,9 @@ header h1 {
   /* The Fallback */
   background: rgba(220, 211, 198, 0.8);
   z-index: 2; }
+
+.component-header button {
+  color: #8A817A; }
 
 .header-wrapper {
   position: relative; }
@@ -1328,9 +1331,7 @@ button[data-trail="mormon-trail"] {
   width: 30%;
   font-size: 15px;
   font-weight: bold;
-  color: #3e3531;
-  /* The Fallback */
-  color: rgba(62, 53, 49, 0.5);
+  color: #8A817A;
   vertical-align: middle;
   text-align: center; }
 

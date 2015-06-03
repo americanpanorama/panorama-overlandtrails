@@ -80,6 +80,10 @@ header h1 {
   z-index: 2;
 }
 
+.component-header button {
+  color: $dark-brown-50alpha;
+}
+
 .header-wrapper {
   position: relative;
 }
