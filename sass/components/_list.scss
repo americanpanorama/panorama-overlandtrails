@@ -21,7 +21,7 @@
   position: absolute;
   display: none;
   overflow: scroll;
-  top: 120px;
+  top: 80px;
   bottom: 0;
   padding: 0 10px;
 }
@@ -104,12 +104,64 @@
   margin-bottom: 4px;
 }
 
-.mormon-trail .item-trail {
+.mormon-trail .item-trail,
+.storyview-item.mormon-trail a {
   color: $mormon;
 }
-.oregon-trail .item-trail {
+.oregon-trail .item-trail,
+.storyview-item.oregon-trail a {
   color: $oregon;
 }
-.california-trail .item-trail {
+.california-trail .item-trail,
+.storyview-item.mormon-trail a {
   color: $california;
+}
+
+.storyview-entry {
+  font-size: 13px;
+  margin: 8px 10px 20px 14px;
+  line-height: 1.3;
+}
+
+.storyview-item a {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.storyview-item .circle {
+  position: relative;
+  display: inline-block;
+  top: 2px;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  font-size: 0;
+  border-radius: 8px;
+  border: 3px solid white;
+  box-sizing: content-box;
+}
+
+.storyview-item.highlighted .circle {}
+
+.storyview-item.mormon-trail .highlighted .circle {
+  background: black;
+  border-color: $mormon;
+}
+.storyview-item.oregon-trail .highlighted .circle {
+  background: black;
+  border-color: $oregon;
+}
+.storyview-item.california-trail .highlighted .circle {
+  background: black;
+  border-color: $california;
+}
+
+.storyview-item.mormon-trail .circle {
+  background: $mormon;
+}
+.storyview-item.oregon-trail .circle {
+  background: $oregon;
+}
+.storyview-item.california-trail .circle {
+  background: $california;
 }

@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React   = require("react");
 var Item = require('../ListView/Item.jsx');
+var d3 = require('d3');
 
 
 var _selectedKey, _selectedDate, currentData;
@@ -42,14 +43,18 @@ var List = React.createClass({
       // make key
       var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
       var anchor = document.getElementsByName(d);
+
       if (anchor && anchor.length) {
+        d3.selectAll('.storyview-item').classed('highlighted', false);
+        d3.select(anchor[0]).classed('highlighted', true);
+
         var top = anchor[0].offsetTop;
-        if (top) React.findDOMNode(this.refs.storyContainer).scrollTop = top;
+        if (top) {
+          var dom  = React.findDOMNode(this.refs.storyContainer);
+          dom.scrollTop = top;
+        }
       }
-
     }
-
-
   },
 
   renderItems: function() {
@@ -70,14 +75,14 @@ var List = React.createClass({
 
     if (!selectedStories.length) return "";
 
-    //console.log(selectedStories[0].values)
+    var trailCSS = selectedStories[0].trail.toLowerCase().replace(' ', '-');
     return selectedStories[0].values.map(function(item) {
         var dt = [item.date.getMonth()+1, item.date.getDate(), item.date.getFullYear()].join('/');
 
         return (
-          <div key={item['cartodb_id']}>
-          <a name={item.datestamp}>{dt}</a>
-          <p>{item.entry}</p>
+          <div key={item['cartodb_id']} className={"storyview-item " + trailCSS}>
+          <a name={item.datestamp}><span className="circle"></span>{dt}</a>
+          <p className="storyview-entry">{item.entry}</p>
           </div>
           );
     });

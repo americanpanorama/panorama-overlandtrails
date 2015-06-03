@@ -108,10 +108,13 @@ var App = React.createClass({
   },
 
   computeHeight: function() {
+    // Everything is basically pinned from the flow-map
+    // All these numbers are in "sass/core/_variables.scss"
+    // So if you change any of those numbers update them here
     var h = {};
-    h.diaries = window.innerHeight - 150 - 10;
-    h.diariesInner = h.diaries - 22;
-    h.map = h.diaries - 70;
+    h.diaries = window.innerHeight - 150 - 10; // WindowHeight - $flow-map-height - $flow-map-margin-top
+    h.diariesInner = h.diaries - 22; // diaryHeight - $component-header-height
+    h.map = h.diaries - 70; // diaryHeight - $header-height
 
     this.setState({ heights: h });
   },

@@ -849,7 +849,8 @@ header h1 {
 .component-header {
   background: #dcd3c6;
   text-align: center;
-  height: 22px; }
+  height: 22px;
+  overflow: hidden; }
 
 .component-header.overlaid {
   position: absolute;
@@ -883,6 +884,13 @@ header h1 {
   bottom: 5px;
   text-decoration: underline;
   color: #8A817A; }
+
+.introjs-tooltip {
+  min-width: 250px;
+  max-width: 350px; }
+
+.introjs-tooltiptext {
+  font-size: 13px; }
 
 body {
   font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
@@ -1234,7 +1242,7 @@ button[data-trail="mormon-trail"] {
   position: absolute;
   display: none;
   overflow: scroll;
-  top: 120px;
+  top: 80px;
   bottom: 0;
   padding: 0 10px; }
 
@@ -1304,14 +1312,56 @@ button[data-trail="mormon-trail"] {
 .list-group-item-content p:first-child {
   margin-bottom: 4px; }
 
-.mormon-trail .item-trail {
+.mormon-trail .item-trail, .storyview-item.mormon-trail a {
   color: #3B4887; }
 
-.oregon-trail .item-trail {
+.oregon-trail .item-trail, .storyview-item.oregon-trail a {
   color: #6F6D29; }
 
-.california-trail .item-trail {
+.california-trail .item-trail, .storyview-item.mormon-trail a {
   color: #EBA50E; }
+
+.storyview-entry {
+  font-size: 13px;
+  margin: 8px 10px 20px 14px;
+  line-height: 1.3; }
+
+.storyview-item a {
+  font-size: 15px;
+  font-weight: normal; }
+
+.storyview-item .circle {
+  position: relative;
+  display: inline-block;
+  top: 2px;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  font-size: 0;
+  border-radius: 8px;
+  border: 3px solid white;
+  box-sizing: content-box; }
+
+.storyview-item.mormon-trail .highlighted .circle {
+  background: black;
+  border-color: #3B4887; }
+
+.storyview-item.oregon-trail .highlighted .circle {
+  background: black;
+  border-color: #6F6D29; }
+
+.storyview-item.california-trail .highlighted .circle {
+  background: black;
+  border-color: #EBA50E; }
+
+.storyview-item.mormon-trail .circle {
+  background: #3B4887; }
+
+.storyview-item.oregon-trail .circle {
+  background: #6F6D29; }
+
+.storyview-item.california-trail .circle {
+  background: #EBA50E; }
 
 .what-happened {
   position: relative;

@@ -62,13 +62,14 @@ header h1 {
 #flow-map-wrapper {
   position: relative;
   height: $flow-map-height;
-  margin-top: 10px;
+  margin-top: $flow-map-margin-top;
 }
 
 .component-header {
   background: $medium-brown;
   text-align: center;
-  height: 22px;
+  height: $component-header-height;
+  overflow: hidden;
 }
 
 .component-header.overlaid {
@@ -107,3 +108,11 @@ header h1 {
   color: $dark-brown-50alpha;
 }
 
+.introjs-tooltip {
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.introjs-tooltiptext {
+  font-size: 13px;
+}
