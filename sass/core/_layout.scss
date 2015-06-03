@@ -18,7 +18,7 @@ html {
 
 body {
   margin: 0;
-  background: $background-color;
+  background: $light-brown;
 }
 
 .container {
@@ -48,13 +48,14 @@ header h1 {
   height: ($map-height + $header-height);
   background: #eee;
 }
+
 #narrative-wrapper .list-view {
   height: (($map-height + $header-height) - 22);
 }
 
 #marey-chart-wrapper{
   position: relative;
-  height: $chart-height;
+  height: $marey-chart-height;
   margin-top: 8px;
 }
 
@@ -69,6 +70,7 @@ header h1 {
   text-align: center;
   height: 22px;
 }
+
 .component-header.overlaid {
   position: absolute;
   top: 0;
@@ -97,5 +99,7 @@ header h1 {
   position: absolute;
   left: 0;
   bottom: 5px;
+  text-decoration: underline;
+  color: $dark-brown-50alpha;
 }
 

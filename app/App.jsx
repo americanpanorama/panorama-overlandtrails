@@ -4,6 +4,7 @@
 var React = require("react");
 var RouterMixin = require('react-mini-router').RouterMixin;
 var navigate = require('react-mini-router').navigate;
+var Modal = require('react-modal');
 
 // Constants
 var CONSTANTS = require('./Constants.json');
@@ -35,6 +36,7 @@ var FlowMap = require("./components/FlowMapLeaflet.jsx");
 var DiaristList = require("./components/ListView/List.jsx");
 var Icon = require("./components/Icon.jsx");
 
+
 var App = React.createClass({
 
   mixins: [RouterMixin],
@@ -53,6 +55,10 @@ var App = React.createClass({
       currentDate: new Date("Jan 1, 1840"),
       selectedDiarist: null
     };
+  },
+
+  componentWillMount: function() {
+    Modal.setAppElement(document.querySelector("body"));
   },
 
   componentDidMount: function() {
@@ -103,6 +109,9 @@ var App = React.createClass({
 
   triggerIntro: function(e){
     Intro.open(e);
+  },
+  toggleAbout: function() {
+    this.setState({"showAbout":!this.state.showAbout});
   },
 
   handleMapMove: function(evt) {
@@ -166,7 +175,7 @@ var App = React.createClass({
           <div className='columns eight full-height'>
             <header className='row'>
               <h1 className='u-full-width headline'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
-              <button id="about-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>About This Map</button>
+              <button id="about-btn" className="link text-small" data-step="0" onClick={this.toggleAbout}>About This Map</button>
             </header>
 
             <div id='map-wrapper' className='row'>
@@ -192,6 +201,7 @@ var App = React.createClass({
             </div>
 
             <div id="marey-chart-wrapper" className='row'>
+              <button id="marey-info-btn" className="link text-small" data-step="3" onClick={this.triggerIntro}><Icon iconName="info"/></button>
               <div className='columns twelve full-height'>
                 <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange}/>
               </div>
@@ -226,6 +236,11 @@ var App = React.createClass({
             </div>
           </div>
         </div>
+
+        <Modal isOpen={this.state.showAbout} onRequestClose={this.toggleAbout} className="overlay">
+          <button className="close" onClick={this.toggleAbout}><span>×</span></button>
+          <p>{OverlandTrailsCopy.infoPanel}</p>
+        </Modal>
       </div>
     );
   }

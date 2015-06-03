@@ -12,17 +12,12 @@ var IntroManager = {
     this.intro.setOptions({
       "steps": [
         {
-          element: "#about-btn",
-          intro: OverlandTrailsCopy.infoPanel,
-          position: "bottom"
-        },
-        {
-          element: "#diarist-help-btn",
+          element: "#narrative-wrapper",
           intro: OverlandTrailsCopy.diaristPanel,
-          position: "bottom"
+          position: "left"
         },
         {
-          element: "#flow-map-info-btn",
+          element: "#flow-map-wrapper",
           intro: OverlandTrailsCopy.flowMap,
           position: "top"
         },
