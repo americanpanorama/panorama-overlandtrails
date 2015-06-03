@@ -108,9 +108,12 @@ var App = React.createClass({
   },
 
   triggerIntro: function(e){
+    console.log('-----------------');
+    if (this.state.showAbout) this.toggleAbout();
     Intro.open(e);
   },
   toggleAbout: function() {
+    if (Intro.state) Intro.exit();
     this.setState({"showAbout":!this.state.showAbout});
   },
 
@@ -201,7 +204,7 @@ var App = React.createClass({
             </div>
 
             <div id="marey-chart-wrapper" className='row'>
-              <button id="marey-info-btn" className="link text-small" data-step="3" onClick={this.triggerIntro}><Icon iconName="info"/></button>
+              <button id="marey-info-btn" className="link text-small" data-step="2" onClick={this.triggerIntro}><Icon iconName="info"/></button>
               <div className='columns twelve full-height'>
                 <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange}/>
               </div>
@@ -224,13 +227,13 @@ var App = React.createClass({
           <div className='columns four full-height'>
             <div id="narrative-wrapper" className='row'>
               <div className='columns twelve full-height'>
-                <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
+                <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
                 <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist}/>
               </div>
             </div>
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
-                <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small">How Many People Traveled in 1847?<Icon iconName="info"/></button></div>
+                <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>How Many People Traveled in 1847?<Icon iconName="info"/></button></div>
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>
