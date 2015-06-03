@@ -15,3 +15,8 @@
     background: $color; /* The Fallback */
     background: rgba($color, $opacity);
 }
+
+@mixin color-opacity($color, $opacity: 0.3) {
+    color: $color; /* The Fallback */
+    color: rgba($color, $opacity);
+}

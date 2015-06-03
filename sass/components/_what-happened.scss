@@ -1,0 +1,51 @@
+.what-happened {
+  position: relative;
+  display: table;
+  padding: 5px 10px;
+  background: $medium-brown;
+  border: 1px solid #ddd;
+  min-height: 60px;
+}
+
+.what-happened .columns {
+  display: table-cell;
+  margin-left: 0 !important;
+  float: none !important;
+}
+
+.what-happened-label {
+  position: relative;
+  width: 30%;
+  font-size: 15px;
+  font-weight: bold;
+  @include color-opacity($dark-brown, 0.5);
+  vertical-align: middle;
+  text-align: center;
+}
+
+.what-happened-label > div {
+  margin-right: 20px;
+}
+
+.what-happened-content:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 5%;
+  height: 90%;
+  width: 1px;
+  background: $dark-brown;
+}
+
+.what-happened-content {
+  position: relative;
+  width: 70%;
+  font-size: 13px;
+  font-weight: 400;
+  color: $dark-brown;
+}
+
+.what-happened-content > div {
+  margin: 0 30px;
+  line-height: 1.3;
+}

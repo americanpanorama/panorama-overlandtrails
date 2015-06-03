@@ -348,68 +348,68 @@ td, th {
   .container {
     width: 100%; }
   .column, .columns {
-    margin-left: 2%; }
+    margin-left: 1%; }
   .column:first-child, .columns:first-child {
     margin-left: 0; }
   .one.column, .one.columns {
-    width: 6.5%; }
+    width: 7.41667%; }
   .two.columns {
-    width: 15%; }
+    width: 15.83333%; }
   .three.columns {
-    width: 23.5%; }
+    width: 24.25%; }
   .four.columns {
-    width: 32%; }
+    width: 32.66667%; }
   .five.columns {
-    width: 40.5%; }
+    width: 41.08333%; }
   .six.columns {
-    width: 49%; }
+    width: 49.5%; }
   .seven.columns {
-    width: 57.5%; }
+    width: 57.91667%; }
   .eight.columns {
-    width: 66%; }
+    width: 66.33333%; }
   .nine.columns {
-    width: 74.5%; }
+    width: 74.75%; }
   .ten.columns {
-    width: 83%; }
+    width: 83.16667%; }
   .eleven.columns {
-    width: 91.5%; }
+    width: 91.58333%; }
   .twelve.columns {
     width: 100%;
     margin-left: 0; }
   .one-third.column {
-    width: 32%; }
+    width: 32.66667%; }
   .two-thirds.column {
-    width: 66%; }
+    width: 66.33333%; }
   .one-half.column {
-    width: 49%; }
+    width: 49.5%; }
   .offset-by-one.column, .offset-by-one.columns {
-    margin-left: 8.5%; }
+    margin-left: 8.41667%; }
   .offset-by-two.column, .offset-by-two.columns {
-    margin-left: 17%; }
+    margin-left: 16.83333%; }
   .offset-by-three.column, .offset-by-three.columns {
-    margin-left: 25.5%; }
+    margin-left: 25.25%; }
   .offset-by-four.column, .offset-by-four.columns {
-    margin-left: 34%; }
+    margin-left: 33.66667%; }
   .offset-by-five.column, .offset-by-five.columns {
-    margin-left: 42.5%; }
+    margin-left: 42.08333%; }
   .offset-by-six.column, .offset-by-six.columns {
-    margin-left: 51%; }
+    margin-left: 50.5%; }
   .offset-by-seven.column, .offset-by-seven.columns {
-    margin-left: 59.5%; }
+    margin-left: 58.91667%; }
   .offset-by-eight.column, .offset-by-eight.columns {
-    margin-left: 68%; }
+    margin-left: 67.33333%; }
   .offset-by-nine.column, .offset-by-nine.columns {
-    margin-left: 76.5%; }
+    margin-left: 75.75%; }
   .offset-by-ten.column, .offset-by-ten.columns {
-    margin-left: 85%; }
+    margin-left: 84.16667%; }
   .offset-by-eleven.column, .offset-by-eleven.columns {
-    margin-left: 93.5%; }
+    margin-left: 92.58333%; }
   .offset-by-one-third.column, .offset-by-one-third.columns {
-    margin-left: 34%; }
+    margin-left: 33.66667%; }
   .offset-by-two-thirds.column, .offset-by-two-thirds.columns {
-    margin-left: 68%; }
+    margin-left: 67.33333%; }
   .offset-by-one-half.column, .offset-by-one-half.column {
-    margin-left: 51%; } }
+    margin-left: 50.5%; } }
 
 .u-full-width {
   width: 100%;
@@ -933,3 +933,50 @@ button[data-trail="mormon-trail"] {
 
 .california-trail .item-trail {
   color: #EBA50E; }
+
+.what-happened {
+  position: relative;
+  display: table;
+  padding: 5px 10px;
+  background: #dcd3c6;
+  border: 1px solid #ddd;
+  min-height: 60px; }
+
+.what-happened .columns {
+  display: table-cell;
+  margin-left: 0 !important;
+  float: none !important; }
+
+.what-happened-label {
+  position: relative;
+  width: 30%;
+  font-size: 15px;
+  font-weight: bold;
+  color: #3e3531;
+  /* The Fallback */
+  color: rgba(62, 53, 49, 0.5);
+  vertical-align: middle;
+  text-align: center; }
+
+.what-happened-label > div {
+  margin-right: 20px; }
+
+.what-happened-content:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 5%;
+  height: 90%;
+  width: 1px;
+  background: #3e3531; }
+
+.what-happened-content {
+  position: relative;
+  width: 70%;
+  font-size: 13px;
+  font-weight: 400;
+  color: #3e3531; }
+
+.what-happened-content > div {
+  margin: 0 30px;
+  line-height: 1.3; }

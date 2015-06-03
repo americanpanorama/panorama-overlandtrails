@@ -14,6 +14,7 @@ var Actions = require("./actions/app");
 var DiaryLinesStore = require("./stores/diarylines.js");
 var DiaryEntriesStore = require("./stores/diary_entries.js");
 var EmigrationsStore = require("./stores/emigration.js");
+var OverlandTrailsCopy = require("./stores/overland-trails-copy.js");
 
 // Misc
 var config = require("../.env.json");
@@ -187,11 +188,24 @@ var App = React.createClass({
                 <button className="text-extra-small" data-trail="california-trail">Califonia trail</button>
                 <button className="text-extra-small" data-trail="mormon-trail">Mormon trail</button>
               </ButtonGroup>
-
             </div>
+
             <div id="marey-chart-wrapper" className='row'>
               <div className='columns twelve full-height'>
                 <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange}/>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className='columns twelve'>
+                <div className="row what-happened">
+                  <div className="columns what-happened-label">
+                    <div>What was happening in {this.state.year}?</div>
+                  </div>
+                  <div className="columns what-happened-content">
+                    <div>{OverlandTrailsCopy.years[this.state.year]}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -211,15 +211,16 @@ var FlowMap = React.createClass({
     this.setState({year: e.target.value});
     this.updateYear(e.target.value);
   },
+
   handleMapMove: function(e) {
     console.log(e.target.getCenter());
   },
+
   onEachFeature: function(feature, layer) {
     if (feature.geometry.type !== 'Point') {
       layer.options.className += " flow " + feature.properties.name;
       trailLayers[feature.properties.name] = layer;
     }
-
   },
 
   pointToLayer: function(feature, latlng) {
