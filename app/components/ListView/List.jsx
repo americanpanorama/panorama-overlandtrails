@@ -124,7 +124,11 @@ var List = React.createClass({
     storiesDirty = true;
 
     var trailCSS = selectedStories[0].trail.toLowerCase().replace(' ', '-');
-    return selectedStories[0].values.map(function(item) {
+    return selectedStories[0].values
+      .sort(function(a,b){
+        return d3.ascending(a.date, b.date);
+      })
+      .map(function(item) {
         var dt = [item.date.getMonth()+1, item.date.getDate(), item.date.getFullYear()].join('/');
         datestampToItem[item.datestamp] = item;
 

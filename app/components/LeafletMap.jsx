@@ -186,12 +186,14 @@ var MarkerLayer = React.createClass({
     this.needsUpdating = false;
     var that = this;
     markers.forEach(function(marker){
-      var opts = L.Util.extend({},that.pathOptions, marker.markerOptions);
+      if (that.props.filter && that.props.filter(marker)) {
+        var opts = L.Util.extend({},that.pathOptions, marker.markerOptions);
 
-      var m = L.circleMarker(marker.coordinates,opts).addTo(that.map);
-      m.on('click', that.onMarkerClick);
-      m.data_ = marker;
-      that.markers.push(m);
+        var m = L.circleMarker(marker.coordinates,opts).addTo(that.map);
+        m.on('click', that.onMarkerClick);
+        m.data_ = marker;
+        that.markers.push(m);
+      }
     });
 
   },
