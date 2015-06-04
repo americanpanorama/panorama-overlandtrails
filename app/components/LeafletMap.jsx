@@ -173,6 +173,10 @@ var MarkerLayer = React.createClass({
     if(this.needsUpdating) this.addMarkers(this.props.markers);
   },
 
+  onMarkerClick: function(e) {
+    if (this.props.onMarkerClick) this.props.onMarkerClick(e.target || null);
+  },
+
   addMarkers: function(markers) {
     if (!this.map) {
       this.needsUpdating = true;
@@ -184,7 +188,9 @@ var MarkerLayer = React.createClass({
     markers.forEach(function(marker){
       var opts = L.Util.extend({},that.pathOptions, marker.markerOptions);
 
-      var m = L.circleMarker(marker.coordinates,opts).addTo(that.map)
+      var m = L.circleMarker(marker.coordinates,opts).addTo(that.map);
+      m.on('click', that.onMarkerClick);
+      m.data_ = marker;
       that.markers.push(m);
     });
 
@@ -196,7 +202,10 @@ var MarkerLayer = React.createClass({
     }
     var that = this;
     this.markers.forEach(function(m){
-      if (that.map.hasLayer(m)) that.map.removeLayer(m);
+      if (that.map.hasLayer(m)) {
+        m.off('click', that.onMarkerClick);
+        that.map.removeLayer(m);
+      }
     });
     this.markers.length = 0;
 

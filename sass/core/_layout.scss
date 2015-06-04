@@ -21,6 +21,10 @@ body {
   background: $light-brown;
 }
 
+#app-box {
+  height: 100%;
+}
+
 .container {
   padding: 0 20px !important;
 }
@@ -115,4 +119,14 @@ header h1 {
 
 .introjs-tooltiptext {
   font-size: 13px;
+}
+
+
+// 404
+.not-found {
+  text-align: center;
+}
+.hands-emoticon {
+  position: relative;
+  font-size: 150px;
 }

@@ -810,6 +810,9 @@ body {
   margin: 0;
   background: #EDE8E0; }
 
+#app-box {
+  height: 100%; }
+
 .container {
   padding: 0 20px !important; }
 
@@ -891,6 +894,13 @@ header h1 {
 
 .introjs-tooltiptext {
   font-size: 13px; }
+
+.not-found {
+  text-align: center; }
+
+.hands-emoticon {
+  position: relative;
+  font-size: 150px; }
 
 body {
   font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
@@ -1022,7 +1032,7 @@ button.text-extra-small {
   fill: transparent;
   stroke: black;
   stroke-opacity: 1;
-  stroke-width: 2px;
+  stroke-width: 1px;
   cursor: pointer; }
   .diary-lines.selected {
     stroke: rgba(0, 0, 0, 0.7); }
@@ -1083,22 +1093,22 @@ button.text-extra-small {
 .button-group button {
   color: #fff; }
 
-button[data-trail="all"] {
+button[data-value="all"] {
   background: #3E3531;
   /* The Fallback */
   background: #3e3531; }
 
-button[data-trail="oregon-trail"] {
+button[data-value="oregon-trail"] {
   background: #6F6D29;
   /* The Fallback */
   background: #6f6d29; }
 
-button[data-trail="california-trail"] {
+button[data-value="california-trail"] {
   background: #EBA50E;
   /* The Fallback */
   background: #eba50e; }
 
-button[data-trail="mormon-trail"] {
+button[data-value="mormon-trail"] {
   background: #3B4887;
   /* The Fallback */
   background: #3b4887; }

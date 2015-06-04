@@ -1,8 +1,9 @@
 var AppDispatcher = require("../dispatchers/app");
 var EventEmitter  = require("events").EventEmitter;
+var deepcopy      = require('deepcopy');
 var dslClient     = require("../lib/dslClient");
 var assign        = require("object-assign");
-var CONSTANTS = require('../Constants.json');
+var CONSTANTS     = require('../Constants.json');
 
 
 var CHANGE_EVENT  = "change";
@@ -68,7 +69,7 @@ var state = {
   loaded: false
 }
 
-var entriesByTrail = {};
+var entriesOnADate = {};
 
 function getTrailColor(trail) {
   if(trail.toLowerCase().indexOf('california') > -1) return CONSTANTS.COLORS['california'];
@@ -104,6 +105,7 @@ function setData() {
 }
 
 function groupEntriesByDate() {
+  var entriesByTrail = {};
 
   var nested = d3.nest()
       .key(function(d){ return data.source[d.journal_id].trail; })
@@ -127,10 +129,45 @@ function groupEntriesByDate() {
         prev: (trailGroup[i-1]) ?  trailGroup[i-1].key : null
       }
     });
-
   });
 
-  //console.log(entriesByTrail)
+  // get all available datestamps
+  var dates = {};
+  data.entries.forEach(function(d){
+    dates[d.datestamp] = 1;
+  });
+
+  for (var d in dates) {
+    var rsp = [];
+    for(var trail in entriesByTrail) {
+      if (entriesByTrail[trail].hasOwnProperty(d)) {
+        deepcopy(entriesByTrail[trail][d].values).forEach(function(m){
+          rsp.push(m)
+        });
+
+        if (entriesByTrail[trail][d].next) {
+          deepcopy(entriesByTrail[trail][entriesByTrail[trail][d].next].values).forEach(function(m){
+            m.markerOptions.className += ' minor';
+            m.markerOptions.radius = 5;
+            rsp.push(m)
+          });
+        }
+
+        if (entriesByTrail[trail][d].prev) {
+          deepcopy(entriesByTrail[trail][entriesByTrail[trail][d].prev].values).forEach(function(m){
+            m.markerOptions.className += ' minor';
+            m.markerOptions.radius = 5;
+            rsp.push(m)
+          });
+        }
+      }
+    }
+
+    entriesOnADate[d] = rsp;
+  }
+
+  entriesByTrail = {};
+  nested = {};
 }
 
 function queryData() {
@@ -191,37 +228,9 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
     if(!state.loaded) return [];
     if (!date || !data) return [];
 
-
-    var rsp = [];
     // make key
     var d = [date.getMonth()+1, date.getDate(), date.getFullYear()].join('');
-
-    for(var trail in entriesByTrail) {
-      if (entriesByTrail[trail].hasOwnProperty(d)) {
-        entriesByTrail[trail][d].values.slice(0).forEach(function(m){
-          rsp.push(m)
-        });
-
-        if (entriesByTrail[trail][d].next) {
-          entriesByTrail[trail][entriesByTrail[trail][d].next].values.slice(0).forEach(function(m){
-            m.markerOptions.className += ' minor';
-            m.markerOptions.radius = 5;
-            rsp.push(m)
-          });
-        }
-
-        if (entriesByTrail[trail][d].prev) {
-          entriesByTrail[trail][entriesByTrail[trail][d].prev].values.slice(0).forEach(function(m){
-            m.markerOptions.className += ' minor';
-            m.markerOptions.radius = 5;
-            rsp.push(m)
-          });
-        }
-      }
-    }
-
-    return rsp;
-
+    return (entriesOnADate.hasOwnProperty(d)) ? entriesOnADate[d] : [];
   },
 
 

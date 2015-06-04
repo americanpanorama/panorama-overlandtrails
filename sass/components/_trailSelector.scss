@@ -9,18 +9,18 @@
 .button-group button {
   color: #fff;
 }
-button[data-trail="all"] {
+button[data-value="all"] {
   @include background-opacity(#3E3531, 1);
 }
 
-button[data-trail="oregon-trail"] {
+button[data-value="oregon-trail"] {
   @include background-opacity($oregon, 1);
 }
 
-button[data-trail="california-trail"] {
+button[data-value="california-trail"] {
   @include background-opacity($california, 1);
 }
 
-button[data-trail="mormon-trail"] {
+button[data-value="mormon-trail"] {
   @include background-opacity($mormon, 1);
 }
