@@ -26,7 +26,7 @@ body {
 }
 
 .container {
-  padding: 0 20px !important;
+  padding: $top-bottom-margin 20px !important;
 }
 
 header {
@@ -60,7 +60,7 @@ header h1 {
 #marey-chart-wrapper{
   position: relative;
   height: $marey-chart-height;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 #flow-map-wrapper {

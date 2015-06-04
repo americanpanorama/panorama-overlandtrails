@@ -814,7 +814,7 @@ body {
   height: 100%; }
 
 .container {
-  padding: 0 20px !important; }
+  padding: 12px 20px !important; }
 
 header {
   position: relative;
@@ -842,7 +842,7 @@ header h1 {
 #marey-chart-wrapper {
   position: relative;
   height: 120px;
-  margin-top: 8px; }
+  margin-top: 10px; }
 
 #flow-map-wrapper {
   position: relative;
