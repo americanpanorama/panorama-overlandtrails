@@ -266,7 +266,9 @@ var App = React.createClass({
 
     var mapOptions = {
       scrollWheelZoom: false,
-      attributionControl: false
+      attributionControl: false,
+      minZoom: 4,
+      maxZoom: 10
     };
 
     var mapEvents = {
