@@ -30,7 +30,11 @@ module.exports = (function(){
         center.lat.toFixed(precision),
         center.lng.toFixed(precision)
       ].join("/");
-    }
+    },
+
+    formatDate: function(dt) {
+      return [dt.getMonth()+1, dt.getDate(), dt.getFullYear()].join('/');
+    },
 
   };
 

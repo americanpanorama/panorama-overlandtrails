@@ -37,6 +37,7 @@ var DiaristList = require("./components/ListView/List.jsx");
 var Icon = require("./components/Icon.jsx");
 
 
+var currentPath = {};
 var App = React.createClass({
 
   mixins: [RouterMixin],
@@ -45,21 +46,33 @@ var App = React.createClass({
     '/': 'home',
   },
 
-  allowedHashParams: {
-    'loc': null
+  // These will act as defaults
+  hashParams: {
+    'loc'     : '5/-5.200/0.330',
+    'date'    : '1/1/1840',
+    'trail'   : null,
+    'diarist' : null
   },
 
   getInitialState: function () {
-    return {
-      year: 1840,
-      currentDate: new Date("Jan 1, 1840"),
-      selectedDiarist: null,
+    var fromHash = this.parseHash(document.location.hash);
+    L.Util.extend(this.hashParams, fromHash);
+
+    var initial = {
+      currentDate: new Date(this.hashParams.date),
+      trail: this.hashParams.trail,
       heights:{}
     };
+
+    initial.year = initial.currentDate.getFullYear();
+
+    return initial;
   },
 
   componentWillMount: function() {
     this.computeHeight();
+    if (this.hashParams.diarist) DiaryEntriesStore.selectedDiarist = this.hashParams.diarist;
+    if (this.hashParams.trail) DiaryLinesStore.setFiltered(this.hashParams.trail);
     Modal.setAppElement(document.querySelector("body"));
   },
 
@@ -90,18 +103,49 @@ var App = React.createClass({
   updateURL: function(params, silent) {
     var out = [];
 
-    Object.keys(this.allowedHashParams).forEach(function(k){
-      if (params.hasOwnProperty(k)) {
-        if (params[k] !== null && params[k] !== '') {
-          out.push(k + "=" + params[k]);
-        }
+    //console.log(document.location.hash)
+    //var hash = parseHash(document.location.hash)
+
+    var that = this;
+    for (var k in this.hashParams) {
+      var v = null;
+      if (k in params) {
+        v = params[k];
+      } else {
+        v = that.hashParams[k];
       }
-    });
+      if (v) {
+        this.hashParams[k] = v;
+        out.push(k + '=' + v);
+      }
+    }
 
     // TODO: how to get current path out of `react-mini-router`
     var path = '/';
-    navigate(path + '?' + out.join('&'), silent);
+    navigate(path + '?' + out.join('&'), true);
   },
+
+  parseHash: function(hash) {
+    var out = {};
+    if (!hash) return out;
+
+    var that = this;
+    var things = hash.slice(4).split('&').map(function(d){return d.split('=');});
+
+    things.forEach(function(thing){
+      // validate location
+      if (thing[0] === 'loc') {
+        if ( hashUtils.parseCenterAndZoom(thing[1]) ) {
+          out[thing[0]] = thing[1];
+        }
+      } else if (thing[0] in that.hashParams && thing[1] != '') {
+        out[thing[0]] = thing[1];
+      }
+    });
+
+    return out;
+  },
+
 
   readURL: function() {
 
@@ -121,10 +165,13 @@ var App = React.createClass({
 
   onResize: function(e) {
     this.computeHeight();
-    console.log('resize');
   },
 
   onChange: function(e) {
+    // Update URL with selected diarist
+    if (e.caller && e.caller.state && e.caller.state === 'LIST ITEM SELECTED') {
+      this.updateURL({diarist: e.caller.value}, true);
+    }
     this.setState(e);
   },
 
@@ -149,13 +196,15 @@ var App = React.createClass({
 
     if (val === 'all') val = '';
     if (this.state.trail === val) return;
+    this.updateURL({trail: val}, true);
     this.setState({trail: val});
   },
 
   mareySliderChange: function(date) {
     //console.log("SLIDER CHANGE: ", date.getFullYear(), this.state.year);
     //if (this.state.year != date.getFullYear()) {
-      this.setState({year:date.getFullYear(), currentDate: date});
+      this.updateURL({date: hashUtils.formatDate(date)}, true);
+      this.setState({year: date.getFullYear(), currentDate: date});
     //}
   },
 
@@ -180,15 +229,17 @@ var App = React.createClass({
     };
 
     // set various things from URL params
-    var loc = [-5.200, 0.330];
-    var zoom = 5;
-
+    var o,loc,zoom;
     if (params.loc) {
-      var o = hashUtils.parseCenterAndZoom(params.loc);
+      o = hashUtils.parseCenterAndZoom(params.loc);
       if (o) {
         loc = o.center;
         zoom = o.zoom;
       }
+    } else {
+      o = hashUtils.parseCenterAndZoom(this.hashParams.loc);
+      loc = o.center;
+      zoom = o.zoom;
     }
 
     var that = this;
@@ -198,6 +249,7 @@ var App = React.createClass({
       <div className='container full-height'>
         <div className='row full-height'>
           <div className='columns eight full-height'>
+
             <header className='row'>
               <h1 className='u-full-width headline'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
               <button id="about-btn" className="link text-small" data-step="0" onClick={this.toggleAbout}>About This Map</button>
@@ -228,7 +280,7 @@ var App = React.createClass({
             <div id="marey-chart-wrapper" className='row'>
               <button id="marey-info-btn" className="link text-small" data-step="2" onClick={this.triggerIntro}><Icon iconName="info"/></button>
               <div className='columns twelve full-height'>
-                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange}/>
+                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange} currentDate={new Date(this.hashParams.date)}/>
               </div>
             </div>
 
@@ -247,12 +299,14 @@ var App = React.createClass({
           </div>
 
           <div className='columns four full-height'>
+
             <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
                 <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
                 <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.heights.diariesInner}/>
               </div>
             </div>
+
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
                 <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>How Many People Traveled in 1847?<Icon iconName="info"/></button></div>

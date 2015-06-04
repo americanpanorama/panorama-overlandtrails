@@ -1,7 +1,8 @@
+//TODO: Enable Dates to be dynamic
+
 /** @jsx React.DOM */
 var React   = require("react");
 var d3      = require("d3");
-//var ReactSlider = require("../components/Slider.js");
 
 var fullYearFormatter = d3.time.format('%Y');
 var yearFormatter = d3.time.format('%y');
@@ -35,16 +36,17 @@ var MareyChart = React.createClass({
 
   getWidthOfAYear: function() {
     var x0 = this.xscale(new Date("Jan 1, 1840")),
-      x1 = this.xscale(new Date("Dec 31, 1841"));
+        x1 = this.xscale(new Date("Dec 31, 1841"));
 
     return x1-x0;
   },
 
-  setBrush: function() {
+  setBrush: function(date) {
+    date = date || this.xscale.domain()[0];
     var that = this;
     this.brush = d3.svg.brush()
       .x(this.xscale)
-      .extent([this.xscale.domain()[0], this.xscale.domain()[0]])
+      .extent([date, date])
       .on("brush", function(e){
         that.brushed(this);
       });
@@ -55,11 +57,6 @@ var MareyChart = React.createClass({
     this.line = d3.svg.line()
       .x(function(d) { return that.xscale(d.date); })
       .y(function(d) { return that.yscale(d.mercatorCoords[1]); });
-  },
-
-  setColorScale: function() {
-    this.color = d3.scale.ordinal()
-      .range(["#1b9e77","#d95f02","#7570b3","#e7298a","#66a61e","#e6ab02","#a6761d","#666666"]);
   },
 
   setXYAxis: function () {
@@ -95,7 +92,6 @@ var MareyChart = React.createClass({
   },
 
   brushed: function(context) {
-
     var value = this.brush.extent()[0];
 
     if (d3.event.sourceEvent) { // not a programmatic event
@@ -103,11 +99,8 @@ var MareyChart = React.createClass({
       this.brush.extent([value, value]);
     }
 
-    //console.log(value)
-
     this.handle.attr("transform", "translate(" + this.xscale(value) + ",0)");
-   // handle.select('text').text(formatDate(value));
-   if (this.props.onSliderChange) this.props.onSliderChange(value);
+    if (this.props.onSliderChange) this.props.onSliderChange(value);
 
   },
 
@@ -123,9 +116,8 @@ var MareyChart = React.createClass({
     this.setHeight(container.offsetHeight);
     this.setXYScales();
     this.setLine();
-    this.setColorScale();
     this.setXYAxis();
-    if (this.hasSlider) this.setBrush();
+    if (this.hasSlider) this.setBrush(this.props.currentDate);
 
     this.svgElm = d3.select(container).append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
