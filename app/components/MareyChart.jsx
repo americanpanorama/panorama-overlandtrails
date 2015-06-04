@@ -100,8 +100,14 @@ var MareyChart = React.createClass({
     }
 
     this.handle.attr("transform", "translate(" + this.xscale(value) + ",0)");
+    this.currentDate = value;
     if (this.props.onSliderChange) this.props.onSliderChange(value);
 
+  },
+  moveBrush: function(value) {
+    this.brush.extent([value, value]);
+    this.handle.attr("transform", "translate(" + this.xscale(value) + ",0)");
+    if (this.props.onSliderChange) this.props.onSliderChange(value);
   },
 
   getInitialState: function () {
@@ -118,6 +124,7 @@ var MareyChart = React.createClass({
     this.setLine();
     this.setXYAxis();
     if (this.hasSlider) this.setBrush(this.props.currentDate);
+    this.currentDate = this.props.currentDate;
 
     this.svgElm = d3.select(container).append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
@@ -138,6 +145,11 @@ var MareyChart = React.createClass({
   },
 
   componentDidUpdate: function() {
+    if (this.props.currentDate !== this.currentDate) {
+      this.currentDate = this.props.currentDate;
+      if (this.brush)this.moveBrush(this.currentDate);
+    }
+
     if (this.hasData) return;
     if (!this.props.chartdata.hasOwnProperty('entries')) return;
     this.hasData = true;

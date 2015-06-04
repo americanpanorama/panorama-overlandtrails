@@ -72,7 +72,10 @@ var App = React.createClass({
 
   componentWillMount: function() {
     this.computeHeight();
-    if (this.hashParams.diarist) DiaryEntriesStore.selectedDiarist = this.hashParams.diarist;
+    if (this.hashParams.diarist) {
+      DiaryLinesStore.selectedDiarist = this.hashParams.diarist;
+      DiaryEntriesStore.selectedDiarist = this.hashParams.diarist;
+    }
     if (this.hashParams.trail) DiaryLinesStore.setFiltered(this.hashParams.trail);
     Modal.setAppElement(document.querySelector("body"));
   },
@@ -171,9 +174,9 @@ var App = React.createClass({
   onChange: function(e) {
     // Update URL with selected diarist
     if (e.caller && e.caller.state && e.caller.state === 'LIST ITEM SELECTED') {
-      this.hashParams.diarist = e.caller.value;
-      this.updateURL({diarist: e.caller.value}, true);
-      this.setState({diarist: e.caller.value});
+      //this.hashParams.diarist = e.caller.value;
+      //this.updateURL({diarist: e.caller.value}, true);
+      //this.setState({diarist: e.caller.value});
     } else {
       this.setState(e);
     }
@@ -211,13 +214,28 @@ var App = React.createClass({
     this.setState({year: date.getFullYear(), currentDate: date});
   },
 
+  onDiaryClick: function(item, selected) {
+    //console.log(item, selected);
+    var key = (selected) ? item.key : null;
+    this.setDiarist(key, item.begins);
+
+  },
+
+  setDiarist: function(key, date) {
+    DiaryEntriesStore.selectedDiarist = DiaryLinesStore.selectedDiarist = key;
+    this.hashParams.diarist = key;
+    this.updateURL({diarist: key, date: hashUtils.formatDate(date)}, true);
+    this.setState({diarist: key, year: date.getFullYear(), currentDate: date});
+  },
+
   onMarkerClick: function(marker) {
     if (marker.data_['journal_id'] === DiaryEntriesStore.selectedDiarist) return;
+    this.setDiarist(marker.data_['journal_id'], marker.data_.date);
+  },
 
-    var date = marker.data_.date;
-    DiaryEntriesStore.selectedDiarist = marker.data_['journal_id'];
-    this.updateURL({date: hashUtils.formatDate(date), diarist: DiaryEntriesStore.selectedDiarist}, true);
-    this.setState({year: date.getFullYear(), currentDate: date});
+  onStoryScroll: function(item) {
+    //console.log(item);
+    this.setState({year: item.date.getFullYear(), currentDate: item.date});
   },
 
   render: function() {
@@ -251,18 +269,11 @@ var App = React.createClass({
     };
 
     // set various things from URL params
-    var o,loc,zoom;
-    if (params.loc) {
-      o = hashUtils.parseCenterAndZoom(params.loc);
-      if (o) {
-        loc = o.center;
-        zoom = o.zoom;
-      }
-    } else {
-      o = hashUtils.parseCenterAndZoom(this.hashParams.loc);
-      loc = o.center;
-      zoom = o.zoom;
-    }
+    var loc,zoom;
+
+    var o = hashUtils.parseCenterAndZoom(this.hashParams.loc);
+    loc = o.center;
+    zoom = o.zoom;
 
     var that = this;
 
@@ -286,7 +297,7 @@ var App = React.createClass({
                     sql="SELECT * FROM unified_basemap_layers order by ord"
                     cartocss="#unified_basemap_layers[layer='ne_10m_coastline_2163']{  line-color: #aacccc;  line-width: 0.75;  line-opacity: 1;  line-join: round;  line-cap: round;}#unified_basemap_layers[layer='ne_10m_lakes_2163'] {  line-color: #aacccc;  line-width: 2.5;  line-opacity: 1;  line-join: round;  line-cap: round;  /* Soften lines at lower zooms */  [zoom<=7] {    line-width: 2.5;    line-color: lighten(desaturate(#aacccc,2%),2%);  }  [zoom<=5] {    line-width: 1.5;    line-color: lighten(desaturate(#aacccc,5%),5%);  }  /* Separate attachment because seams */  ::fill {    polygon-fill: #ddeeee;    polygon-opacity: 1;  }  /* Remove small lakes at lower zooms */  [scalerank>3][zoom<=5] {    ::fill {      polygon-opacity: 0;    }    line-opacity: 0;  }  [scalerank>6][zoom<=7] {    ::fill {      polygon-opacity: 0;    }    line-opacity: 0;  }}#unified_basemap_layers[layer='ne_10m_rivers_lake_centerlines_2163'] {  line-color: #aacccc;  line-width: 1.5;  line-opacity: 1;  line-join: round;  line-cap: round;  [name='Mississippi'],  [name='St. Lawrence'],  [name='Rio Grande'] {    line-width: 4;  }  [zoom<=8][name='Mississippi'],  [zoom<=8][name='St. Lawrence'],  [zoom<=8][name='Rio Grande'] {    line-width: 2;  }  [zoom<=8][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'],  [zoom<=6][name='Mississippi'],  [zoom<=6][name='Rio Grande'] {    line-width: 1;    line-color: lighten(desaturate(#aacccc,2%),2%);  }  [zoom<=6][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'] {    line-width: 0.5;    line-color: lighten(desaturate(#aacccc,5%),5%);  }  [zoom<=5][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande']{    line-width: 0;  }  [zoom<=5][name='Mississippi'],  [zoom<=5][name='St. Lawrence'],  [zoom<=5][name='Rio Grande'] {    line-width: 0.5;    line-color: lighten(desaturate(#aacccc,2%),2%);  }}#unified_basemap_layers[layer='ne_10m_admin_0_countries_lakes_2163'] {  line-color: white;  line-width: 1;  line-opacity: 1;  line-join: round;  line-cap: round;  polygon-fill: white;  polygon-opacity: 1;}"/>
                   <TileLayer src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors | Designed by <a href='http://stamen.com?from=richmondatlas'>Stamen Design</a>" />
-                  <GeoJSONLayer featuregroup={DiaryLinesStore.getData()} className='diary-lines' onEachFeature={DiaryLinesStore.onEachFeature} />
+                  <GeoJSONLayer featuregroup={DiaryLinesStore.getData()} className='diary-lines' filter={DiaryLinesStore.onFilter} onEachFeature={DiaryLinesStore.onEachFeature} />
                   <MarkerLayer map={null} markers={DiaryEntriesStore.getEntriesByDate(that.state.currentDate)} onMarkerClick={this.onMarkerClick}/>
                 </LeafletMap>
               </div>
@@ -302,7 +313,7 @@ var App = React.createClass({
             <div id="marey-chart-wrapper" className='row'>
               <button id="marey-info-btn" className="link text-small" data-step="2" onClick={this.triggerIntro}><Icon iconName="info"/></button>
               <div className='columns twelve full-height'>
-                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange} currentDate={new Date(this.hashParams.date)}/>
+                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange} currentDate={this.state.currentDate}/>
               </div>
             </div>
 
@@ -325,7 +336,7 @@ var App = React.createClass({
             <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
                 <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
-                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.heights.diariesInner}/>
+                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryScroll={this.onStoryScroll} />
               </div>
             </div>
 

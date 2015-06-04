@@ -296,12 +296,6 @@ AppDispatcher.register(function(action) {
 
       break;
 
-    case 'listItemSelected':
-        DiaryEntriesStore.selectedDiarist = (action.state.content.selected) ? action.state.content.key : null;
-        DiaryEntriesStore.emitChange({state:"LIST ITEM SELECTED", value:DiaryEntriesStore.selectedDiarist});
-      break;
-
-
     default:
       // no op
   }

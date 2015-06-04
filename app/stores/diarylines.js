@@ -38,6 +38,12 @@ var nullResponse = {
 
 var currentKlass;
 var DiaryLinesStore = assign({}, EventEmitter.prototype, {
+  selectedDiarist: null,
+
+  onFilter: function(feature, layer) {
+    if (!DiaryLinesStore.selectedDiarist) return true;
+    return feature.properties['journal_id'] == DiaryLinesStore.selectedDiarist;
+  },
 
   onEachFeature: function(feature, layer) {
     var trail = layer.feature.properties.trail || "unknown";

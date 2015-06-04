@@ -1,19 +1,17 @@
 /** @jsx React.DOM */
 var React   = require("react");
 var d3 = require('d3');
-var Actions = require("../../actions/app");
-var dateFormat = d3.time.format("%x");
 var Icon = require("../Icon.jsx");
+
+var dateFormat = d3.time.format("%x");
 
 var Item = React.createClass({
 
   toggle: function() {
-    //console.log('click: ', this.props.item);
-    Actions.listItemSelected({content: {
-        key: this.props.item.key,
-        selected: !this.props.selected
-      }
-    });
+
+    if (this.props.onItemClick) {
+      this.props.onItemClick(this.props.item, !this.props.selected);
+    }
   },
 
   render: function() {
