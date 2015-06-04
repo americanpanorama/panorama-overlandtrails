@@ -1082,14 +1082,26 @@ button.text-extra-small {
 .trail-dot.oregon-trail.minor {
   fill: #6F6D29; }
 
-.trail-show-oregon-trail #map-wrapper .california-trail, .trail-show-oregon-trail #map-wrapper .mormon-trail {
+.trail-show-oregon-trail #map-wrapper .trail-dot.california-trail, .trail-show-oregon-trail #map-wrapper .trail-dot.mormon-trail {
   display: none; }
 
-.trail-show-california-trail #map-wrapper .oregon-trail, .trail-show-california-trail #map-wrapper .mormon-trail {
+.trail-show-california-trail #map-wrapper .trail-dot.oregon-trail, .trail-show-california-trail #map-wrapper .trail-dot.mormon-trail {
   display: none; }
 
-.trail-show-mormon-trail #map-wrapper .california-trail, .trail-show-mormon-trail #map-wrapper .oregon-trail {
+.trail-show-mormon-trail #map-wrapper .trail-dot.california-trail, .trail-show-mormon-trail #map-wrapper .trail-dot.oregon-trail {
   display: none; }
+
+.trail-show-oregon-trail #map-wrapper .diary-lines.california-trail, .trail-show-oregon-trail #map-wrapper .diary-lines.mormon-trail {
+  opacity: 0.1; }
+
+.trail-show-california-trail #map-wrapper .diary-lines.oregon-trail, .trail-show-california-trail #map-wrapper .diary-lines.mormon-trail {
+  opacity: 0.1; }
+
+.trail-show-mormon-trail #map-wrapper .diary-lines.california-trail, .trail-show-mormon-trail #map-wrapper .diary-lines.oregon-trail {
+  opacity: 0.1; }
+
+.diary-lines.fade-me {
+  opacity: 0.1 !important; }
 
 #map-wrapper .button-group {
   position: absolute;

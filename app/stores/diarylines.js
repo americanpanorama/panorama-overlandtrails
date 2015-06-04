@@ -41,8 +41,10 @@ var DiaryLinesStore = assign({}, EventEmitter.prototype, {
   selectedDiarist: null,
 
   onFilter: function(feature, layer) {
-    if (!DiaryLinesStore.selectedDiarist) return true;
-    return feature.properties['journal_id'] == DiaryLinesStore.selectedDiarist;
+    return true;
+
+    //if (!DiaryLinesStore.selectedDiarist) return true;
+    //return feature.properties['journal_id'] == DiaryLinesStore.selectedDiarist;
   },
 
   onEachFeature: function(feature, layer) {
@@ -65,7 +67,12 @@ var DiaryLinesStore = assign({}, EventEmitter.prototype, {
         klass = "unknown-trail";
       break;
     }
-    layer.options.className += " " + klass;
+
+    var isSelected = "";
+    if (DiaryLinesStore.selectedDiarist && DiaryLinesStore.selectedDiarist.length) {
+      isSelected = (feature.properties['journal_id'] == DiaryLinesStore.selectedDiarist) ? "" : " fade-me";
+    }
+    layer.options.className = "diary-lines " + klass + isSelected;
   },
 
   getData: function() {
