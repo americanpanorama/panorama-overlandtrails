@@ -47,26 +47,12 @@ var List = React.createClass({
 
       if (anchors.length) {
         anchorsDT = _selectedKey;
-
-        if (this.props.selectedDate && _selectedKey && (this.props.selectedDate !== currentDate)) {
-          currentDate = this.props.selectedDate;
-          // make key
+        if (currentDate) {
           var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
-          var anchor = document.getElementsByName(d);
-
-          if (anchor && anchor.length) {
-            d3.selectAll('.storyview-item').classed('highlighted', false);
-            d3.select(anchor[0]).classed('highlighted', true);
-
-            var top = anchor[0].offsetTop;
-            if (top) cached.storyContainer.scrollTop = top;
-          }
-
-          currentScrollDatestamp = d;
+           currentScrollDatestamp = d;
         } else {
           currentScrollDatestamp = anchors[0].datestamp;
         }
-
       } else {
         currentScrollDatestamp = null;
       }
@@ -85,6 +71,20 @@ var List = React.createClass({
     }
 
 
+    if (this.props.selectedDate && _selectedKey && (this.props.selectedDate !== currentDate)) {
+      currentDate = this.props.selectedDate;
+      // make key
+      var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
+      var anchor = document.getElementsByName(d);
+
+      if (anchor && anchor.length) {
+        d3.selectAll('.storyview-item').classed('highlighted', false);
+        d3.select(anchor[0]).classed('highlighted', true);
+
+        var top = anchor[0].offsetTop;
+        if (top) cached.storyContainer.scrollTop = top;
+      }
+    }
   },
 
   handleScroll: function() {
