@@ -36,21 +36,47 @@ var List = React.createClass({
     if (storiesDirty && (anchorsDT !== _selectedKey)) {
       storiesDirty = false;
       anchors = [];
+      cached.anchors = {};
       d3.select(cached.storyContainer).selectAll('.storyview-item').each(function(item){
         anchors.push({
           top: this.offsetTop,
           datestamp: this.getAttribute('data-datestamp')
         });
+        cached.anchors[this.getAttribute('data-datestamp')] = d3.select(this).select('a');
       });
 
-      if (anchors.length) anchorsDT = _selectedKey;
+      if (anchors.length) {
+        anchorsDT = _selectedKey;
 
-      currentScrollDatestamp = (anchors.length) ? anchors[0].datestamp : null;
+        if (this.props.selectedDate && _selectedKey && (this.props.selectedDate !== currentDate)) {
+          currentDate = this.props.selectedDate;
+          // make key
+          var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
+          var anchor = document.getElementsByName(d);
+
+          if (anchor && anchor.length) {
+            d3.selectAll('.storyview-item').classed('highlighted', false);
+            d3.select(anchor[0]).classed('highlighted', true);
+
+            var top = anchor[0].offsetTop;
+            if (top) cached.storyContainer.scrollTop = top;
+          }
+
+          currentScrollDatestamp = d;
+        } else {
+          currentScrollDatestamp = anchors[0].datestamp;
+        }
+
+      } else {
+        currentScrollDatestamp = null;
+      }
     }
 
     if (this.props.selectedKey !== _selectedKey) {
       anchorsDT = null;
       currentScrollDatestamp = null;
+      currentDate = null;
+      cached.anchors = {};
 
       _selectedKey = this.props.selectedKey;
 
@@ -58,26 +84,7 @@ var List = React.createClass({
       if (_selectedKey) cached.storyContainer.scrollTop = 0;
     }
 
-    if ((this.props.selectedDate && _selectedKey)) {
-      if (this.props.selectedDate !== currentDate) {
 
-      }
-      currentDate = this.props.selectedDate;
-      // make key
-      var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
-      var anchor = document.getElementsByName(d);
-
-      if (anchor && anchor.length) {
-        d3.selectAll('.storyview-item').classed('highlighted', false);
-        d3.select(anchor[0]).classed('highlighted', true);
-
-        var top = anchor[0].offsetTop;
-        if (top) {
-          var dom  = React.findDOMNode(this.refs.storyContainer);
-          dom.scrollTop = top;
-        }
-      }
-    }
   },
 
   handleScroll: function() {
@@ -87,6 +94,7 @@ var List = React.createClass({
     if (anchors) {
       if (top === 0) {
         currentScrollDatestamp = anchors[0].datestamp;
+        this.highlightAnchors();
       } else {
         anchors.forEach(function(item, i){
           if (item.top > top && (item.top - top < 20) ){
@@ -96,10 +104,22 @@ var List = React.createClass({
           }
         });
       }
-      if ((prev !== currentScrollDatestamp) && this.props.onStoryScroll) this.props.onStoryScroll(datestampToItem[currentScrollDatestamp]);
+      if ((prev !== currentScrollDatestamp)){
+          this.highlightAnchors();
+        if (this.props.onStoryScroll) this.props.onStoryScroll(datestampToItem[currentScrollDatestamp]);
+      }
     }
-    //console.log('scroll')
-    //this.refs.storyContent.getDOMNode().style.top = document.documentElement.scrollTop + 'px';
+  },
+
+  highlightAnchors: function() {
+    if (!cached.anchors) return;
+
+    for(var a in cached.anchors) {
+      cached.anchors[a].classed('highlighted', false);
+    }
+    if (currentScrollDatestamp in cached.anchors) {
+      cached.anchors[currentScrollDatestamp].classed('highlighted', true);
+    }
   },
 
   renderItems: function() {
@@ -125,6 +145,9 @@ var List = React.createClass({
 
     var trailCSS = selectedStories[0].trail.toLowerCase().replace(' ', '-');
     return selectedStories[0].values
+      .filter(function(d){
+        return d.entry.length > 1;
+      })
       .sort(function(a,b){
         return d3.ascending(a.date, b.date);
       })
