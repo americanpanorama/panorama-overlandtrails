@@ -87,11 +87,27 @@
   left: 0;
   margin-top: -20px;
 }
+
 .list-group-item .right-arrow {
   position: absolute;
   top: 50%;
   right: 0;
   margin-top: -6.5px;
+}
+
+.list-group-item .left-arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -6.5px;
+}
+.selected .list-group-item.selected .left-arrow{
+  display: block;
+}
+
+.selected .list-group-item.selected .right-arrow{
+  display: none;
 }
 
 .list-group-item-content p {
@@ -100,8 +116,16 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .list-group-item-content p:first-child {
   margin-bottom: 4px;
+}
+
+.selected .list-group-item.selected .list-group-item-content {
+  margin: 0 5px 0 75px;
+}
+.selected .list-group-item.selected .icon-spot {
+  left: 25px;
 }
 
 .mormon-trail .item-trail,

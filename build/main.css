@@ -989,17 +989,20 @@ button.text-extra-small {
   display: inline-block;
   background-image: url("static/icons.png");
   background-repeat: no-repeat;
-  background-size: 83px 158px;
+  background-size: 83px 173px;
   line-height: 1;
   vertical-align: middle; }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
   .icon {
-    background-image: url(static/icons@2x.png); } }
+    background-image: url("static/icons@2x.png"); } }
 
 .icon.writer {
   width: 41px;
   height: 41px;
+  background-position: 0px 0px; }
+
+.icon.writer.california-trail {
   background-position: 0px 0px; }
 
 .icon.writer.oregon-trail {
@@ -1011,15 +1014,20 @@ button.text-extra-small {
 .icon.writer.female {
   background-position-x: -43px; }
 
+.icon.info {
+  width: 16px;
+  height: 16px;
+  background-position: 0px -128px; }
+
 .icon.right-arrow {
   width: 8px;
   height: 14px;
   background-position: 0px -144px; }
 
-.icon.info {
-  width: 16px;
-  height: 16px;
-  background-position: 0px -128px; }
+.icon.left-arrow {
+  width: 8px;
+  height: 14px;
+  background-position: 0px -159px; }
 
 .full-height {
   height: 100%; }
@@ -1313,6 +1321,19 @@ button[data-value="mormon-trail"] {
   right: 0;
   margin-top: -6.5px; }
 
+.list-group-item .left-arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -6.5px; }
+
+.selected .list-group-item.selected .left-arrow {
+  display: block; }
+
+.selected .list-group-item.selected .right-arrow {
+  display: none; }
+
 .list-group-item-content p {
   margin: 0;
   overflow: hidden;
@@ -1321,6 +1342,12 @@ button[data-value="mormon-trail"] {
 
 .list-group-item-content p:first-child {
   margin-bottom: 4px; }
+
+.selected .list-group-item.selected .list-group-item-content {
+  margin: 0 5px 0 75px; }
+
+.selected .list-group-item.selected .icon-spot {
+  left: 25px; }
 
 .mormon-trail .item-trail, .storyview-item.mormon-trail a {
   color: #3B4887; }

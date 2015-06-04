@@ -23,7 +23,7 @@ var Item = React.createClass({
     return (
       <li className={"list-group-item pointer " + trailClass + selectedClass} onClick={this.toggle}>
         <div className="list-group-disabler"></div>
-
+        <Icon iconName="left-arrow"/>
         <div className="icon-spot"><Icon iconName={"writer " + trailClass + " " + this.props.item.gender}/></div>
         <div className="list-group-item-content">
           <p><span className="item-name">{this.props.item.name}</span> - <span className="item-trail">{this.props.item.trail}</span></p>
