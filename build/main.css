@@ -1328,7 +1328,7 @@ button[data-value="mormon-trail"] {
 .oregon-trail .item-trail, .storyview-item.oregon-trail a {
   color: #6F6D29; }
 
-.california-trail .item-trail, .storyview-item.mormon-trail a {
+.california-trail .item-trail, .storyview-item.california-trail a {
   color: #EBA50E; }
 
 .storyview-entry {
