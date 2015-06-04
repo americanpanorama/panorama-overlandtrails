@@ -160,7 +160,7 @@ var App = React.createClass({
     // All these numbers are in "sass/core/_variables.scss"
     // So if you change any of those numbers update them here
     var h = {};
-    h.diaries = window.innerHeight - 150 - 10; // WindowHeight - $flow-map-height - $flow-map-margin-top
+    h.diaries = window.innerHeight - 180 - 10; // WindowHeight - $flow-map-height - $flow-map-margin-top
     h.diariesInner = h.diaries - 22; // diaryHeight - $component-header-height
     h.map = h.diaries - 70; // diaryHeight - $header-height
 
