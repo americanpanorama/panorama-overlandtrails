@@ -3,6 +3,7 @@ var React   = require("react");
 var d3      = require("d3");
 var topojson = require("topojson");
 var LeafletMap = require("./LeafletMap.jsx");
+var Loader = require("./Loader.jsx");
 var TileLayer = LeafletMap.TileLayer;
 var GeoJSONLayer = LeafletMap.GeoJSONLayer;
 var CartoTileLayer = require("./LeafletCartoDBTileLayer.jsx");
@@ -121,28 +122,6 @@ var FlowMap = React.createClass({
     this.setWidth(container.offsetWidth);
     this.setHeight(container.offsetHeight);
     this.setThicknessScale();
-
-    /*
-    this.setWidth(container.offsetWidth);
-    this.setHeight(container.offsetHeight);
-    this.setGeo();
-    this.setThicknessScale();
-
-    this.svgElm = d3.select('#flow-map').append("svg")
-      .attr("width", this.width + this.margin.left + this.margin.right)
-      .attr("height", this.height  + this.margin.top + this.margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
-
-    var background = this.svgElm.append("g");
-
-    d3.json("static/world-50m.json", function(error, world) {
-      background.insert("path", ".graticule")
-          .datum(topojson.feature(world, world.objects.land))
-          .attr("class", "land")
-          .attr("d", that.geo.path);
-    });
-    */
   },
 
   componentWillUnmount: function() {
@@ -157,14 +136,13 @@ var FlowMap = React.createClass({
   },
 
   componentDidUpdate: function() {
-
     var data = this.props.flowdata;
 
     if (!this.hasData && data.rows && data.rows.length) {
       this.visualize(data.rows);
       this.hasData = true;
+      this.setState({loaded:true});
     }
-
   },
 
   updateYear: function(year) {
@@ -237,6 +215,9 @@ var FlowMap = React.createClass({
     trailLabels[feature.properties.name] = m;
     return m;
   },
+  loaded: function() {
+    return this.year;
+  },
 
   render: function() {
     var loc = [-2.28455066, -1.450195];
@@ -257,6 +238,8 @@ var FlowMap = React.createClass({
     };
 
     return (
+      <div className="flow-map-component">
+        <Loader loaded={this.loaded}/>
         <LeafletMap ref="flowmap" location={loc} zoom={zoom} mapEvents={evts} mapOptions={mapOptions}>
           <CartoTileLayer
             src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png"
@@ -265,8 +248,8 @@ var FlowMap = React.createClass({
             cartocss="#unified_basemap_layers[layer='ne_10m_coastline_2163']{  line-color: #aacccc;  line-width: 0.75;  line-opacity: 1;  line-join: round;  line-cap: round;}#unified_basemap_layers[layer='ne_10m_lakes_2163'] {  line-color: #aacccc;  line-width: 2.5;  line-opacity: 1;  line-join: round;  line-cap: round;  /* Soften lines at lower zooms */  [zoom<=7] {    line-width: 2.5;    line-color: lighten(desaturate(#aacccc,2%),2%);  }  [zoom<=5] {    line-width: 1.5;    line-color: lighten(desaturate(#aacccc,5%),5%);  }  /* Separate attachment because seams */  ::fill {    polygon-fill: #ddeeee;    polygon-opacity: 1;  }  /* Remove small lakes at lower zooms */  [scalerank>3][zoom<=5] {    ::fill {      polygon-opacity: 0;    }    line-opacity: 0;  }  [scalerank>6][zoom<=7] {    ::fill {      polygon-opacity: 0;    }    line-opacity: 0;  }}#unified_basemap_layers[layer='ne_10m_rivers_lake_centerlines_2163'] {  line-color: #aacccc;  line-width: 1.5;  line-opacity: 1;  line-join: round;  line-cap: round;  [name='Mississippi'],  [name='St. Lawrence'],  [name='Rio Grande'] {    line-width: 4;  }  [zoom<=8][name='Mississippi'],  [zoom<=8][name='St. Lawrence'],  [zoom<=8][name='Rio Grande'] {    line-width: 2;  }  [zoom<=8][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'],  [zoom<=6][name='Mississippi'],  [zoom<=6][name='Rio Grande'] {    line-width: 1;    line-color: lighten(desaturate(#aacccc,2%),2%);  }  [zoom<=6][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'] {    line-width: 0.5;    line-color: lighten(desaturate(#aacccc,5%),5%);  }  [zoom<=5][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande']{    line-width: 0;  }  [zoom<=5][name='Mississippi'],  [zoom<=5][name='St. Lawrence'],  [zoom<=5][name='Rio Grande'] {    line-width: 0.5;    line-color: lighten(desaturate(#aacccc,2%),2%);  }}#unified_basemap_layers[layer='ne_10m_admin_0_countries_lakes_2163'] {  line-color: white;  line-width: 1;  line-opacity: 1;  line-join: round;  line-cap: round;  polygon-fill: white;  polygon-opacity: 1;}"/>
           <TileLayer src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors | Designed by <a href='http://stamen.com?from=richmondatlas'>Stamen Design</a>" />
           <GeoJSONLayer featuregroup={flow_trails} className='flow-trails' pointToLayer={this.pointToLayer} onEachFeature={this.onEachFeature} />
-
         </LeafletMap>
+      </div>
     );
 
   }

@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React   = require("react");
 var Leaflet = require("leaflet");
+var Loader = require("./Loader.jsx");
 
 //
 // Leaflet Base Instance

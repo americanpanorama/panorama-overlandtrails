@@ -841,7 +841,7 @@ header h1 {
 
 #marey-chart-wrapper {
   position: relative;
-  height: 120px;
+  height: 105px;
   margin-top: 10px; }
 
 #flow-map-wrapper {
@@ -1213,13 +1213,17 @@ button[data-value="mormon-trail"] {
   position: relative;
   height: 100%; }
 
+.flow-map-component {
+  position: relative;
+  height: 100%; }
+
 .flow-map path.flow {
   stroke: #777;
   stroke-opacity: 1;
   stroke-linecap: round;
   stroke-linejoin: round;
   fill: none;
-  fillOpacity: 0;
+  fill-opacity: 0;
   opacity: 0.9; }
 
 .flow-map path.flow.no-weight {
@@ -1434,7 +1438,7 @@ button[data-value="mormon-trail"] {
   padding: 5px 10px;
   background: #dcd3c6;
   border: 1px solid #ddd;
-  min-height: 60px; }
+  min-height: 76px; }
 
 .what-happened .columns {
   display: table-cell;
@@ -1467,8 +1471,51 @@ button[data-value="mormon-trail"] {
   width: 70%;
   font-size: 13px;
   font-weight: 400;
-  color: #3e3531; }
+  color: #3e3531;
+  vertical-align: middle; }
 
 .what-happened-content > div {
   margin: 0 30px;
   line-height: 1.3; }
+
+.loading-component {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+  z-index: 999999;
+  overflow: hidden;
+  text-align: center; }
+
+.mounted.loading-component {
+  display: none; }
+
+.loading-component-inner {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 100%;
+  transform: translateY(-50%);
+  -webkit-animation-duration: 3s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: wave;
+  -webkit-animation-timing-function: linear; }
+
+.loading-component--s {
+  position: relative;
+  width: 90%;
+  height: 5px;
+  left: 5%;
+  top: 5px;
+  background: #fff;
+  margin-top: 5px; }
+
+@-webkit-keyframes wave {
+  0% {
+    opacity: 0.5; }
+
+  100% {
+    opacity: 1.0; } }

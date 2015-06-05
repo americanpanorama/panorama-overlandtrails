@@ -3,6 +3,7 @@
 /** @jsx React.DOM */
 var React   = require("react");
 var d3      = require("d3");
+var Loader  = require("./Loader.jsx");
 
 var lastWindowWidth;
 var fullYearFormatter = d3.time.format('%Y');
@@ -159,11 +160,17 @@ var MareyChart = React.createClass({
     if (this.hasData) return;
     if (!this.props.chartdata.hasOwnProperty('entries')) return;
     this.hasData = true;
+
     this.visualize(
       this.props.chartdata.entries,
-      this.props.chartdata.source
+      this.props.chartdata.source,
+      this.loaded
     );
 
+  },
+
+  loaded: function(state) {
+    return state;
   },
 
   // TODO: this is all wrong but works for now
@@ -196,7 +203,7 @@ var MareyChart = React.createClass({
     this.handle.attr("transform", "translate(" + this.xscale(this.currentDate) + ",0)");
   },
 
-  visualize: function(data, journals) {
+  visualize: function(data, journals, callback) {
     var that = this;
 
     data = data.filter(function(d) {
@@ -301,7 +308,9 @@ var MareyChart = React.createClass({
       */
 
       this.slider
-        .call(that.brush.event)
+        .call(that.brush.event);
+
+      this.callback(true);
     }
   },
 
@@ -320,6 +329,7 @@ var MareyChart = React.createClass({
   render: function() {
     return (
         <div className="component marey-chart">
+        <Loader loaded={this.loaded}/>
         </div>
     );
 
