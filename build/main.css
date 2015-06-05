@@ -919,7 +919,8 @@ body {
 
 .item-name, .item-trail {
   font-size: 15px;
-  font-weight: 600; }
+  font-weight: 600;
+  font-family: 'Rokkitt', Georgia, Times, 'Times New Roman', serif; }
 
 .item-meta, .text-small {
   font-size: 13px;
