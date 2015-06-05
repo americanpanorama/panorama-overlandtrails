@@ -16,6 +16,7 @@ var Actions = require("./actions/app");
 var DiaryLinesStore = require("./stores/diarylines.js");
 var DiaryEntriesStore = require("./stores/diary_entries.js");
 var EmigrationsStore = require("./stores/emigration.js");
+var MilestonesStore = require("./stores/milestones.js");
 var OverlandTrailsCopy = require("./stores/overland-trails-copy.js");
 var Intro = require("./stores/intro.js");
 
@@ -36,6 +37,7 @@ var FlowMap = require("./components/FlowMapLeaflet.jsx");
 var DiaristList = require("./components/ListView/List.jsx");
 var Icon = require("./components/Icon.jsx");
 var Longitudes = require("./components/LongitudeLines.jsx");
+var Milestones = require("./components/Milestones.jsx");
 
 
 var currentPath = {};
@@ -314,6 +316,7 @@ var App = React.createClass({
                   <TileLayer src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors | Designed by <a href='http://stamen.com?from=richmondatlas'>Stamen Design</a>" />
                   <GeoJSONLayer featuregroup={DiaryLinesStore.getData()} className='diary-lines' filter={DiaryLinesStore.onFilter} onEachFeature={DiaryLinesStore.onEachFeature} />
                   <MarkerLayer map={null} markers={DiaryEntriesStore.getEntriesByDate(that.state.currentDate)} filter={this.filterMarkers} onMarkerClick={this.onMarkerClick}/>
+                  <Milestones features={MilestonesStore.getData()}/>
                   <Longitudes/>
                 </LeafletMap>
               </div>

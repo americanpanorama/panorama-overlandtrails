@@ -16,7 +16,7 @@ var LongitudeLines = React.createClass({
     fill: true,
     fillColor: '#000000',
     fillOpacity: 1,
-    className: 'entry'
+    className: 'longitudes'
   },
 
   // Takes [y,x]

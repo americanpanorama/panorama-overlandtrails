@@ -12,7 +12,6 @@ var state = {
 }
 
 function setData(newData) {
-
   data = newData;
   state.loaded = true;
   DiaryLinesStore.emitChange();
@@ -21,7 +20,6 @@ function setData(newData) {
 
 function getInitialData(_state) {
   dslClient.sqlRequest(QUERY, function(err, response) {
-
     if (err) {
 
       return false;
@@ -49,6 +47,7 @@ var DiaryLinesStore = assign({}, EventEmitter.prototype, {
 
   onEachFeature: function(feature, layer) {
     var trail = layer.feature.properties.trail || "unknown";
+
     var klass = "";
     switch(trail) {
       case "California Trail":
@@ -72,7 +71,13 @@ var DiaryLinesStore = assign({}, EventEmitter.prototype, {
     if (DiaryLinesStore.selectedDiarist && DiaryLinesStore.selectedDiarist.length) {
       isSelected = (feature.properties['journal_id'] == DiaryLinesStore.selectedDiarist) ? "" : " fade-me";
     }
-    layer.options.className = "diary-lines " + klass + isSelected;
+
+    layer.eachLayer(function(lyer) {
+      lyer.options.className = "diary-lines " + klass + isSelected;
+    });
+
+
+
   },
 
   getData: function() {

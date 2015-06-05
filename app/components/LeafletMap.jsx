@@ -96,6 +96,7 @@ var GeoJSONLayer = React.createClass({
 
   addFeatures: function() {
     var that = this;
+    if (!this.props.featuregroup) return;
 
     this.props.featuregroup.features.forEach(function(feature) {
       that.layer.addData(feature);
