@@ -99,7 +99,7 @@ var FlowMap = React.createClass({
   },
 
   setThicknessScale: function() {
-    this.thicknessScale = d3.scale.linear().range([0,20]);
+    this.thicknessScale = d3.scale.linear().range([0.5,20]);
   },
 
   setWidth: function (x) {
@@ -174,12 +174,16 @@ var FlowMap = React.createClass({
       var k = (layer === 'mormon') ? 'utah' : layer;
       var val = this.years[year][k];
 
+      var weight = this.thicknessScale(val);
+      var elm = d3.select('.flow.' + trailLayers[layer].feature.properties.name );
+
+      elm.classed('no-weight', (weight < 0.6));
+
       trailLayers[layer].setStyle({
-        weight: this.thicknessScale(val)
+        weight: this.thicknessScale(val),
       });
 
       trailLabels[layer].updateLabelContent(d3.format(",")(val))
-
     }
   },
 

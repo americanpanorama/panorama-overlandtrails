@@ -1217,8 +1217,13 @@ button[data-value="mormon-trail"] {
   stroke: #777;
   stroke-opacity: 1;
   stroke-linecap: round;
+  stroke-linejoin: round;
   fill: none;
+  fillOpacity: 0;
   opacity: 0.9; }
+
+.flow-map path.flow.no-weight {
+  stroke: #666 !important; }
 
 .flow-map .flow-label {
   font-size: 12px; }
