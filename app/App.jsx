@@ -35,6 +35,7 @@ var MareyChart = require("./components/MareyChart.jsx");
 var FlowMap = require("./components/FlowMapLeaflet.jsx");
 var DiaristList = require("./components/ListView/List.jsx");
 var Icon = require("./components/Icon.jsx");
+var Longitudes = require("./components/LongitudeLines.jsx");
 
 
 var currentPath = {};
@@ -274,7 +275,8 @@ var App = React.createClass({
       scrollWheelZoom: false,
       attributionControl: false,
       minZoom: 4,
-      maxZoom: 10
+      maxZoom: 10,
+      maxBounds: [[-47.0401, -85.3417], [37.3701,89.4726]]
     };
 
     var mapEvents = {
@@ -312,6 +314,7 @@ var App = React.createClass({
                   <TileLayer src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors | Designed by <a href='http://stamen.com?from=richmondatlas'>Stamen Design</a>" />
                   <GeoJSONLayer featuregroup={DiaryLinesStore.getData()} className='diary-lines' filter={DiaryLinesStore.onFilter} onEachFeature={DiaryLinesStore.onEachFeature} />
                   <MarkerLayer map={null} markers={DiaryEntriesStore.getEntriesByDate(that.state.currentDate)} filter={this.filterMarkers} onMarkerClick={this.onMarkerClick}/>
+                  <Longitudes/>
                 </LeafletMap>
               </div>
 

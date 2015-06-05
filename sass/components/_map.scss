@@ -93,3 +93,14 @@
 .diary-lines.fade-me {
   opacity: 0.2 !important;
 }
+
+.longitude-line {
+  stroke: #8b8683;
+  stroke-width: 0.5;
+  stroke-dasharray: 3,3;
+  stroke-opacity: 0.8;
+}
+.longitude-text {
+  font-size: 11px;
+  fill: #8b8683;
+}

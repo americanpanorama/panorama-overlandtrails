@@ -1114,6 +1114,16 @@ button.text-extra-small {
 .diary-lines.fade-me {
   opacity: 0.2 !important; }
 
+.longitude-line {
+  stroke: #8b8683;
+  stroke-width: 0.5;
+  stroke-dasharray: 3,3;
+  stroke-opacity: 0.8; }
+
+.longitude-text {
+  font-size: 11px;
+  fill: #8b8683; }
+
 #map-wrapper .button-group {
   position: absolute;
   top: 0;
@@ -1231,7 +1241,8 @@ button[data-value="mormon-trail"] {
   opacity: 0.9; }
 
 .flow-map path.flow.no-weight {
-  stroke: #666 !important; }
+  stroke: #666 !important;
+  opacity: 0.5; }
 
 .flow-map .flow-label {
   font-size: 12px; }
