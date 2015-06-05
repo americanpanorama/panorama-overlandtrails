@@ -911,7 +911,11 @@ body {
   font-size: 28px;
   position: relative;
   text-align: center;
-  top: -6px; }
+  top: -15px; }
+
+.rockett-bold {
+  font-family: 'Rokkitt', Georgia, Times, 'Times New Roman', serif;
+  font-weight: 700; }
 
 .item-name, .item-trail {
   font-size: 15px;
@@ -1438,10 +1442,10 @@ button[data-value="mormon-trail"] {
   font-weight: bold;
   color: #8A817A;
   vertical-align: middle;
-  text-align: center; }
+  text-align: right; }
 
 .what-happened-label > div {
-  margin-right: 20px; }
+  margin-right: 30px; }
 
 .what-happened-content:after {
   content: ' ';

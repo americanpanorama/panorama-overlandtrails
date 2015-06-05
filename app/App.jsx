@@ -297,7 +297,7 @@ var App = React.createClass({
           <div className='columns eight full-height'>
 
             <header className='row'>
-              <h1 className='u-full-width headline'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
+              <h1 className='u-full-width headline rockett-bold'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
               <button id="about-btn" className="link text-small" data-step="0" onClick={this.toggleAbout}>About This Map</button>
             </header>
 
@@ -333,7 +333,7 @@ var App = React.createClass({
             <div className="row">
               <div className='columns twelve'>
                 <div className="row what-happened">
-                  <div className="columns what-happened-label">
+                  <div className="columns what-happened-label rockett-bold">
                     <div>What was happening in {this.state.year}?</div>
                   </div>
                   <div className="columns what-happened-content">
@@ -348,14 +348,14 @@ var App = React.createClass({
 
             <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.dimensions.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
-                <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
+                <div className="component-header rockett-bold"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
                 <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryScroll={this.onStoryScroll} />
               </div>
             </div>
 
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
-                <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>{"How Many People Traveled in " + this.state.year + "?"}<Icon iconName="info"/></button></div>
+                <div className="component-header overlaid rockett-bold"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>{"How Many People Traveled in " + this.state.year + "?"}<Icon iconName="info"/></button></div>
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>
