@@ -34,6 +34,8 @@ header {
   margin: 0;
   padding: 0;
   height: $header-height;
+  background: transparent url('static/background-wagon.png') 50% 100% no-repeat;
+  background-size: 472px 61px;
   overflow: hidden;
 }
 
@@ -86,6 +88,8 @@ header h1 {
 }
 
 .component-header button {
+  position: relative;
+  top: 1px;
   color: $dark-brown-50alpha;
 }
 

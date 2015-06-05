@@ -168,7 +168,7 @@ var App = React.createClass({
 
     d.heights.diaries = window.innerHeight - 180 - 10 - 24; // WindowHeight - $flow-map-height - $flow-map-margin-top
     d.heights.diariesInner = d.heights.diaries - 22; // diaryHeight - $component-header-height
-    d.heights.map = d.heights.diaries - 70; // diaryHeight - $header-height
+    d.heights.map = d.heights.diaries - 60; // diaryHeight - $header-height
 
     this.setState({ dimensions: d });
   },

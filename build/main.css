@@ -820,12 +820,14 @@ header {
   position: relative;
   margin: 0;
   padding: 0;
-  height: 70px;
+  height: 60px;
+  background: transparent url('static/background-wagon.png') 50% 100% no-repeat;
+  background-size: 472px 61px;
   overflow: hidden; }
 
 header h1 {
   margin: 0;
-  line-height: 70px; }
+  line-height: 60px; }
 
 #map-wrapper {
   position: relative;
@@ -833,11 +835,11 @@ header h1 {
 
 #narrative-wrapper {
   position: relative;
-  height: 520px;
+  height: 510px;
   background: #eee; }
 
 #narrative-wrapper .list-view {
-  height: 498px; }
+  height: 488px; }
 
 #marey-chart-wrapper {
   position: relative;
@@ -866,6 +868,8 @@ header h1 {
   z-index: 2; }
 
 .component-header button {
+  position: relative;
+  top: 1px;
   color: #8A817A; }
 
 .header-wrapper {
@@ -906,12 +910,11 @@ body {
   font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
 
 .headline {
-  font-size: 28px;
-  color: #3e3531;
-  font-size: 28px;
   position: relative;
-  text-align: center;
-  top: -15px; }
+  top: -15px;
+  font-size: 32px;
+  color: #3e3531;
+  text-align: center; }
 
 .rockett-bold {
   font-family: 'Rokkitt', Georgia, Times, 'Times New Roman', serif;
@@ -1281,7 +1284,8 @@ button[data-value="mormon-trail"] {
 
 .list-view-wrapper {
   height: 100%;
-  overflow: scroll; }
+  overflow: scroll;
+  overflow-x: hidden; }
 
 .list-view-wrapper ul {
   list-style: none;
@@ -1291,10 +1295,11 @@ button[data-value="mormon-trail"] {
 .storyview {
   position: absolute;
   display: none;
-  overflow: scroll;
   top: 80px;
   bottom: 0;
-  padding: 0 10px; }
+  padding: 0 10px;
+  overflow: scroll;
+  overflow-x: hidden; }
 
 .list-group-item {
   position: relative;
