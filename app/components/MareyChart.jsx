@@ -4,6 +4,7 @@
 var React   = require("react");
 var d3      = require("d3");
 
+var lastWindowWidth;
 var fullYearFormatter = d3.time.format('%Y');
 var yearFormatter = d3.time.format('%y');
 var MareyChart = React.createClass({
@@ -118,6 +119,7 @@ var MareyChart = React.createClass({
   componentDidMount: function() {
     var container = this.getDOMNode();
     var that = this;
+    lastWindowWidth = window.innerWidth;
     this.setWidth(container.offsetWidth);
     this.setHeight(container.offsetHeight);
     this.setXYScales();
@@ -145,6 +147,10 @@ var MareyChart = React.createClass({
   },
 
   componentDidUpdate: function() {
+    if ((this.props.dimensions.width !== lastWindowWidth) && this.hasData) {
+      lastWindowWidth = this.props.dimensions.width;
+      this.updateWidth();
+    }
     if (this.props.currentDate !== this.currentDate) {
       this.currentDate = this.props.currentDate;
       if (this.brush)this.moveBrush(this.currentDate);
@@ -157,6 +163,37 @@ var MareyChart = React.createClass({
       this.props.chartdata.entries,
       this.props.chartdata.source
     );
+
+  },
+
+  // TODO: this is all wrong but works for now
+  // Should set up a resize listener inside the component
+  updateWidth: function() {
+    var container = this.getDOMNode();
+    this.setWidth(container.offsetWidth);
+    if (this.xscale) this.xscale.range([0, this.width]);
+
+    d3.select(container).select('svg').remove();
+    this.svgElm = d3.select(container).append("svg")
+      .attr("width", this.width + this.margin.left + this.margin.right)
+      .attr("height", this.height  + this.margin.top + this.margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+
+    d3.select('#marey-slider')
+      .style('width', this.width + 'px')
+      .style('height', this.height + 'px')
+      .style('top', this.margin.top + 'px')
+      .style('left', this.margin.left + 'px')
+      .style('display', 'block');
+
+    this.visualize(
+      this.props.chartdata.entries,
+      this.props.chartdata.source
+    );
+
+    this.brush.extent([this.currentDate, this.currentDate]);
+    this.handle.attr("transform", "translate(" + this.xscale(this.currentDate) + ",0)");
   },
 
   visualize: function(data, journals) {

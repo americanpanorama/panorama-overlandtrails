@@ -62,7 +62,10 @@ var App = React.createClass({
       currentDate: new Date(this.hashParams.date),
       trail: this.hashParams.trail,
       diarist: this.hashParams.diarist,
-      heights:{}
+      dimensions:{
+        widths: 0,
+        heights: 0
+      }
     };
 
     initial.year = initial.currentDate.getFullYear();
@@ -71,7 +74,7 @@ var App = React.createClass({
   },
 
   componentWillMount: function() {
-    this.computeHeight();
+    this.computeDimensions();
     if (this.hashParams.diarist) {
       DiaryLinesStore.selectedDiarist = this.hashParams.diarist;
       DiaryEntriesStore.selectedDiarist = this.hashParams.diarist;
@@ -155,20 +158,23 @@ var App = React.createClass({
 
   },
 
-  computeHeight: function() {
+  computeDimensions: function() {
     // Everything is basically pinned from the flow-map
     // All these numbers are in "sass/core/_variables.scss"
     // So if you change any of those numbers update them here
-    var h = {};
-    h.diaries = window.innerHeight - 180 - 10 - 24; // WindowHeight - $flow-map-height - $flow-map-margin-top
-    h.diariesInner = h.diaries - 22; // diaryHeight - $component-header-height
-    h.map = h.diaries - 70; // diaryHeight - $header-height
+    var d = {};
+    d.heights = {};
+    d.width = window.innerWidth;
 
-    this.setState({ heights: h });
+    d.heights.diaries = window.innerHeight - 180 - 10 - 24; // WindowHeight - $flow-map-height - $flow-map-margin-top
+    d.heights.diariesInner = d.heights.diaries - 22; // diaryHeight - $component-header-height
+    d.heights.map = d.heights.diaries - 70; // diaryHeight - $header-height
+
+    this.setState({ dimensions: d });
   },
 
   onResize: function(e) {
-    this.computeHeight();
+    this.computeDimensions();
   },
 
   onChange: function(e) {
@@ -295,7 +301,7 @@ var App = React.createClass({
               <button id="about-btn" className="link text-small" data-step="0" onClick={this.toggleAbout}>About This Map</button>
             </header>
 
-            <div id='map-wrapper' className='row' style={{height: this.state.heights.map + "px"}}>
+            <div id='map-wrapper' className='row' style={{height: this.state.dimensions.heights.map + "px"}}>
               <div className='columns twelve full-height'>
                 <LeafletMap ref="map" location={loc} zoom={zoom} mapEvents={mapEvents} mapOptions={mapOptions}>
                   <CartoTileLayer
@@ -320,7 +326,7 @@ var App = React.createClass({
             <div id="marey-chart-wrapper" className='row'>
               <button id="marey-info-btn" className="link text-small" data-step="2" onClick={this.triggerIntro}><Icon iconName="info"/></button>
               <div className='columns twelve full-height'>
-                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange} currentDate={this.state.currentDate}/>
+                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange} currentDate={this.state.currentDate} dimensions={this.state.dimensions}/>
               </div>
             </div>
 
@@ -340,10 +346,10 @@ var App = React.createClass({
 
           <div className='columns four full-height'>
 
-            <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.heights.diaries + "px"}}>
+            <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.dimensions.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
                 <div className="component-header"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
-                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryScroll={this.onStoryScroll} />
+                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryScroll={this.onStoryScroll} />
               </div>
             </div>
 
