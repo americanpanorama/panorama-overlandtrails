@@ -8,6 +8,8 @@ var _selectedKey, _selectedDate, currentData, currentDate, currentScrollDatestam
 var anchors = [];
 var anchorsDT;
 var cached = {};
+var storyEntryDateFormatter = d3.time.format('%B %e, %Y');
+
 var List = React.createClass({
 
   getInitialState: function () {
@@ -157,7 +159,7 @@ var List = React.createClass({
 
         return (
           <div key={item['cartodb_id']} className={"storyview-item " + trailCSS} data-datestamp={item.datestamp}>
-          <a name={item.datestamp}><span className="circle"></span>{dt}</a>
+          <a name={item.datestamp}><span className="circle"></span>{storyEntryDateFormatter(item.date)}</a>
           <p className="storyview-entry">{item.entry}</p>
           </div>
           );
