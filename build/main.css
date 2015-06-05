@@ -974,10 +974,12 @@ button.link {
   text-transform: none;
   letter-spacing: 0; }
 
-button.link span:first-child {
+button.link span {
   display: inline-block;
-  vertical-align: middle;
-  padding-right: 5px; }
+  vertical-align: middle; }
+
+button.link .icon {
+  margin-left: 5px; }
 
 button.text-extra-small {
   height: 24px;

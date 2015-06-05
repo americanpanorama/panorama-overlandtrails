@@ -355,7 +355,7 @@ var App = React.createClass({
 
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
-                <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>How Many People Traveled in 1847?<Icon iconName="info"/></button></div>
+                <div className="component-header overlaid"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>{"How Many People Traveled in " + this.state.year + "?"}<Icon iconName="info"/></button></div>
                 <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
               </div>
             </div>

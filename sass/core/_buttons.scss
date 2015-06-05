@@ -80,10 +80,13 @@ button.link {
 button.link span {
 
 }
-button.link span:first-child {
+button.link span {
   display: inline-block;
   vertical-align: middle;
-  padding-right: 5px;
+}
+
+button.link .icon {
+  margin-left: 5px;
 }
 
 button.text-extra-small {
