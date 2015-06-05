@@ -1166,6 +1166,10 @@ button[data-value="mormon-trail"] {
 .marey-chart rect {
   fill: #fbfaf9; }
 
+.marey-chart rect.handle-bounds {
+  fill: #000;
+  opacity: 0.1; }
+
 .marey-chart path.journey {
   fill: none;
   stroke-opacity: 0.8;

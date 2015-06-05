@@ -37,7 +37,7 @@ var MareyChart = React.createClass({
 
   getWidthOfAYear: function() {
     var x0 = this.xscale(new Date("Jan 1, 1840")),
-        x1 = this.xscale(new Date("Dec 31, 1841"));
+        x1 = this.xscale(new Date("Dec 31, 1840"));
 
     return x1-x0;
   },
@@ -259,6 +259,18 @@ var MareyChart = React.createClass({
       this.handle = this.slider.append("g")
         .attr("class", "handle");
 
+      var yearWidthHalf = this.getWidthOfAYear()/2;
+
+      /*
+      this.handle.append("rect")
+        .attr('class', 'handle-bounds')
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", yearWidthHalf * 2)
+        .attr("height", this.height)
+        .attr("transform", "translate(-" + yearWidthHalf + ",0)");
+      */
+
       this.handle.append("path")
         .attr("transform", "translate(0," + this.height / 2 + ")")
         .attr("d", "M 0 -" +(this.height / 2)+ " V " + (this.height / 2));
@@ -276,8 +288,9 @@ var MareyChart = React.createClass({
         .attr("points", "17,0 8.5,12 0,0")
         .attr("transform", "translate(-8.5, 0)");
 
-      var yearWidthHalf = this.getWidthOfAYear()/2;
 
+
+      /*
       this.handle.append("polyline")
         .style("stroke", "#686562")
         .style("fill", "none")
@@ -285,6 +298,7 @@ var MareyChart = React.createClass({
         .style("stroke-miterlimit", 10)
         .attr("points", "1,0 1,4.4 " + yearWidthHalf + ",4.4 " + yearWidthHalf + ",0")
         .attr("transform", "translate(-" + yearWidthHalf/2 + "," + this.height + ")");
+      */
 
       this.slider
         .call(that.brush.event)
