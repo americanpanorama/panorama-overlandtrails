@@ -146,7 +146,7 @@ var List = React.createClass({
     storiesDirty = true;
 
     var trailCSS = selectedStories[0].trail.toLowerCase().replace(' ', '-');
-    return selectedStories[0].values
+    var entries =  selectedStories[0].values
       .filter(function(d){
         return d.entry.length > 1;
       })
@@ -163,7 +163,11 @@ var List = React.createClass({
           <p className="storyview-entry">{item.entry}</p>
           </div>
           );
-    });
+      });
+
+    entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry"><a href={selectedStories[0].citation.url} target="_blank">{selectedStories[0].citation.text}</a></div>));
+
+    return entries;
   },
 
   render: function() {
