@@ -609,7 +609,7 @@
         "longitude": -110.3919,
         "maptype": "label",
         "startzoom": 5,
-        "justify": "left",
+        "justify": "right",
         "endzoom": 10
       },
       "geometry": {

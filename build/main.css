@@ -1536,3 +1536,20 @@ button[data-value="mormon-trail"] {
 
   100% {
     opacity: 1.0; } }
+
+.milestone-label {
+  font-weight: bold; }
+
+.milestone-line {
+  stroke-width: 1;
+  stroke: black !important;
+  fill: none !important; }
+
+.fort {
+  fill: brown; }
+
+.place {
+  fill: black; }
+
+.natural {
+  fill: green; }

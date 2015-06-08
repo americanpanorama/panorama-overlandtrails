@@ -310,7 +310,7 @@ var MareyChart = React.createClass({
       this.slider
         .call(that.brush.event);
 
-      this.callback(true);
+      if (typeof this.callback === 'function') this.callback(true);
     }
   },
 

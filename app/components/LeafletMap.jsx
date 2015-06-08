@@ -18,6 +18,8 @@ var LeafletMap = React.createClass({
     var map = L.map(this.getDOMNode().querySelector(".leaflet-container"), this.props.mapOptions || {})
       .setView(this.props.location, this.props.zoom);
 
+    map._initPathRoot();
+
     this.setState({'zoom': 10});
     this.map = map;
 
@@ -96,11 +98,15 @@ var GeoJSONLayer = React.createClass({
 
   addFeatures: function() {
     var that = this;
-    if (!this.props.featuregroup) return;
+    if (!this.props.featuregroup || !this.props.featuregroup.features) return;
 
+    var ct = 0;
     this.props.featuregroup.features.forEach(function(feature) {
       that.layer.addData(feature);
+      ct += 1;
     });
+
+    if (ct > 0) this.loaded = true;
 
     if (this.props.onClick) {
       this.layer.eachLayer(function(layer) {
@@ -132,6 +138,7 @@ var GeoJSONLayer = React.createClass({
   componentDidUpdate: function() {
 
     var that = this;
+    if (!this.props.featuresChange && this.loaded) return;
 
     this.layer.eachLayer(function(layer) {
       that.layer.removeLayer(layer);
