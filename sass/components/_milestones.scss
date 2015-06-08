@@ -1,3 +1,11 @@
+.milestones-layer {
+  z-index: 1000;
+}
+
+.milestones-layer svg {
+  overflow: visible;
+}
+
 .milestone-label {
   font-weight: bold;
 }

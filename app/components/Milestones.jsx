@@ -2,7 +2,6 @@ var React   = require("react");
 var Leaflet = require("leaflet");
 
 var Milestones = React.createClass({
-  isManager: true,
   pathOptions: {
     radius: 12,
     stroke: true,
@@ -21,12 +20,55 @@ var Milestones = React.createClass({
   },
 
   setMap: function(map) {
+    /*
     this.map = map;
     this.map.on('viewreset', this.position);
     this.map.on('zoomend', this.position);
     if (this.dirty) {
       this.draw(this.props.features);
     }
+    */
+  },
+
+  addTo: function(map) {
+    this.onAdd(map);
+  },
+
+  onAdd: function (map) {
+
+    this.map = map;
+
+    this._el = L.DomUtil.create('div', 'milestones-layer leaflet-zoom-hide');
+    this.map.getPanes().overlayPane.appendChild(this._el);
+
+    this.map.on('viewreset', this._reset, this);
+    if (this.dirty) {
+      this.draw(this.props.features);
+    }
+  },
+  onRemove: function (map) {
+    this.componentWillUnmount();
+  },
+  setZIndex: function(num) {
+    if (this._el) {}
+  },
+
+  _reset: function() {
+    var bounds = this.map.getBounds(),
+        topLeft = this.map.latLngToLayerPoint(bounds.getNorthWest()),
+        bottomRight = this.map.latLngToLayerPoint(bounds.getSouthEast());
+
+    if (this.svg) {
+      this.svg
+        .style("width", this.map.getSize().x + 'px')
+        .style("height", this.map.getSize().y + 'px')
+        .style("margin-left", topLeft.x + "px")
+        .style("margin-top", topLeft.y + "px");
+
+      this.container.attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
+    }
+    this.filter();
+    this.position();
   },
 
   componentDidMount: function() {
@@ -35,9 +77,8 @@ var Milestones = React.createClass({
   },
 
   componentWillUnmount: function() {
-    this.map = null;
-    this.map.off('viewreset', this.position);
-    this.map.off('zoomend', this.position);
+    this.map.getPanes().overlayPane.removeChild(this._el);
+    this.map.off('viewreset', this._reset, this);
     this.milestones = [];
     this.line = null;
   },
@@ -114,16 +155,20 @@ var Milestones = React.createClass({
     this.dirty = false;
     var that = this;
 
+    var bounds = this.map.getBounds(),
+        topLeft = this.map.latLngToLayerPoint(bounds.getNorthWest()),
+        bottomRight = this.map.latLngToLayerPoint(bounds.getSouthEast());
+
     if (!this.svg) {
-      this.svg = d3.select(this.map._container).select('svg');
-      if (!this.svg.node()) {
-        this.svg = null;
-        return setTimeout(function() {
-          that.draw(data);
-        },500);
-      }
-      this.container = this.svg.append("g").attr('class', 'milestones-container');
+      this.svg = d3.select(this._el).append("svg")
+            .style("width", this.map.getSize().x + 'px')
+            .style("height", this.map.getSize().y + 'px')
+            .style("margin-left", topLeft.x + "px")
+            .style("margin-top", topLeft.y + "px");
+      this.container = this.svg.append("g").attr('class', 'milestones-container')
+        .attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
     }
+
 
     if (this.milestones.length) return position();
 

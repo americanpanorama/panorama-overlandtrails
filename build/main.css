@@ -1537,6 +1537,12 @@ button[data-value="mormon-trail"] {
   100% {
     opacity: 1.0; } }
 
+.milestones-layer {
+  z-index: 1000; }
+
+.milestones-layer svg {
+  overflow: visible; }
+
 .milestone-label {
   font-weight: bold; }
 
