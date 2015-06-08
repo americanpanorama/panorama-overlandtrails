@@ -1659,3 +1659,15 @@ button[data-value="mormon-trail"] {
   background-color: #f0f0f0;
   background-image: none;
   text-decoration: none; }
+
+.introjs-arrow.bottom {
+  border-top-color: #f0f0f0; }
+
+.introjs-arrow.top {
+  border-bottom-color: #f0f0f0; }
+
+.introjs-arrow.right {
+  border-left-color: #f0f0f0; }
+
+.introjs-arrow.left {
+  border-right-color: #f0f0f0; }

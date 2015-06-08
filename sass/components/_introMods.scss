@@ -105,3 +105,18 @@ $intro-disabled-color: #ddd;
   background-image: none;
   text-decoration: none;
 }
+
+.introjs-arrow.bottom {
+  border-top-color: $intro-background-color;
+}
+.introjs-arrow.top {
+  border-bottom-color: $intro-background-color;
+}
+
+.introjs-arrow.right {
+  border-left-color: $intro-background-color;
+}
+
+.introjs-arrow.left {
+  border-right-color: $intro-background-color;
+}
