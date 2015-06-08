@@ -1132,7 +1132,12 @@ button.text-extra-small {
   text-align: center; }
 
 .button-group button {
-  color: #fff; }
+  color: #fff;
+  opacity: 1;
+  border: 0 !important; }
+
+.button-group button:hover {
+  opacity: 1 !important; }
 
 button[data-value="all"] {
   background: #3E3531;
@@ -1153,6 +1158,15 @@ button[data-value="mormon-trail"] {
   background: #3B4887;
   /* The Fallback */
   background: #3b4887; }
+
+.trail-show-oregon-trail button[data-value="california-trail"], .trail-show-oregon-trail button[data-value="mormon-trail"], .trail-show-oregon-trail button[data-value="all"] {
+  opacity: 0.5; }
+
+.trail-show-california-trail button[data-value="oregon-trail"], .trail-show-california-trail button[data-value="mormon-trail"], .trail-show-california-trail button[data-value="all"] {
+  opacity: 0.5; }
+
+.trail-show-mormon-trail button[data-value="california-trail"], .trail-show-mormon-trail button[data-value="oregon-trail"], .trail-show-mormon-trail button[data-value="all"] {
+  opacity: 0.5; }
 
 #marey-info-btn {
   position: absolute;
