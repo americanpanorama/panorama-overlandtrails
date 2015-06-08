@@ -105,6 +105,54 @@ function setData() {
 }
 
 function groupEntriesByDate() {
+  var nested = d3.nest()
+      .key(function(d){ return d.journal_id; })
+      .key(function(d){return d.datestamp;})
+      .entries(data.entries);
+
+  nested.forEach(function(id){
+    id.values.sort(function(a,b){
+      return d3.ascending(+a.key, +b.key);
+    });
+    id.values.forEach(function(date, i){
+      if (!entriesOnADate.hasOwnProperty(date.key)) entriesOnADate[date.key] = [];
+      date.values.forEach(function(entry){
+        var copy = deepcopy(entry);
+        copy.sortId = 2;
+        entriesOnADate[date.key].push(copy);
+      });
+
+      if (id.values[i+1]) {
+        id.values[i+1].values.forEach(function(d){
+          var m = deepcopy(d);
+          m.markerOptions.className += ' minor';
+          m.markerOptions.radius = 5;
+          m.sortId = 1;
+          entriesOnADate[date.key].push(m);
+        });
+      }
+
+      if (id.values[i-1]) {
+        id.values[i-1].values.forEach(function(d){
+          var m = deepcopy(d);
+          m.markerOptions.className += ' minor';
+          m.markerOptions.radius = 5;
+          m.sortId = 1;
+          entriesOnADate[date.key].push(m);
+        });
+      }
+    });
+
+  });
+
+  for (var date in entriesOnADate) {
+    entriesOnADate[date].sort(function(a,b){
+      return d3.ascending(a.sortId, b.sortId);
+    });
+  }
+  //entriesOnADate[d] = rsp;
+
+  return;
   var entriesByTrail = {};
 
   var nested = d3.nest()
@@ -118,6 +166,12 @@ function groupEntriesByDate() {
       .key(function(d){return d.datestamp;})
       .entries(trail.values);
 
+
+    trailGroup.sort(function(a,b){
+      return d3.ascending(+a.key, +b.key);
+    });
+
+
     trailGroup.sort(function(a,b){
       return d3.ascending(+a.key, +b.key);
     });
@@ -129,7 +183,11 @@ function groupEntriesByDate() {
         prev: (trailGroup[i-1]) ?  trailGroup[i-1].key : null
       }
     });
+
   });
+
+
+
 
   // get all available datestamps
   var dates = {};
@@ -246,7 +304,7 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
     nested.forEach(function(row){
       row.trail = data.source[row.key].trail;
       row.gender = (row.values[0].gender === 'M') ? "male" : "female";
-      row.name = row.values[0].name || '???????????';
+      row.name = row.values[0].name || 'Unknown';
       row.begins = d3.min(row.values, function(d){return d.date});
       row.citation = {
         text: data.source[row.key]['full_citation'],

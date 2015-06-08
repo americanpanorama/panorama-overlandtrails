@@ -165,7 +165,12 @@ var List = React.createClass({
           );
       });
 
-    entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry"><a href={selectedStories[0].citation.url} target="_blank">{selectedStories[0].citation.text}</a></div>));
+    if (selectedStories[0].citation.url) {
+      entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry"><a href={selectedStories[0].citation.url} target="_blank">{selectedStories[0].citation.text}</a></div>));
+    } else {
+      entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry">{selectedStories[0].citation.text}</div>));
+    }
+
 
     return entries;
   },

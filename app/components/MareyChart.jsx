@@ -176,6 +176,7 @@ var MareyChart = React.createClass({
   // TODO: this is all wrong but works for now
   // Should set up a resize listener inside the component
   updateWidth: function() {
+
     var container = this.getDOMNode();
     this.setWidth(container.offsetWidth);
     if (this.xscale) this.xscale.range([0, this.width]);
