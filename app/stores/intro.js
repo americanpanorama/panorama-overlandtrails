@@ -6,7 +6,6 @@ var IntroManager = {
   intro: null,
   opened: false,
   init: function() {
-    if (this.intro) return;
     this.intro = intro(document.querySelector("body"));
 
     this.intro.setOptions({
@@ -27,7 +26,11 @@ var IntroManager = {
           position: "top"
         }
       ],
-      "showStepNumbers": false
+      "showStepNumbers": false,
+      'skipLabel': '×',
+      'nextLabel': '⟩',
+      'prevLabel': '⟨',
+      'doneLabel': '×'
     });
 
     this.intro.refresh();
@@ -42,20 +45,26 @@ var IntroManager = {
     this.intro.onexit(function(){
       that.state = false;
     });
+
   },
 
   open: function(e) {
     if (!this.intro) return;
     this.state = true;
     var step = (e && e.currentTarget) ? parseInt(e.currentTarget.getAttribute("data-step")) : null;
-    console.log("INTRO: OPEN GOTO STEP: ", step);
 
     // Fixes a problem where step indexes are different
     // when initially called
-    if (e && !this.opened) step += 1;
+    //if (e && !this.opened) step += 1;
 
     if (step) {
-      this.intro.refresh().goToStep(step).start();
+      if (!this.opened) {
+        this.intro.goToStep(step).start().nextStep();
+      } else {
+        this.intro.goToStep(step).start();
+      }
+
+
     } else {
       this.intro.start();
     }
