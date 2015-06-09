@@ -1327,6 +1327,9 @@ button[data-value="mormon-trail"] {
   overflow: scroll;
   overflow-x: hidden; }
 
+.list-view.selected .list-view-wrapper {
+  overflow: hidden; }
+
 .list-view-wrapper ul {
   list-style: none;
   margin: 0;
@@ -1455,7 +1458,8 @@ button[data-value="mormon-trail"] {
   font-size: 0;
   border-radius: 8px;
   border: 3px solid white;
-  box-sizing: content-box; }
+  box-sizing: content-box;
+  background-clip: content-box !important; }
 
 .storyview-item.mormon-trail .highlighted .circle {
   background: black;
