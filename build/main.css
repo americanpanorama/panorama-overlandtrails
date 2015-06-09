@@ -808,7 +808,8 @@ body, html {
 
 body {
   margin: 0;
-  background: #EDE8E0; }
+  background: #EDE8E0;
+  min-width: 940px; }
 
 #app-box {
   height: 100%; }

@@ -116,6 +116,14 @@ var GeoJSONLayer = React.createClass({
       });
     }
 
+    if (this.props.fitBounds) {
+      // TODO: Hack to wait for map to be ready
+      setTimeout(function(){
+        if (that.layer._map) that.layer._map.fitBounds(that.layer.getBounds(),{padding:[5,5]})
+      },100);
+
+    }
+
   },
 
   componentDidMount: function() {
