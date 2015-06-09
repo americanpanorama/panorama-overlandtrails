@@ -1433,7 +1433,8 @@ button[data-value="mormon-trail"] {
 
 .storyview-item a {
   font-size: 15px;
-  font-weight: normal; }
+  font-weight: normal;
+  cursor: pointer; }
 
 .storyview-item .circle {
   position: relative;

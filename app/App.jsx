@@ -238,13 +238,23 @@ var App = React.createClass({
   },
 
   onMarkerClick: function(marker) {
-    if (marker['journal_id'] === DiaryEntriesStore.selectedDiarist) return;
-    this.setDiarist(marker['journal_id'], marker.date);
+
+    if (marker['journal_id'] != DiaryEntriesStore.selectedDiarist) {
+      this.setDiarist(marker['journal_id'], marker.date);
+    } else if (this.state.currentDate !== marker.date) {
+      this.setState({year: marker.date.getFullYear(), currentDate: marker.date});
+    }
   },
 
   onStoryScroll: function(item) {
     //console.log(item);
     this.setState({year: item.date.getFullYear(), currentDate: item.date});
+  },
+
+  onStoryItemClick: function(date) {
+    if (this.state.currentDate !== date) {
+      this.setState({year: date.getFullYear(), currentDate: date});
+    }
   },
 
   filterMarkers: function(marker) {
@@ -355,7 +365,7 @@ var App = React.createClass({
             <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.dimensions.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
                 <div className="component-header rockett-bold"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
-                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryScroll={this.onStoryScroll} />
+                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryItemClick={this.onStoryItemClick} onStoryScroll={this.onStoryScroll} />
               </div>
             </div>
 
