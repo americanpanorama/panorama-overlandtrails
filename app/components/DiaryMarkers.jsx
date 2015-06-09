@@ -107,6 +107,10 @@ var DiaryMarkers = React.createClass({
     this.line = null;
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return true;
+  },
+
   componentDidUpdate: function() {
     this.removeMarkers();
     this.addMarkers(this.props.markers);

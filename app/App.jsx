@@ -41,12 +41,6 @@ var Milestones = require("./components/Milestones.jsx");
 var currentPath = {};
 var App = React.createClass({
 
-  //mixins: [RouterMixin],
-
-  routes: {
-    '/': 'home',
-  },
-
   // These will act as defaults
   hashParams: {
     'loc'     : '5/-5.200/0.330',
@@ -66,10 +60,17 @@ var App = React.createClass({
       dimensions:{
         widths: 0,
         heights: 0
-      }
+      },
+      diaryData: [],
+      mareyChartData: [],
+      dairylinesData: [],
+      emigrationData: [],
+      milestoneData: []
     };
 
     initial.year = initial.currentDate.getFullYear();
+
+    this._state = initial;
 
     return initial;
   },
@@ -90,9 +91,9 @@ var App = React.createClass({
     DiaryLinesStore.addChangeListener(this.onChange);
     DiaryEntriesStore.addChangeListener(this.onChange);
     EmigrationsStore.addChangeListener(this.onChange);
+    MilestonesStore.addChangeListener(this.onChange);
 
     Intro.init();
-
     d3.select(window).on('resize', helpers.debounce(this.onResize, 250));
   },
 
@@ -100,27 +101,25 @@ var App = React.createClass({
     DiaryLinesStore.removeChangeListener(this.onChange);
     DiaryEntriesStore.removeChangeListener(this.onChange);
     EmigrationsStore.removeChangeListener(this.onChange);
+    MilestonesStore.removeChangeListener(this.onChange);
 
     Intro.destroy();
+    d3.select(window).off('resize', null);
   },
 
   componentDidUpdate: function() {
-    //console.log("APP DID UPDATE")
+    //...
   },
 
   updateURL: function(params, silent) {
     var out = [];
 
-    //console.log(document.location.hash)
-    //var hash = parseHash(document.location.hash)
-
-    var that = this;
     for (var k in this.hashParams) {
       var v = null;
       if (k in params) {
         v = params[k];
       } else {
-        v = that.hashParams[k];
+        v = this.hashParams[k];
       }
       if (v) {
         this.hashParams[k] = v;
@@ -128,11 +127,8 @@ var App = React.createClass({
       }
     }
 
-    // TODO: how to get current path out of `react-mini-router`
-    var path = '/';
     var hash = "#" + out.join('&');
-
-    document.location.replace(hash);
+    if (document.location.hash !== hash) document.location.replace(hash);
   },
 
   parseHash: function(hash) {
@@ -160,12 +156,7 @@ var App = React.createClass({
     return out;
   },
 
-
-  readURL: function() {
-
-  },
-
-  computeDimensions: function() {
+  computeDimensions: function(silent) {
     // Everything is basically pinned from the flow-map
     // All these numbers are in "sass/core/_variables.scss"
     // So if you change any of those numbers update them here
@@ -177,34 +168,61 @@ var App = React.createClass({
     d.heights.diariesInner = d.heights.diaries - 22; // diaryHeight - $component-header-height
     d.heights.map = d.heights.diaries - 60; // diaryHeight - $header-height
 
-    this.setState({ dimensions: d });
+    if (!silent) this.centralStateSetter({ dimensions: d })
   },
 
   onResize: function(e) {
     this.computeDimensions();
   },
 
+  // Better control of all the state requests
+  // Also easier to debug
+  centralStateSetter: function(obj) {
+    if (obj.caller) {
+        // Handle store data changes
+        // Faster to assign data to state, than putting function into component properties
+        switch(obj.caller) {
+          case "DiaryEntriesStore":
+            this.setState({'mareyChartData': DiaryEntriesStore.getData(), 'diaryData': DiaryEntriesStore.getDiarists()});
+          break;
+          case 'DiaryLinesStore':
+            this.setState({'dairylinesData': DiaryLinesStore.getData()});
+          break;
+          case 'EmigrationStore':
+            this.setState({'emigrationData': EmigrationsStore.getData()});
+          break;
+          case 'MilestonesStore':
+            this.setState({'milestoneData': MilestonesStore.getData()});
+          break;
+        }
+    } else {
+      var out = {};
+      for (var k in obj) {
+        if (this.state[k] !== obj[k] || k === 'dimensions') {
+          out[k] = obj[k];
+        }
+      }
+
+      if(Object.keys(out).length)this.setState(out);
+    }
+  },
+
   onChange: function(e) {
     // Update URL with selected diarist
     if (e.caller && e.caller.state && e.caller.state === 'LIST ITEM SELECTED') {
-      //this.hashParams.diarist = e.caller.value;
-      //this.updateURL({diarist: e.caller.value}, true);
-      //this.setState({diarist: e.caller.value});
     } else {
-      this.setState(e);
+      this.centralStateSetter(e);
     }
-
   },
 
   triggerIntro: function(e){
-    console.log('-----------------');
     if (this.state.showAbout) this.toggleAbout();
     Intro.open(e);
   },
 
   toggleAbout: function() {
     if (Intro.state) Intro.exit();
-    this.setState({"showAbout":!this.state.showAbout});
+    this.centralStateSetter({"showAbout":!this.state.showAbout});
   },
 
   handleMapMove: function(evt) {
@@ -219,56 +237,50 @@ var App = React.createClass({
     if (this.state.trail === val) return;
     this.hashParams.trail = val;
     this.updateURL({trail: val}, true);
-    this.setState({trail: val});
+    this.centralStateSetter({trail: val});
   },
 
   mareySliderChange: function(date) {
-
     this.updateURL({date: hashUtils.formatDate(date)}, true);
-    this.setState({year: date.getFullYear(), currentDate: date});
+    this.centralStateSetter({year: date.getFullYear(), currentDate: date});
   },
 
   onDiaryClick: function(item, selected) {
-    //console.log(item, selected);
     var key = (selected) ? item.key : null;
     this.setDiarist(key, item.begins);
-
   },
 
   setDiarist: function(key, date) {
     DiaryEntriesStore.selectedDiarist = DiaryLinesStore.selectedDiarist = key;
     this.hashParams.diarist = key;
     this.updateURL({diarist: key, date: hashUtils.formatDate(date)}, true);
-    this.setState({diarist: key, year: date.getFullYear(), currentDate: date});
+    this.centralStateSetter({diarist: key, year: date.getFullYear(), currentDate: date});
   },
 
   onMarkerClick: function(marker) {
     if (marker['journal_id'] != DiaryEntriesStore.selectedDiarist) {
       this.setDiarist(marker['journal_id'], marker.date);
     } else if (this.state.currentDate !== marker.date) {
-      this.setState({year: marker.date.getFullYear(), currentDate: marker.date});
+      this.centralStateSetter({year: marker.date.getFullYear(), currentDate: marker.date});
     }
   },
 
   onStoryScroll: function(item) {
-    //console.log(item);
-    this.setState({year: item.date.getFullYear(), currentDate: item.date});
+    if (item && item.hasOwnProperty('date')) this.centralStateSetter({year: item.date.getFullYear(), currentDate: item.date});
   },
 
   onStoryItemClick: function(date) {
     if (this.state.currentDate !== date) {
-      this.setState({year: date.getFullYear(), currentDate: date});
+      this.centralStateSetter({year: date.getFullYear(), currentDate: date});
     }
   },
 
   filterMarkers: function(marker) {
     if (!this.state.diarist) return true;
-    return  (marker['journal_id'] == this.state.diarist);
+    return (marker['journal_id'] == this.state.diarist);
   },
 
   render: function(params) {
-    console.log("HOME");
-    params = params || {};
 
     var mapOptions = {
       scrollWheelZoom: false,
@@ -288,8 +300,6 @@ var App = React.createClass({
     var o = hashUtils.parseCenterAndZoom(this.hashParams.loc);
     loc = o.center;
     zoom = o.zoom;
-
-    var that = this;
 
     return (
 
@@ -311,9 +321,9 @@ var App = React.createClass({
                     sql="SELECT * FROM unified_basemap_layers order by ord"
                     cartocss="Map { buffer-size: 128; } #unified_basemap_layers[layer='ne_10m_coastline_2163']{ line-color: #aacccc; line-width: 0.75; line-opacity: 1; line-join: round; line-cap: round; } #unified_basemap_layers[layer='ne_10m_lakes_2163'] { line-color: #aacccc; line-width: 2.5; line-opacity: 1; line-join: round; line-cap: round; /* Soften lines at lower zooms */ [zoom<=7] { line-width: 2.5; line-color: lighten(desaturate(#aacccc,2%),2%); } [zoom<=5] { line-width: 1.5; line-color: lighten(desaturate(#aacccc,5%),5%); } /* Separate attachment because seams */ ::fill { polygon-fill: #ddeeee; polygon-opacity: 1; } /* Remove small lakes at lower zooms */ [scalerank>3][zoom<=5] { ::fill { polygon-opacity: 0; } line-opacity: 0; } [scalerank>6][zoom<=7] { ::fill { polygon-opacity: 0; } line-opacity: 0; } } #unified_basemap_layers[layer='ne_10m_rivers_lake_centerlines_2163'] { line-color: #aacccc; line-width: 1.5; line-opacity: 1; line-join: round; line-cap: round; [name='Mississippi'], [name='St. Lawrence'], [name='Columbia'], [name='Snake'], [name='Platte'], [name='Missouri'], [name='Rio Grande'] { line-width: 4; } [zoom<=8][name='Mississippi'], [zoom<=8][name='St. Lawrence'], [zoom<=8][name='Columbia'], [zoom<=8][name='Snake'], [zoom<=8][name='Platte'], [zoom<=8][name='Missouri'], [zoom<=8][name='Rio Grande'] { line-width: 2; } [zoom<=8][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'][name!='Snake'][name!='Platte'][name!='Columbia'][name!='Missouri'], [zoom<=6][name='Mississippi'], [zoom<=6][name='Columbia'], [zoom<=6][name='Snake'], [zoom<=6][name='Platte'], [zoom<=6][name='Missouri'], [zoom<=6][name='Rio Grande'] { line-width: 1; line-color: lighten(desaturate(#aacccc,2%),2%); } [zoom<=6][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'][name!='Snake'][name!='Platte'][name!='Columbia'][name!='Missouri'] { line-width: 0.5; line-color: lighten(desaturate(#aacccc,5%),5%); } [zoom<=5][name!='Mississippi'][name!='St. Lawrence'][name!='Rio Grande'][name!='Snake'][name!='Platte'][name!='Columbia'][name!='Missouri'] { line-width: 0; } [zoom<=5][name='Mississippi'], [zoom<=5][name='St. Lawrence'], [zoom<=5][name='Columbia'], [zoom<=5][name='Snake'], [zoom<=5][name='Platte'], [zoom<=5][name='Missouri'], [zoom<=5][name='Rio Grande'] { line-width: 0.5; line-color: lighten(desaturate(#aacccc,2%),2%); } } #unified_basemap_layers[layer='ne_10m_admin_0_countries_lakes_2163'] { line-color: white; line-width: 1; line-opacity: 1; line-join: round; line-cap: round; polygon-fill: white; polygon-opacity: 1; } #unified_basemap_layers[layer='tribal_locations'][zoom>=5] { text-name: [name]; text-face-name: 'Old Standard TT Bold'; text-size: 10; text-character-spacing: 5; text-line-spacing: 5; [zoom<=5] { text-size: 8; text-character-spacing: 2; text-line-spacing: 2; } text-label-position-tolerance: 0; text-fill: rgba(0,0,0,0.5); text-halo-fill: #FFF; text-halo-radius: 0.5; text-dy: 10; text-allow-overlap: true; text-placement: point; text-placement-type: dummy; text-avoid-edges: true; text-wrap-character: ' '; text-wrap-width: 10; [name='GOSHUTE'] { text-dy: 20; } }"/>
                   <TileLayer src="http://ec2-54-152-68-8.compute-1.amazonaws.com/richmond-terrain/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors | Designed by <a href='http://stamen.com?from=richmondatlas'>Stamen Design</a>" />
-                  <GeoJSONLayer featuregroup={DiaryLinesStore.getData()} className='diary-lines' filter={DiaryLinesStore.onFilter} onEachFeature={DiaryLinesStore.onEachFeature} featuresChange={false}/>
-                  <MarkerLayer markers={DiaryEntriesStore.getEntriesByDate(that.state.currentDate)} filter={this.filterMarkers} onMarkerClick={this.onMarkerClick}/>
-                  <Milestones features={MilestonesStore.getData()} currentDate = {that.state.currentDate}/>
+                  <GeoJSONLayer featuregroup={this.state.dairylinesData} className='diary-lines' filter={DiaryLinesStore.onFilter} onEachFeature={DiaryLinesStore.onEachFeature} featuresChange={false}/>
+                  <MarkerLayer markers={DiaryEntriesStore.getEntriesByDate(this.state.currentDate)} filter={this.filterMarkers} onMarkerClick={this.onMarkerClick}/>
+                  <Milestones features={this.state.milestoneData} currentDate={this.state.currentDate}/>
                   <Longitudes/>
                 </LeafletMap>
               </div>
@@ -329,7 +339,7 @@ var App = React.createClass({
             <div id="marey-chart-wrapper" className='row'>
               <button id="marey-info-btn" className="link text-small" data-step="2" onClick={this.triggerIntro}><Icon iconName="info"/></button>
               <div className='columns twelve full-height'>
-                <MareyChart chartdata={DiaryEntriesStore.getData()} onSliderChange={this.mareySliderChange} currentDate={this.state.currentDate} dimensions={this.state.dimensions}/>
+                <MareyChart chartdata={this.state.mareyChartData} onSliderChange={this.mareySliderChange} currentDate={this.state.currentDate} dimensions={this.state.dimensions}/>
               </div>
             </div>
 
@@ -352,14 +362,14 @@ var App = React.createClass({
             <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.dimensions.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
                 <div className="component-header rockett-bold"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
-                <DiaristList items={DiaryEntriesStore.getDiarists()} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryItemClick={this.onStoryItemClick} onStoryScroll={this.onStoryScroll} />
+                <DiaristList items={this.state.diaryData} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryItemClick={this.onStoryItemClick} onStoryScroll={this.onStoryScroll} />
               </div>
             </div>
 
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
                 <div className="component-header overlaid rockett-bold"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>{"How Many People Traveled in " + this.state.year + "?"}<Icon iconName="info"/></button></div>
-                <FlowMap flowdata={EmigrationsStore.getData()} year={this.state.year}/>
+                <FlowMap flowdata={this.state.emigrationData} year={this.state.year}/>
               </div>
             </div>
           </div>

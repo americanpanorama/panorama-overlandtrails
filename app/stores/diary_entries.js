@@ -102,7 +102,7 @@ function setData() {
 
   groupEntriesByDate();
 
-  DiaryEntriesStore.emitChange();
+  DiaryEntriesStore.emitChange('DiaryEntriesStore');
 }
 
 function groupEntriesByDate() {

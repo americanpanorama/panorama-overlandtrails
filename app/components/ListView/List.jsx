@@ -37,6 +37,8 @@ var List = React.createClass({
   componentDidUpdate: function() {
 
     if (storiesDirty && (this.props.selectedKey !== _selectedJournal)) {
+      storiesDirty = false;
+
       if (!this.isEmpty(this.props.selectedKey)) {
         storiesDirty = false;
         currentScrollDatestamp = null;
@@ -46,10 +48,7 @@ var List = React.createClass({
         return;
       }
 
-      console.log("CACHE");
-
       // try to make cache
-      storiesDirty = false;
       anchors = [];
       cached.anchors = {};
       d3.select(cached.storyContainer).selectAll('.storyview-item').each(function(item){
@@ -159,6 +158,7 @@ var List = React.createClass({
 
   // renders the list of Diarist's
   renderItems: function() {
+    if (!this.props.items) return;
     var that = this;
     return this.props.items.map(function(item) {
         var selected = (item.key == that.props.selectedKey) ? true : false;

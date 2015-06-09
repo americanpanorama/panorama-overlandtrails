@@ -14,15 +14,15 @@ var state = {
 
 
 function setData(newData) {
+  if (state.loaded) return;
   data = newData;
   state.loaded = true;
-  MilestonesStore.emitChange();
+  MilestonesStore.emitChange('MilestonesStore');
 
 }
 
 function getInitialData(_state) {
   d3.json('static/milestones.json', function(err,data){
-    //console.log(err, data);
     setData(data);
   });
 }
@@ -32,9 +32,11 @@ var MilestonesStore = assign({}, EventEmitter.prototype, {
   onEachFeature: function() {
 
   },
+
   onFilter: function() {
     return true;
   },
+
   getData: function() {
     if(!state.loaded) return false;
     return data;

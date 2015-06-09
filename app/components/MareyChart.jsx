@@ -8,6 +8,7 @@ var Loader  = require("./Loader.jsx");
 var lastWindowWidth;
 var fullYearFormatter = d3.time.format('%Y');
 var yearFormatter = d3.time.format('%y');
+
 var MareyChart = React.createClass({
   svgElm: null,
   margin: {top: 18, right: 1, bottom: 10, left: 40},
@@ -24,6 +25,10 @@ var MareyChart = React.createClass({
   handle: null,
   hasSlider: true,
   hasData: false,
+
+  getInitialState: function () {
+    return {};
+  },
 
   setXYScales: function() {
     this.xscale = d3.time.scale()
@@ -112,10 +117,6 @@ var MareyChart = React.createClass({
     if (this.props.onSliderChange) this.props.onSliderChange(value);
   },
 
-  getInitialState: function () {
-    return {};
-  },
-
 
   componentDidMount: function() {
     var container = this.getDOMNode();
@@ -158,6 +159,7 @@ var MareyChart = React.createClass({
     }
 
     if (this.hasData) return;
+    if (!this.props.chartdata) return;
     if (!this.props.chartdata.hasOwnProperty('entries')) return;
     this.hasData = true;
 

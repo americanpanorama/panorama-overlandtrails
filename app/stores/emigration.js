@@ -22,7 +22,7 @@ function setData(newData, ts) {
   data.rows = newData;
   data.lastUpdated = ts;
   state.loaded = true;
-  EmigrationStore.emitChange();
+  EmigrationStore.emitChange('EmigrationStore');
 
 }
 
