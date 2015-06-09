@@ -1074,7 +1074,8 @@ button.text-extra-small {
 .trail-dot {
   stroke: #000000;
   fill: #000000;
-  stroke-width: 4; }
+  stroke-width: 4;
+  cursor: pointer; }
 
 .trail-dot.california-trail {
   stroke: #EBA50E; }

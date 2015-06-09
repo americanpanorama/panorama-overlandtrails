@@ -238,8 +238,8 @@ var App = React.createClass({
   },
 
   onMarkerClick: function(marker) {
-    if (marker.data_['journal_id'] === DiaryEntriesStore.selectedDiarist) return;
-    this.setDiarist(marker.data_['journal_id'], marker.data_.date);
+    if (marker['journal_id'] === DiaryEntriesStore.selectedDiarist) return;
+    this.setDiarist(marker['journal_id'], marker.date);
   },
 
   onStoryScroll: function(item) {

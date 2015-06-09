@@ -29,7 +29,7 @@ var DiaryMarkers = React.createClass({
   },
 
   onAdd: function (map) {
-
+    var that = this;
     this.map = map;
 
     this._el = L.DomUtil.create('div', 'diarymarkers-layer leaflet-zoom-hide');
@@ -39,6 +39,10 @@ var DiaryMarkers = React.createClass({
 
     this.container = this.svg.append("g").attr('class', 'diarymarkers-container');
 
+    if (typeof this.props.onMarkerClick === 'function') {
+      this.svg.on('click', this.onMarkerClick);
+    }
+
     this.map.on('viewreset', this._reset, this);
 
     this.setOverlayPosition();
@@ -47,6 +51,13 @@ var DiaryMarkers = React.createClass({
       this.draw(this.props.features);
     }
   },
+
+  onMarkerClick: function() {
+    if (d3.event.target && d3.event.target._marker) {
+      this.props.onMarkerClick(d3.event.target._marker);
+    }
+  },
+
   onRemove: function (map) {
     this.componentWillUnmount();
   },
@@ -85,7 +96,13 @@ var DiaryMarkers = React.createClass({
 
   componentWillUnmount: function() {
     this.map.getPanes().overlayPane.removeChild(this._el);
+
     this.map.off('viewreset', this._reset, this);
+
+    if (typeof this.props.onMarkerClick === 'function') {
+      this.svg.off('click', this.onMarkerClick);
+    }
+
     this.markers = [];
     this.line = null;
   },
@@ -134,6 +151,7 @@ var DiaryMarkers = React.createClass({
               .attr('cx', pt.x + 'px')
               .attr('cy', pt.y + 'px')
               .attr('r', m.markerOptions.radius || 6);
+        marker.node()._marker = m;
 
         that.markers.push(marker);
       }
