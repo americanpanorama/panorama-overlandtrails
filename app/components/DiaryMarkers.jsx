@@ -119,7 +119,15 @@ var DiaryMarkers = React.createClass({
   positionMarkers: function() {
     if (this.map) {
       var that = this;
-      this.markers.forEach(function(m){
+      this.markers.forEach(function(marker){
+        var m = marker.node()._marker;
+        if (m.coordinates) {
+          var pt = that.map.latLngToLayerPoint(m.coordinates);
+          marker
+            .attr('cx', pt.x + 'px')
+            .attr('cy', pt.y + 'px');
+        }
+
       });
     }
   },
