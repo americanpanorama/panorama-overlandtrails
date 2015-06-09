@@ -1027,7 +1027,7 @@ button.text-extra-small {
 .icon.info {
   width: 16px;
   height: 16px;
-  background-position: 0px -128px; }
+  background-position: 0px -127px; }
 
 .icon.right-arrow {
   width: 8px;
@@ -1066,6 +1066,10 @@ button.text-extra-small {
 
 .diary-lines.mormon-trail {
   stroke: #3B4887; }
+
+.diarymarkers-layer {
+  z-index: 2000;
+  position: relative; }
 
 .trail-dot {
   stroke: #000000;
@@ -1170,7 +1174,7 @@ button[data-value="mormon-trail"] {
 
 #marey-info-btn {
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 0;
   z-index: 10; }
 

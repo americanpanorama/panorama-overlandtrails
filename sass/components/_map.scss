@@ -31,6 +31,11 @@
   stroke: $mormon;
 }
 
+.diarymarkers-layer {
+  z-index: 2000;
+  position: relative;
+}
+
 .trail-dot {
   stroke: #000000;
   fill: #000000;

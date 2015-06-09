@@ -4,6 +4,7 @@ var deepcopy      = require('deepcopy');
 var dslClient     = require("../lib/dslClient");
 var assign        = require("object-assign");
 var CONSTANTS     = require('../Constants.json');
+var helpers = require("../utils/helpers");
 
 
 var CHANGE_EVENT  = "change";
@@ -24,8 +25,8 @@ var QUERY         = [
                             obj.date = new Date(obj['date']);
                             if (isNaN(obj.date.getTime())) return false;
 
-
-                            obj.datestamp = [obj.date.getMonth()+1, obj.date.getDate(), obj.date.getFullYear()].join(''),
+                            obj.ts = +obj.date;
+                            obj.datestamp = helpers.createDateStamp(obj.date);
                             obj.time = +obj.datestamp;
                             obj.mercatorCoords = [obj.lat, obj.long];
                             delete obj.lat;
@@ -107,40 +108,56 @@ function setData() {
 function groupEntriesByDate() {
   var nested = d3.nest()
       .key(function(d){ return d.journal_id; })
-      .key(function(d){return d.datestamp;})
+      .key(function(d){return d.ts;})
       .entries(data.entries);
 
+  var range = 2;
   nested.forEach(function(id){
     id.values.sort(function(a,b){
-      return d3.ascending(+a.key, +b.key);
+      return +a.key - +b.key;
     });
+
+
     id.values.forEach(function(date, i){
-      if (!entriesOnADate.hasOwnProperty(date.key)) entriesOnADate[date.key] = [];
+      if (!date.values.length) return;
+
+      var dateKey = date.values[0].datestamp;
+      if (!entriesOnADate.hasOwnProperty(dateKey)) entriesOnADate[dateKey] = [];
+
       date.values.forEach(function(entry){
         var copy = deepcopy(entry);
         copy.sortId = 2;
-        entriesOnADate[date.key].push(copy);
+        entriesOnADate[dateKey].push(copy);
       });
 
-      if (id.values[i+1]) {
-        id.values[i+1].values.forEach(function(d){
-          var m = deepcopy(d);
-          m.markerOptions.className += ' minor';
-          m.markerOptions.radius = 5;
-          m.sortId = 1;
-          entriesOnADate[date.key].push(m);
-        });
+      var rangeCounter = 1;
+      while(rangeCounter <= range) {
+
+        if (id.values[i+rangeCounter]) {
+          id.values[i+rangeCounter].values.forEach(function(d){
+
+            var m = deepcopy(d);
+            m.markerOptions.className += ' minor';
+            m.markerOptions.radius = 5;
+            m.sortId = 1;
+            entriesOnADate[dateKey].push(m);
+          });
+        }
+
+        if (id.values[i-rangeCounter]) {
+          id.values[i-rangeCounter].values.forEach(function(d){
+
+            var prev = deepcopy(d);
+            prev.markerOptions.className += ' minor';
+            prev.markerOptions.radius = 5;
+            prev.sortId = 1;
+            entriesOnADate[dateKey].push(prev);
+          });
+        }
+
+        rangeCounter += 1;
       }
 
-      if (id.values[i-1]) {
-        id.values[i-1].values.forEach(function(d){
-          var m = deepcopy(d);
-          m.markerOptions.className += ' minor';
-          m.markerOptions.radius = 5;
-          m.sortId = 1;
-          entriesOnADate[date.key].push(m);
-        });
-      }
     });
 
   });
@@ -150,82 +167,7 @@ function groupEntriesByDate() {
       return d3.ascending(a.sortId, b.sortId);
     });
   }
-  //entriesOnADate[d] = rsp;
-
-  return;
-  var entriesByTrail = {};
-
-  var nested = d3.nest()
-      .key(function(d){ return data.source[d.journal_id].trail; })
-      .entries(data.entries);
-
-  nested.forEach(function(trail){
-    entriesByTrail[trail.key] = {};
-
-    var trailGroup = d3.nest()
-      .key(function(d){return d.datestamp;})
-      .entries(trail.values);
-
-
-    trailGroup.sort(function(a,b){
-      return d3.ascending(+a.key, +b.key);
-    });
-
-
-    trailGroup.sort(function(a,b){
-      return d3.ascending(+a.key, +b.key);
-    });
-
-    trailGroup.forEach(function(d,i){
-      entriesByTrail[trail.key][d.key] = {
-        values: d.values,
-        next: (trailGroup[i+1]) ?  trailGroup[i+1].key : null,
-        prev: (trailGroup[i-1]) ?  trailGroup[i-1].key : null
-      }
-    });
-
-  });
-
-
-
-
-  // get all available datestamps
-  var dates = {};
-  data.entries.forEach(function(d){
-    dates[d.datestamp] = 1;
-  });
-
-  for (var d in dates) {
-    var rsp = [];
-    for(var trail in entriesByTrail) {
-      if (entriesByTrail[trail].hasOwnProperty(d)) {
-        deepcopy(entriesByTrail[trail][d].values).forEach(function(m){
-          rsp.push(m)
-        });
-
-        if (entriesByTrail[trail][d].next) {
-          deepcopy(entriesByTrail[trail][entriesByTrail[trail][d].next].values).forEach(function(m){
-            m.markerOptions.className += ' minor';
-            m.markerOptions.radius = 5;
-            rsp.push(m)
-          });
-        }
-
-        if (entriesByTrail[trail][d].prev) {
-          deepcopy(entriesByTrail[trail][entriesByTrail[trail][d].prev].values).forEach(function(m){
-            m.markerOptions.className += ' minor';
-            m.markerOptions.radius = 5;
-            rsp.push(m)
-          });
-        }
-      }
-    }
-
-    entriesOnADate[d] = rsp;
-  }
-
-  entriesByTrail = {};
-  nested = {};
+  //console.log(entriesOnADate);
 }
 
 function queryData() {
@@ -279,7 +221,7 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
   getEntryData: function() {
     if(!state.loaded) return [];
     if (!data || !data.entries) return nullResponse;
-    return data.entries.slice(0);
+    return deepcopy(data.entries);
   },
 
   getEntriesByDate: function(date) {
@@ -287,7 +229,7 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
     if (!date || !data) return [];
 
     // make key
-    var d = [date.getMonth()+1, date.getDate(), date.getFullYear()].join('');
+    var d = helpers.createDateStamp(date);
     return (entriesOnADate.hasOwnProperty(d)) ? entriesOnADate[d] : [];
   },
 

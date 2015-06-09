@@ -11,6 +11,9 @@ module.exports = (function(){
           fn.apply(that, args);
         }, delay);
       };
+    },
+    createDateStamp: function(date) {
+      return [date.getMonth()+1, date.getDate(), date.getFullYear()].join('');
     }
 
   };

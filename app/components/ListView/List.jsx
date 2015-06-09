@@ -2,6 +2,7 @@
 var React   = require("react");
 var Item = require('../ListView/Item.jsx');
 var d3 = require('d3');
+var helpers = require("../../utils/helpers");
 
 
 var _selectedKey, _selectedDate, currentData, currentDate, currentScrollDatestamp, datestampToItem, storiesDirty;
@@ -9,6 +10,9 @@ var anchors = [];
 var anchorsDT;
 var cached = {};
 var storyEntryDateFormatter = d3.time.format('%B %e, %Y');
+
+// helper function to make date stamps
+var createDateStamp = helpers.createDateStamp;
 
 var List = React.createClass({
 
@@ -50,8 +54,8 @@ var List = React.createClass({
       if (anchors.length) {
         anchorsDT = _selectedKey;
         if (currentDate) {
-          var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
-           currentScrollDatestamp = d;
+          var d = createDateStamp(this.props.selectedDate);
+          currentScrollDatestamp = d;
         } else {
           currentScrollDatestamp = anchors[0].datestamp;
         }
@@ -76,7 +80,7 @@ var List = React.createClass({
     if (this.props.selectedDate && _selectedKey && (this.props.selectedDate !== currentDate)) {
       currentDate = this.props.selectedDate;
       // make key
-      var d = [this.props.selectedDate.getMonth()+1, this.props.selectedDate.getDate(), this.props.selectedDate.getFullYear()].join('');
+      var d = createDateStamp(this.props.selectedDate);
       var anchor = document.getElementsByName(d);
 
       if (anchor && anchor.length) {
@@ -127,9 +131,9 @@ var List = React.createClass({
   renderItems: function() {
     var that = this;
     return this.props.items.map(function(item) {
-            var selected = (item.key == that.props.selectedKey) ? true : false;
-            return <Item key={item.key} item={item} selected={selected} onItemClick={that.props.onListItemClick} />;
-        });
+        var selected = (item.key == that.props.selectedKey) ? true : false;
+        return <Item key={item.key} item={item} selected={selected} onItemClick={that.props.onListItemClick} />;
+      });
   },
 
   renderStories: function() {
@@ -154,7 +158,7 @@ var List = React.createClass({
         return d3.ascending(a.date, b.date);
       })
       .map(function(item) {
-        var dt = [item.date.getMonth()+1, item.date.getDate(), item.date.getFullYear()].join('/');
+        var dt = createDateStamp(item.date);
         datestampToItem[item.datestamp] = item;
 
         return (
