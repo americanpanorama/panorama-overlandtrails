@@ -2,8 +2,6 @@
 
 // NPM Modules
 var React = require("react");
-var RouterMixin = require('react-mini-router').RouterMixin;
-var navigate = require('react-mini-router').navigate;
 var Modal = require('react-modal');
 
 // Constants
@@ -43,7 +41,7 @@ var Milestones = require("./components/Milestones.jsx");
 var currentPath = {};
 var App = React.createClass({
 
-  mixins: [RouterMixin],
+  //mixins: [RouterMixin],
 
   routes: {
     '/': 'home',
@@ -132,15 +130,21 @@ var App = React.createClass({
 
     // TODO: how to get current path out of `react-mini-router`
     var path = '/';
-    navigate(path + '?' + out.join('&'), true);
+    var hash = "#" + out.join('&');
+
+    document.location.replace(hash);
   },
 
   parseHash: function(hash) {
     var out = {};
     if (!hash) return out;
 
+    if(hash.indexOf('#') === 0) {
+      hash = hash.substr(1);
+    }
+
     var that = this;
-    var things = hash.slice(4).split('&').map(function(d){return d.split('=');});
+    var things = hash.split('&').map(function(d){return d.split('=');});
 
     things.forEach(function(thing){
       // validate location
@@ -219,6 +223,7 @@ var App = React.createClass({
   },
 
   mareySliderChange: function(date) {
+
     this.updateURL({date: hashUtils.formatDate(date)}, true);
     this.setState({year: date.getFullYear(), currentDate: date});
   },
@@ -238,7 +243,6 @@ var App = React.createClass({
   },
 
   onMarkerClick: function(marker) {
-
     if (marker['journal_id'] != DiaryEntriesStore.selectedDiarist) {
       this.setDiarist(marker['journal_id'], marker.date);
     } else if (this.state.currentDate !== marker.date) {
@@ -262,25 +266,8 @@ var App = React.createClass({
     return  (marker['journal_id'] == this.state.diarist);
   },
 
-  render: function() {
-    return this.renderCurrentRoute();
-  },
-
-  notFound: function(path) {
-    return (
-      <div className='container not-found full-height'>
-        <div className='row full-height'>
-          <div className='columns twelve full-height'>
-            <h1>Hmm, the page you’re looking for can’t be found.</h1>
-            <p>Use this <a href="/">link</a> to get back to the <a href="/">home page</a>.</p>
-            <div className="hands-emoticon">¯\_(ツ)_/¯</div>
-          </div>
-        </div>
-      </div>
-    );
-  },
-
-  home: function(params) {
+  render: function(params) {
+    console.log("HOME");
     params = params || {};
 
     var mapOptions = {

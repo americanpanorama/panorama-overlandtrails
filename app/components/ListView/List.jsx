@@ -26,15 +26,14 @@ var List = React.createClass({
 
   componentWillUnmount: function() {
     cached.storyContainer.removeEventListener('scroll', this.handleScroll, false);
+    storiesDirty = false;
+    currentScrollDatestamp = null;
+    currentDate = null;
+    cached.anchors = {};
+    datestampToItem = {};
   },
 
-  componentWillReceiveProps: function(nextProps) {
-
-  },
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return true;
-  },
-
+  // logic for how component responds to updates
   componentDidUpdate: function() {
 
     if (storiesDirty && (this.props.selectedKey !== _selectedJournal)) {
@@ -75,7 +74,6 @@ var List = React.createClass({
         }
 
         this.setStoryPosition(currentScrollDatestamp);
-        this.highlightAnchors();
 
       } else {
         currentScrollDatestamp = null;
@@ -91,16 +89,18 @@ var List = React.createClass({
         this.setStoryPosition(d);
       }
 
-      this.highlightAnchors(d);
     }
   },
 
+  // utility to check for empty values
   isEmpty: function(val) {
     if (typeof val === 'undefined' || val === null) return false;
     if (!val.length) return false;
     return true;
   },
 
+  // sets scroll position to a datestamp when
+  // a Diarist is selected
   setStoryPosition: function(datestamp) {
     if (datestamp in cached.anchors) {
       var top = cached.anchors[datestamp].node().offsetTop;
@@ -108,22 +108,7 @@ var List = React.createClass({
     }
   },
 
-  hightlightStoryItem: function() {
-    if (this.props.selectedDate && _selectedJournal && (this.props.selectedDate !== currentDate)) {
-      // make key
-      var d = createDateStamp(this.props.selectedDate);
-      var anchor = document.getElementsByName(d);
-
-      if (anchor && anchor.length) {
-        currentDate = this.props.selectedDate;
-        d3.selectAll('.storyview-item').classed('highlighted', false);
-        d3.select(anchor[0]).classed('highlighted', true);
-        var top = anchor[0].offsetTop;
-        if (top) cached.storyContainer.scrollTop = top;
-      }
-    }
-  },
-
+  // handles storyview scroll
   handleScroll: function() {
     //console.log(cached.storyContainer.scrollTop);
     var top = cached.storyContainer.scrollTop;
@@ -131,7 +116,6 @@ var List = React.createClass({
     if (anchors) {
       if (top === 0) {
         currentScrollDatestamp = anchors[0].datestamp;
-        this.highlightAnchors();
       } else {
         anchors.forEach(function(item, i){
           if (item.top > top && (item.top - top < 20) ){
@@ -143,14 +127,14 @@ var List = React.createClass({
       }
 
       if ((prev !== currentScrollDatestamp)){
-        //this.highlightAnchors();
         if (this.props.onStoryScroll) this.props.onStoryScroll(datestampToItem[currentScrollDatestamp]);
       }
     }
   },
 
+  // would only need to use this, if the storyview entries
+  // aren't be rendered on update
   highlightAnchors: function(datestamp) {
-    return;
     if (!cached.anchors) return;
     datestamp = datestamp || currentScrollDatestamp;
 
@@ -163,6 +147,7 @@ var List = React.createClass({
     }
   },
 
+  // handles a click from a story entry anchor
   storyClicked: function(evt){
     if (typeof this.props.onStoryItemClick === 'function') {
       if (evt.currentTarget.getAttribute('data-date')) {
@@ -172,6 +157,7 @@ var List = React.createClass({
     }
   },
 
+  // renders the list of Diarist's
   renderItems: function() {
     var that = this;
     return this.props.items.map(function(item) {
@@ -180,6 +166,7 @@ var List = React.createClass({
       });
   },
 
+  // renders a list of entries when a Diarist is selected
   renderStories: function() {
     if (!this.props.selectedKey) return "";
     var that = this;
@@ -233,6 +220,7 @@ var List = React.createClass({
     return entries;
   },
 
+  // component render
   render: function() {
     var hgt = (this.props.height) ?  this.props.height + 'px' : '100%';
     var baseClass = 'component list-view';

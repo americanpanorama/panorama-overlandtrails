@@ -977,10 +977,15 @@ button.link {
   line-height: 1;
   margin: 0;
   padding: 0;
-  height: auto;
+  height: 16px;
   border: 0;
   text-transform: none;
-  letter-spacing: 0; }
+  letter-spacing: 0;
+  overflow: hidden; }
+
+button.link span:first-child {
+  height: 16px;
+  line-height: 17px; }
 
 button.link span {
   display: inline-block;
@@ -988,6 +993,10 @@ button.link span {
 
 button.link .icon {
   margin-left: 5px; }
+
+button.link .icon:first-child {
+  line-height: 1;
+  margin-left: 0; }
 
 button.text-extra-small {
   height: 24px;
