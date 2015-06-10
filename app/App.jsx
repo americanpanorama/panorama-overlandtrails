@@ -324,7 +324,6 @@ var App = React.createClass({
                   <GeoJSONLayer featuregroup={this.state.dairylinesData} className='diary-lines' filter={DiaryLinesStore.onFilter} onEachFeature={DiaryLinesStore.onEachFeature} featuresChange={false}/>
                   <MarkerLayer markers={DiaryEntriesStore.getEntriesByDate(this.state.currentDate)} filter={this.filterMarkers} onMarkerClick={this.onMarkerClick}/>
                   <Milestones features={this.state.milestoneData} currentDate={this.state.currentDate}/>
-                  <Longitudes/>
                 </LeafletMap>
               </div>
 
