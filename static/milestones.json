@@ -616,7 +616,7 @@
         "type": "MultiPoint",
         "coordinates": [
           [
-            -7.5815,
+            -8.00,
             -3.0023
           ]
         ]
@@ -698,7 +698,7 @@
         "coordinates": [
           [
             -9.1302,
-            -3.4018
+            -4.00
           ]
         ]
       }
@@ -744,15 +744,15 @@
         "longitude": -99,
         "maptype": "label",
         "startzoom": 5,
-        "justify": "left",
+        "justify": "right",
         "endzoom": 10
       },
       "geometry": {
         "type": "MultiPoint",
         "coordinates": [
           [
-            0.9173,
-            -4.131
+            0.52,
+            -4.75
           ]
         ]
       }
