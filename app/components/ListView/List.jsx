@@ -10,6 +10,8 @@ var anchors = [];
 var cached = {};
 var storyEntryDateFormatter = d3.time.format('%B %e, %Y');
 
+var HTMLCitations = true;
+
 // helper function to make date stamps
 var createDateStamp = helpers.createDateStamp;
 
@@ -115,7 +117,9 @@ var List = React.createClass({
     if (anchors) {
       if (top === 0) {
         currentScrollDatestamp = anchors[0].datestamp;
-      } else {
+      } else if (cached.storyContainer.scrollHeight - top === cached.storyContainer.clientHeight){
+        currentScrollDatestamp = anchors[anchors.length-1].datestamp;
+      }else {
         anchors.forEach(function(item, i){
           if (item.top > top && (item.top - top < 20) ){
             if(currentScrollDatestamp !== item.datestamp) {
@@ -212,9 +216,17 @@ var List = React.createClass({
     if (!selectedStories[0].citation) return entries;
 
     if (selectedStories[0].citation.url) {
-      entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry"><a href={selectedStories[0].citation.url} target="_blank">{selectedStories[0].citation.text}</a></div>));
+      if (HTMLCitations) {
+        entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry"><a href={selectedStories[0].citation.url} target="_blank" dangerouslySetInnerHTML={{__html: selectedStories[0].citation.text}}/></div>));
+      } else {
+        entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry"><a href={selectedStories[0].citation.url} target="_blank">{selectedStories[0].citation.text}</a></div>));
+      }
     } else {
-      entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry">{selectedStories[0].citation.text}</div>));
+      if (HTMLCitations) {
+        entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry" dangerouslySetInnerHTML={{__html: selectedStories[0].citation.text}}/>));
+      } else {
+        entries.push((<div key={"citation-"+selectedStories[0].key} className="citiation storyview-entry">{selectedStories[0].citation.text}</div>));
+      }
     }
 
     return entries;
