@@ -377,7 +377,36 @@ var App = React.createClass({
 
         <Modal isOpen={this.state.showAbout} onRequestClose={this.toggleAbout} className="overlay">
           <button className="close" onClick={this.toggleAbout}><span>×</span></button>
-          <p>{OverlandTrailsCopy.infoPanel}</p>
+          <p>The Oregon and California Trails stretched nearly 2,000 miles from jumping-off points near the Missouri River to the Willamette Valley in Oregon and the Sacramento Valley in California; the Mormon Trail 1,300 miles from Nauvoo, Illinois, to Salt Lake City. While dozens of alternate cutoffs were developed to shorten journeys, the course of rivers—the Platte, Sweetwater, Snake, and Humboldt—that provided emigrants and their animals with water dictated the majority of the routes.</p>
+
+          <h2>A Note on Sources and Methods</h2>
+
+          <p>The most significant evidence for this map comes from 2000 individual entries from about two dozen Overland Trails diaries that we have plotted in time and space. Most diarist carefully noted the distance they had traveled that day and where they camped. Still, in many cases a location can only be estimated but not precisely identified. Citations for each journal are provided in the narratives column.</p>
+
+          <p>Merrill J. Mattes's Platte River Road Narratives (Urbana: University of Illinois Press, 1988) was indispensible in helping us select diaries to transcribe and georeference. The National Park Services's national historic trails data was enormously helpful in helping us georeference diary entries.</p>
+
+          <p>For the flow map, we use John D. Unruh's estimates of annual emigrants to Oregon, California, and Utah from The Plain's Across: The Overland Emigrants and the Trans-Mississippi West, 1840-60 ([Urbana: University of Illinois Press, 1979], 119-120, tables 1 and 2). While Unruh's estimates are generally accepted as the best that have been offered to day, his caution should be kept in mind: "no one attempting to provide statistics for the overland emigrations can offer more than educated estimates for most years, especially for the later 1850s, when the estimates of necessity become almost pure guesswork" (442).</p>
+
+          <p>The location of Indian tribes is adapted from maps from Francis Paul Prucha, Atlas of American Indian Affairs(Lincoln: University of Nebraska Press, 1990), 5, map 2. State boundaries are from the Newberry Library's <a href="http://publications.newberry.org/ahcbp/">Atlas of Historical County Boundaries</a>.</p>
+
+          <h2>Suggested Reading</h2>
+          <ul>
+              <li>Will Bagley, So Rugged and Mountainous: Blazing the Trails to Oregon and California, 1812–1848 (Norman: University of Oklahoma Press, 2010).</li>
+              <li>Will Bagley, With Golden Visions Bright Before Them: Trails to the Mining West, 1849–1852 (Norman: University of Oklahoma Press, 2012).</li>
+              <li>John Mack Faragher, Women and Men on the Overland Trail, 2nd edition (New Haven: Yale University Press, 2001).</li>
+              <li>Merrill Mattes, Platte River Road Narratives: A Descriptive Bibliography of Travel Over the Great Centeral Overland Route to Oregon, California, Utah, Colorado, Montana, and Other Western States and Territories, 1812-1866 (Urbana: University of Illinois Press, 1988).</li>
+              <li>John D. Unruh, The Plains Across: The Overland Emigrants and the Trans-Mississippi West, 1840-60 (Urbana: University of Illinois Press, 1979).</li>
+              <li>Michael L. Tate, Indians and Emigrants: Encounters on the Overland Trails (University of Oklahoma Press, 2006).</li>
+              <li>John G. Turner, Brigham Young: Pioneer Prophet (Cambridge: Belknap Press, 2012).</li>
+          </ul>
+
+          <h2>Acknowledgments</h2>
+
+          <p>This map is authored by the staff of the Digital Scholarship Lab: Robert K. Nelson, Edward L. Ayers, Justin Madron, and Nathaniel Ayers. Scott Nesbit contributed substantially to the preliminary drafts.</p>
+
+          <p>Katie Burke, Lily Calaycay, Anna Ellison, Erica Havens, Erica Ott, Barbie Savani, Beaumont Smith, and Shayna Webb transcribed and georeferenced journals.</p>
+
+          <p>The developers, designers, and staff at Stamen Design Studio have been exceptional partners on this project. Our thanks to Sean Connelley, Kai Chang, Jon Christensen, Seth Fitzsimmons, Heather Grates, Alan McConchie, Michael Neuman, Dan Rademacher, and Eric Rodenbeck.</p>
         </Modal>
       </div>
     );

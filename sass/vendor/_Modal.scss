@@ -7,10 +7,11 @@ $padding: 20px;
   left: 0;
   bottom: 0;
   right: 0;
+  background-color: black;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: auto;
   color: #272b34;
-  font-size: 1rem;
+  font-size: .9rem;
   z-index: 9999999;
 
   .ReactModal__Overlay.hidden {
@@ -50,6 +51,10 @@ $padding: 20px;
       position: relative;
       line-height: 1;
       font-family: monospace;
+    }
+
+    p {
+      line-height: 1.3;
     }
   }
 }

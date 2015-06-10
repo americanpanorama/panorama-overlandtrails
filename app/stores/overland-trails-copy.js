@@ -5,7 +5,6 @@
 //
 
 var OverlandTrailsCopy = {};
-OverlandTrailsCopy.infoPanel = "The Oregon and California Trails stretched nearly 2,000 miles from jumping-off points near the Missouri River to the Willamette Valley in Oregon and the Sacramento Valley in California; the Mormon Trail 1,300 miles from Nauvoo, Illinois, to Salt Lake City. While dozens of alternate cutoffs were developed to shorten journeys, the course of rivers—the Platte, Sweetwater, Snake, and Humboldt—that provided emigrants and their animals with water dictated the majority of the routes.";
 
 OverlandTrailsCopy.diaristPanel = "Hundred of emigrants kept diaries about their journeys across the plains and mountains. While taken as a whole traveling across the continent was, for most emigrants, an extraordinary, once-in-a-lifetime experience, individual diary entries typically captured mundane if important details: the availability of grass for livestock, the challenges of fording creeks and rivers, the expense of using ferries, the beauty of the sprawling plains or natural wonders like Chimney Rock or Devil's Gate.";
 
