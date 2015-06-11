@@ -74,13 +74,14 @@ var DiaryMarkers = React.createClass({
       d3.select(this._el)
         .style("width", this.map.getSize().x + 'px')
         .style("height", this.map.getSize().y + 'px')
-        .style("margin-left", topLeft.x + "px")
-        .style("margin-top", topLeft.y + "px");
+        .style("margin-left","0px")
+        .style("margin-top", "0px")
+        .attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
 
       this.svg
         .style("width", this.map.getSize().x + 'px')
         .style("height", this.map.getSize().y + 'px')
-        .attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
+
     }
   },
 
@@ -127,7 +128,6 @@ var DiaryMarkers = React.createClass({
             .attr('cx', pt.x + 'px')
             .attr('cy', pt.y + 'px');
         }
-
       });
     }
   },
@@ -163,6 +163,7 @@ var DiaryMarkers = React.createClass({
               .attr('cx', pt.x + 'px')
               .attr('cy', pt.y + 'px')
               .attr('r', m.markerOptions.radius || 6);
+
         marker.node()._marker = m;
 
         that.markers.push(marker);

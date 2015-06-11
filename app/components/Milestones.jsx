@@ -41,32 +41,48 @@ var Milestones = React.createClass({
     this._el = L.DomUtil.create('div', 'milestones-layer leaflet-zoom-hide');
     this.map.getPanes().overlayPane.appendChild(this._el);
 
+    this.svg = d3.select(this._el).append("svg");
+
+    this.container = this.svg.append("g").attr('class', 'milestones-container')
+
+    this.setOverlayPosition();
+
     this.map.on('viewreset', this._reset, this);
     if (this.dirty) {
       this.draw(this.props.features);
     }
   },
+
   onRemove: function (map) {
     this.componentWillUnmount();
   },
+
   setZIndex: function(num) {
     if (this._el) {}
   },
 
-  _reset: function() {
+  setOverlayPosition: function() {
     var bounds = this.map.getBounds(),
         topLeft = this.map.latLngToLayerPoint(bounds.getNorthWest()),
         bottomRight = this.map.latLngToLayerPoint(bounds.getSouthEast());
 
     if (this.svg) {
+      d3.select(this._el)
+        .style("width", this.map.getSize().x + 'px')
+        .style("height", this.map.getSize().y + 'px')
+        .style("margin-left","0px")
+        .style("margin-top", "0px")
+        .attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
+
       this.svg
         .style("width", this.map.getSize().x + 'px')
         .style("height", this.map.getSize().y + 'px')
-        .style("margin-left", topLeft.x + "px")
-        .style("margin-top", topLeft.y + "px");
 
-      this.container.attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
     }
+  },
+
+  _reset: function() {
+    this.setOverlayPosition();
     this.filter();
     this.position();
   },
@@ -99,6 +115,7 @@ var Milestones = React.createClass({
     if (!this.map) return;
     var date = this.props.currentDate || null;
     var zoom = this.map.getZoom();
+    var anyShowing = false;
     this.milestones.forEach(function(m) {
       m.show = 'none';
 
@@ -106,16 +123,21 @@ var Milestones = React.createClass({
         if (zoom >= m.zoomStart && zoom <= m.zoomEnd) {
           if (!m.start) {
             m.show = 'block';
+            anyShowing = true;
           } else if (!m.end && date >= m.start) {
             m.show = 'block';
+            anyShowing = true;
           } else if (date >= m.start && date <= m.end) {
             m.show = 'block';
+            anyShowing = true;
           }
         }
       }
 
       m.elm.style('display', m.show);
     });
+
+    if (anyShowing) this.position();
   },
 
   position: function() {
@@ -154,21 +176,6 @@ var Milestones = React.createClass({
 
     this.dirty = false;
     var that = this;
-
-    var bounds = this.map.getBounds(),
-        topLeft = this.map.latLngToLayerPoint(bounds.getNorthWest()),
-        bottomRight = this.map.latLngToLayerPoint(bounds.getSouthEast());
-
-    if (!this.svg) {
-      this.svg = d3.select(this._el).append("svg")
-            .style("width", this.map.getSize().x + 'px')
-            .style("height", this.map.getSize().y + 'px')
-            .style("margin-left", topLeft.x + "px")
-            .style("margin-top", topLeft.y + "px");
-      this.container = this.svg.append("g").attr('class', 'milestones-container')
-        .attr("transform", "translate(" + (-topLeft.x) + "," + (-topLeft.y) + ")");
-    }
-
 
     if (this.milestones.length) return position();
 
