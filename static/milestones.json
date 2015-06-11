@@ -475,7 +475,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -502,7 +502,7 @@
         "maptype": "label",
         "startzoom": 4,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -529,7 +529,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -556,7 +556,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -583,7 +583,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -610,7 +610,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -637,7 +637,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -664,7 +664,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -691,7 +691,7 @@
         "maptype": "label",
         "startzoom": 4,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -718,7 +718,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -745,7 +745,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -772,7 +772,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -799,7 +799,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -826,7 +826,7 @@
         "maptype": "label",
         "startzoom": 4,
         "justify": "right",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -853,7 +853,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -880,7 +880,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -907,7 +907,7 @@
         "maptype": "label",
         "startzoom": 5,
         "justify": "left",
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "MultiPoint",
@@ -931,7 +931,7 @@
         "type": "natural",
         "maptype": "line",
         "startzoom": 5,
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "LineString",
@@ -959,7 +959,7 @@
         "type": "natural",
         "maptype": "line",
         "startzoom": 5,
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "LineString",
@@ -987,7 +987,7 @@
         "type": "natural",
         "maptype": "line",
         "startzoom": 5,
-        "endzoom": 10
+        "endzoom": 6
       },
       "geometry": {
         "type": "LineString",
@@ -999,6 +999,465 @@
           [
             -1.5,
             -3.12
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 98,
+        "start_year": "1827-03-29T00:00:00Z",
+        "end_year": null,
+        "landmark_i": null,
+        "location": ". Independence, MO",
+        "trail": null,
+        "type": "place",
+        "latitude": 39.079722,
+        "longitude": -94.406667,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            4.3388,
+            -5.7553
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 29,
+        "start_year": "1829-01-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": "38",
+        "location": "Oregon City .",
+        "trail": "Oregon Trail",
+        "type": "place",
+        "latitude": 45.3572,
+        "longitude": -122.6072,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -15.6092,
+            2.5656
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 7,
+        "start_year": "1834-01-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": "16",
+        "location": "Fort Laramie .",
+        "trail": "Oregon Trail",
+        "type": "fort",
+        "latitude": 42.2092,
+        "longitude": -104.5359,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -3.3548,
+            -2.6936
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 44,
+        "start_year": "1834-01-01T00:00:00Z",
+        "end_year": "1856-01-01T00:00:00Z",
+        "landmark_i": "53",
+        "location": ". Fort Hall",
+        "trail": "California Trail",
+        "type": "fort",
+        "latitude": 43.0186,
+        "longitude": -112.4483,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -9.0487,
+            -1.2872
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 100,
+        "start_year": "1840-04-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": null,
+        "location": ". Nauvoo, IL",
+        "trail": null,
+        "type": "place",
+        "latitude": 40.55,
+        "longitude": -91.366667,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            6.5427,
+            -4.098
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 41,
+        "start_year": "1842-01-01T00:00:00Z",
+        "end_year": "1890-01-01T00:00:00Z",
+        "landmark_i": "50",
+        "location": "Fort Bridger .",
+        "trail": "California Trail",
+        "type": "fort",
+        "latitude": 41.3178,
+        "longitude": -110.3919,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -7.7745,
+            -3.1839
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 99,
+        "start_year": "1843-01-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": null,
+        "location": ". St. Joseph, MO",
+        "trail": null,
+        "type": "place",
+        "latitude": 39.758056,
+        "longitude": -94.836667,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            3.9659,
+            -5.1039
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 1,
+        "start_year": "1846-01-01T00:00:00Z",
+        "end_year": "1848-04-30T00:00:00Z",
+        "landmark_i": "10",
+        "location": ". Winter Quarters (Omaha)",
+        "trail": "Oregon Trail",
+        "type": "place",
+        "latitude": 41.3345,
+        "longitude": -95.961,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            3.0294,
+            -3.5841
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 64,
+        "start_year": "1847-01-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": "73",
+        "location": "Salt Lake City .",
+        "trail": "Mormon Trail",
+        "type": "place",
+        "latitude": 40.75,
+        "longitude": -111.8833,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -8.9599,
+            -3.5948
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 51,
+        "start_year": "1848-01-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": "60",
+        "location": "Sacramento .",
+        "trail": "California Trail",
+        "type": "place",
+        "latitude": 38.5556,
+        "longitude": -121.4689,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -16.5664,
+            -4.2719
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 2,
+        "start_year": "1848-01-01T00:00:00Z",
+        "end_year": "1871-05-22T00:00:00Z",
+        "landmark_i": "11",
+        "location": "Fort Kearny .",
+        "trail": "Oregon Trail",
+        "type": "fort",
+        "latitude": 40.65,
+        "longitude": -99,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            0.7584,
+            -4.3354
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 96,
+        "start_year": "1848-05-01T00:00:00Z",
+        "end_year": "1851-12-31T00:00:00Z",
+        "landmark_i": null,
+        "location": ". Kanesville",
+        "trail": null,
+        "type": "place",
+        "latitude": 41.25,
+        "longitude": -95.866667,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            3.1042,
+            -3.6647
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 102,
+        "start_year": "1852-01-01T00:00:00Z",
+        "end_year": null,
+        "landmark_i": null,
+        "location": ". Council Bluffs",
+        "trail": null,
+        "type": "place",
+        "latitude": 41.25,
+        "longitude": -95.866667,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            3.1042,
+            -3.6647
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 101,
+        "start_year": null,
+        "end_year": null,
+        "landmark_i": null,
+        "location": "San Francisco .",
+        "trail": null,
+        "type": "place",
+        "latitude": 37.783333,
+        "longitude": -122.416667,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "right",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -17.4692,
+            -4.8279
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 4,
+        "start_year": null,
+        "end_year": null,
+        "landmark_i": "13",
+        "location": ". Courthouse Rock",
+        "trail": "Oregon Trail",
+        "type": "natural",
+        "latitude": 41.6007,
+        "longitude": -103.117,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -2.3286,
+            -3.349
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 5,
+        "start_year": null,
+        "end_year": null,
+        "landmark_i": "14",
+        "location": ". Chimney Rock",
+        "trail": "Oregon Trail",
+        "type": "natural",
+        "latitude": 42.1591,
+        "longitude": -103.3062,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -2.448,
+            -2.787
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cartodb_id": 8,
+        "start_year": null,
+        "end_year": null,
+        "landmark_i": "17",
+        "location": ". Independence Rock",
+        "trail": "Oregon Trail",
+        "type": "natural",
+        "latitude": 42.4936,
+        "longitude": -107.1294,
+        "maptype": "label",
+        "startzoom": 7,
+        "justify": "left",
+        "endzoom": 10
+      },
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            -5.244,
+            -2.2743
           ]
         ]
       }
