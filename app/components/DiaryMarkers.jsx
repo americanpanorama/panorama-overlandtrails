@@ -15,6 +15,7 @@ var DiaryMarkers = React.createClass({
     className: 'entry'
   },
   map: null,
+  currentZIndex: 1,
 
   getInitialState: function () {
     return {};
@@ -32,7 +33,7 @@ var DiaryMarkers = React.createClass({
     var that = this;
     this.map = map;
 
-    this._el = L.DomUtil.create('div', 'diarymarkers-layer leaflet-zoom-hide');
+    this._el = L.DomUtil.create('div', 'diarymarkers-layer leaflet-zoom-hide leaflet-d3-overlay');
     this.map.getPanes().overlayPane.appendChild(this._el);
 
     this.svg = d3.select(this._el).append("svg");
@@ -45,6 +46,7 @@ var DiaryMarkers = React.createClass({
 
     this.map.on('viewreset', this._reset, this);
 
+    this.setZIndex(currentZIndex);
     this.setOverlayPosition();
 
     if (this.dirty) {
@@ -61,8 +63,14 @@ var DiaryMarkers = React.createClass({
   onRemove: function (map) {
     this.componentWillUnmount();
   },
+
   setZIndex: function(num) {
-    if (this._el) {}
+    if (typeof num === 'undefined' || isNaN(num)) return;
+    currentZIndex = num;
+
+    if (this._el) {
+      this._el.style.zIndex = currentZIndex;
+    }
   },
 
   setOverlayPosition: function() {
@@ -81,7 +89,6 @@ var DiaryMarkers = React.createClass({
       this.svg
         .style("width", this.map.getSize().x + 'px')
         .style("height", this.map.getSize().y + 'px')
-
     }
   },
 

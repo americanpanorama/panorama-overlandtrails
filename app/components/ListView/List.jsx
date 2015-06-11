@@ -5,9 +5,14 @@ var d3      = require('d3');
 var helpers = require("../../utils/helpers");
 
 
-var _selectedJournal, currentDate, currentScrollDatestamp, datestampToItem, storiesDirty;
-var anchors = [];
-var cached = {};
+var _selectedJournal,
+    currentDate,
+    currentScrollDatestamp,
+    datestampToItem,
+    storiesDirty,
+    anchors = [],
+    cached = {};
+
 var storyEntryDateFormatter = d3.time.format('%B %e, %Y');
 
 var HTMLCitations = true;
@@ -18,7 +23,7 @@ var createDateStamp = helpers.createDateStamp;
 var List = React.createClass({
 
   getInitialState: function () {
-    return {items: []};
+    return {};
   },
 
   componentDidMount: function() {

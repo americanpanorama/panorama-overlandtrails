@@ -8,7 +8,6 @@ var dateFormat = d3.time.format("%x");
 var Item = React.createClass({
 
   toggle: function() {
-
     if (this.props.onItemClick) {
       this.props.onItemClick(this.props.item, !this.props.selected);
     }

@@ -1,14 +1,15 @@
-.milestones-layer {
-  z-index: 1000;
-}
-
-.milestones-layer svg {
-  overflow: visible;
-}
+.milestones-layer {}
 
 .milestone-label {
   font-weight: bold;
 }
+
+.milestone-label.with-outlines {
+  stroke: white;
+  paint-order: stroke;
+  stroke-width: 2px;
+}
+
 .milestone-icon {
 
 }

@@ -1060,12 +1060,19 @@ button.text-extra-small {
   height: 100%;
   background-color: #dee; }
 
+.leaflet-d3-overlay {
+  position: absolute;
+  z-index: 1; }
+
+.leaflet-d3-overlay svg {
+  overflow: visible; }
+
 .diary-lines {
   fill: transparent;
   stroke: black;
   stroke-opacity: 1;
   stroke-width: 1px;
-  cursor: pointer; }
+  cursor: default; }
   .diary-lines.selected {
     stroke: rgba(0, 0, 0, 0.7); }
     .diary-lines.selected.hide {
@@ -1079,46 +1086,6 @@ button.text-extra-small {
 
 .diary-lines.mormon-trail {
   stroke: #3B4887; }
-
-.diarymarkers-layer {
-  z-index: 2000;
-  position: relative; }
-
-.trail-dot {
-  stroke: #000000;
-  fill: #000000;
-  stroke-width: 4;
-  cursor: pointer; }
-
-.trail-dot.california-trail {
-  stroke: #EBA50E; }
-
-.trail-dot.mormon-trail {
-  stroke: #3B4887; }
-
-.trail-dot.oregon-trail {
-  stroke: #6F6D29; }
-
-.trail-dot.minor {
-  stroke-width: 0 !important; }
-
-.trail-dot.california-trail.minor {
-  fill: #EBA50E; }
-
-.trail-dot.mormon-trail.minor {
-  fill: #3B4887; }
-
-.trail-dot.oregon-trail.minor {
-  fill: #6F6D29; }
-
-.trail-show-oregon-trail #map-wrapper .trail-dot.california-trail, .trail-show-oregon-trail #map-wrapper .trail-dot.mormon-trail {
-  display: none; }
-
-.trail-show-california-trail #map-wrapper .trail-dot.oregon-trail, .trail-show-california-trail #map-wrapper .trail-dot.mormon-trail {
-  display: none; }
-
-.trail-show-mormon-trail #map-wrapper .trail-dot.california-trail, .trail-show-mormon-trail #map-wrapper .trail-dot.oregon-trail {
-  display: none; }
 
 .trail-show-oregon-trail #map-wrapper .diary-lines.california-trail, .trail-show-oregon-trail #map-wrapper .diary-lines.mormon-trail {
   opacity: 0.2; }
@@ -1185,6 +1152,42 @@ button[data-value="mormon-trail"] {
 
 .trail-show-mormon-trail button[data-value="california-trail"], .trail-show-mormon-trail button[data-value="oregon-trail"], .trail-show-mormon-trail button[data-value="all"] {
   opacity: 0.5; }
+
+.trail-dot {
+  stroke: #000000;
+  fill: #000000;
+  stroke-width: 4;
+  cursor: pointer; }
+
+.trail-dot.california-trail {
+  stroke: #EBA50E; }
+
+.trail-dot.mormon-trail {
+  stroke: #3B4887; }
+
+.trail-dot.oregon-trail {
+  stroke: #6F6D29; }
+
+.trail-dot.minor {
+  stroke-width: 0 !important; }
+
+.trail-dot.california-trail.minor {
+  fill: #EBA50E; }
+
+.trail-dot.mormon-trail.minor {
+  fill: #3B4887; }
+
+.trail-dot.oregon-trail.minor {
+  fill: #6F6D29; }
+
+.trail-show-oregon-trail #map-wrapper .trail-dot.california-trail, .trail-show-oregon-trail #map-wrapper .trail-dot.mormon-trail {
+  display: none; }
+
+.trail-show-california-trail #map-wrapper .trail-dot.oregon-trail, .trail-show-california-trail #map-wrapper .trail-dot.mormon-trail {
+  display: none; }
+
+.trail-show-mormon-trail #map-wrapper .trail-dot.california-trail, .trail-show-mormon-trail #map-wrapper .trail-dot.oregon-trail {
+  display: none; }
 
 #marey-info-btn {
   position: absolute;
@@ -1576,14 +1579,13 @@ button[data-value="mormon-trail"] {
   100% {
     opacity: 1.0; } }
 
-.milestones-layer {
-  z-index: 1000; }
-
-.milestones-layer svg {
-  overflow: visible; }
-
 .milestone-label {
   font-weight: bold; }
+
+.milestone-label.with-outlines {
+  stroke: white;
+  paint-order: stroke;
+  stroke-width: 2px; }
 
 .milestone-line {
   stroke-width: 1;

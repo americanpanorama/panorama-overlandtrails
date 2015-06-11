@@ -20,7 +20,6 @@ var LeafletMap = React.createClass({
 
     map._initPathRoot();
 
-    this.setState({'zoom': 10});
     this.map = map;
 
     React.Children.forEach(this.props.children, function(child, i) {

@@ -13,6 +13,7 @@ var Milestones = React.createClass({
     fillOpacity: 1,
     className: 'entry'
   },
+  currentZIndex: 1,
   map: null,
 
   getInitialState: function () {
@@ -38,13 +39,14 @@ var Milestones = React.createClass({
 
     this.map = map;
 
-    this._el = L.DomUtil.create('div', 'milestones-layer leaflet-zoom-hide');
+    this._el = L.DomUtil.create('div', 'milestones-layer leaflet-zoom-hide leaflet-d3-overlay');
     this.map.getPanes().overlayPane.appendChild(this._el);
 
     this.svg = d3.select(this._el).append("svg");
 
     this.container = this.svg.append("g").attr('class', 'milestones-container')
 
+    this.setZIndex(currentZIndex);
     this.setOverlayPosition();
 
     this.map.on('viewreset', this._reset, this);
@@ -58,7 +60,12 @@ var Milestones = React.createClass({
   },
 
   setZIndex: function(num) {
-    if (this._el) {}
+    if (typeof num === 'undefined' || isNaN(num)) return;
+    currentZIndex = num;
+
+    if (this._el) {
+      this._el.style.zIndex = currentZIndex;
+    }
   },
 
   setOverlayPosition: function() {
@@ -77,7 +84,6 @@ var Milestones = React.createClass({
       this.svg
         .style("width", this.map.getSize().x + 'px')
         .style("height", this.map.getSize().y + 'px')
-
     }
   },
 
@@ -101,7 +107,6 @@ var Milestones = React.createClass({
 
   componentDidUpdate: function() {
     if ((this.props.features && this.props.features.features.length) && !this.loaded) {
-      this.loaded = true;
       this.draw(this.props.features);
     }
 
@@ -168,6 +173,8 @@ var Milestones = React.createClass({
 
   draw: function(data) {
     if (!data) return;
+    if (this.loaded) return;
+    this.loaded = true;
 
     if (!this.map) {
       this.dirty = true;
@@ -179,7 +186,6 @@ var Milestones = React.createClass({
 
     if (this.milestones.length) return position();
 
-
     this.line = d3.svg.line()
     .x(function(d) { return that.map.latLngToLayerPoint(d).x; })
     .y(function(d) { return that.map.latLngToLayerPoint(d).y; })
@@ -187,60 +193,81 @@ var Milestones = React.createClass({
 
     this.milestones = [];
 
-    data.features.forEach(function(f){
-      var props = f.properties,
-          type  = f.geometry.type;
-
-      var coords, m, pt;
-      if (props.maptype === 'icon') {
-        coords = f.geometry.coordinates[0].reverse();
-        pt = that.map.latLngToLayerPoint(coords);
-        m = that.container
-          .append('circle')
-            .attr('class', 'milestone-' + [props.maptype,props.type].join(' '))
-            .attr('cx', pt.x + 'px')
-            .attr('cy', pt.y + 'px')
-            .attr('r', 3);
-
-      } else if (props.maptype === 'label') {
-        coords = f.geometry.coordinates[0].reverse();
-        pt = that.map.latLngToLayerPoint(coords);
-        var ta = (props.justify === 'left') ? 'start' : 'end';
-        m = that.container
-          .append('text')
-            .attr('class', 'milestone-' + [props.maptype, props.type].join(' '))
-            .attr('x', pt.x + 'px')
-            .attr('y', pt.y + 'px')
-            .attr('text-anchor', ta)
-            .text(props.location);
-
-
-      } else if (props.maptype === 'line') {
-        coords = f.geometry.coordinates;
-        coords.forEach(function(c){
-          c.reverse();
-        });
-        m = that.container.append('path')
+    function createIcon(pt, props) {
+      return that.container
+        .append('circle')
           .attr('class', 'milestone-' + [props.maptype,props.type].join(' '))
-          .attr('d', that.line(coords));
-      }
+          .attr('cx', pt.x + 'px')
+          .attr('cy', pt.y + 'px')
+          .attr('r', 3);
+    }
 
-      if (m) {
-        that.milestones.push({
-          elm: m,
-          coords: coords,
-          geometryType: type,
-          markerType: props.maptype || '',
-          start: props['start_year'] ? new Date(props['start_year']) : null,
-          end: props['end_year'] ? new Date(props['end_year']) : null,
-          zoomStart: props['startzoom'] ? +props['startzoom'] : that.map.minZoom,
-          zoomEnd: props['endzoom'] ? +props['endzoom'] : that.map.maxZoom
-        });
-      } else {
-        console.error('Unknown feature: ', f);
-      }
+    function createLabel(pt, props){
+      var ta = (props.justify === 'left') ? 'start' : 'end';
+      return that.container
+        .append('text')
+          .attr('class', 'with-outlines milestone-' + [props.maptype, props.type].join(' '))
+          .attr('x', pt.x + 'px')
+          .attr('y', pt.y + 'px')
+          .attr('text-anchor', ta)
+          .text(props.location);
+    }
 
-    });
+    function createLine(coords, props) {
+      return that.container.append('path')
+        .attr('class', 'milestone-' + [props.maptype,props.type].join(' '))
+        .attr('d', that.line(coords));
+    }
+
+    function drawByMaptype(thisType) {
+      data.features.forEach(function(f){
+        var props = f.properties,
+            type  = f.geometry.type;
+        var coords, m, pt;
+
+        if (props.maptype !== thisType) return;
+
+        if (props.maptype === 'icon') {
+          coords = f.geometry.coordinates[0].reverse();
+          pt = that.map.latLngToLayerPoint(coords);
+          m = createIcon(pt, props)
+
+        } else if (props.maptype === 'label') {
+          coords = f.geometry.coordinates[0].reverse();
+          pt = that.map.latLngToLayerPoint(coords);
+          m = createLabel(pt, props)
+
+        } else if (props.maptype === 'line') {
+          coords = f.geometry.coordinates;
+          coords.forEach(function(c){
+            c.reverse();
+          });
+          m = createLine(coords, props);
+        }
+
+        if (m) {
+          that.milestones.push({
+            elm: m,
+            coords: coords,
+            geometryType: type,
+            markerType: props.maptype || '',
+            start: props['start_year'] ? new Date(props['start_year']) : null,
+            end: props['end_year'] ? new Date(props['end_year']) : null,
+            zoomStart: props['startzoom'] ? +props['startzoom'] : that.map.minZoom,
+            zoomEnd: props['endzoom'] ? +props['endzoom'] : that.map.maxZoom
+          });
+        } else {
+          console.error('Unknown feature: ', f);
+        }
+
+      });
+    }
+
+    // control stacking order
+    drawByMaptype('label');
+    drawByMaptype('line');
+    drawByMaptype('icon');
+
 
     this.filter();
   },
