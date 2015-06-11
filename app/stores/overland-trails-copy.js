@@ -6,6 +6,8 @@
 
 var OverlandTrailsCopy = {};
 
+OverlandTrailsCopy.trails = "Oregon, California, and Utah attracted settlers for different reasons. As the availability of farmland declined in the east, men and women were drawn to Oregon's Willamette Valley because of its rich soil. Tens of thousands traveled to California hoping to strike it rich in the gold rush; many of them returned east. The Mormons settled in the Great Basin seeking a refuge where they could practice their religion free from persecution. White settlement in the West was disastrous for Indians everywhere.";
+
 OverlandTrailsCopy.diaristPanel = "Hundred of emigrants kept diaries about their journeys across the plains and mountains. While taken as a whole traveling across the continent was, for most emigrants, an extraordinary, once-in-a-lifetime experience, individual diary entries typically captured mundane if important details: the availability of grass for livestock, the challenges of fording creeks and rivers, the expense of using ferries, the beauty of the sprawling plains or natural wonders like Chimney Rock or Devil's Gate.";
 
 OverlandTrailsCopy.flowMap = "Approximately 250,000 emigrants traveled overland to Oregon and California between 1840 and 1860, and more than 40,000 Mormons to Utah from 1847 to 1860. What began as a tiny trickle to Oregon in 1840 became a stream to the West in a few years and then a flood to California during the Gold Rush years. As this flow map indicates, there was no typical year for Overland Trails migrations as the number of people making the journey ebbed and flowed, sometimes dramatically, from year to year.";

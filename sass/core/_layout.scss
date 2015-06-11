@@ -50,6 +50,14 @@ header h1 {
   height: $map-height;
 }
 
+#trail-selector-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+}
+
 #narrative-wrapper {
   position: relative;
   height: ($map-height + $header-height);

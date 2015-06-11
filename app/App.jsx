@@ -61,6 +61,7 @@ var App = React.createClass({
         widths: 0,
         heights: 0
       },
+      showAbout: false,
       diaryData: [],
       mareyChartData: [],
       dairylinesData: [],
@@ -222,6 +223,7 @@ var App = React.createClass({
 
   toggleAbout: function() {
     if (Intro.state) Intro.exit();
+
     this.centralStateSetter({"showAbout":!this.state.showAbout});
   },
 
@@ -309,7 +311,7 @@ var App = React.createClass({
 
             <header className='row'>
               <h1 className='u-full-width headline rockett-bold'><span className="header-wrapper">The Overland Trails<span>1840-1860</span></span></h1>
-              <button id="about-btn" className="link text-small" data-step="0" onClick={this.toggleAbout}>About This Map</button>
+              <button id="about-btn" className="link text-small" onClick={this.toggleAbout}>About This Map</button>
             </header>
 
             <div id='map-wrapper' className='row' style={{height: this.state.dimensions.heights.map + "px"}}>
@@ -326,13 +328,15 @@ var App = React.createClass({
                   <MarkerLayer markers={DiaryEntriesStore.getEntriesByDate(this.state.currentDate)} filter={this.filterMarkers} onMarkerClick={this.onMarkerClick}/>
                 </LeafletMap>
               </div>
-
-              <ButtonGroup onChange={this.trailSelectorChange} selectedIndex={0} selectedValue={this.state.trail}>
-                <button className="text-extra-small" data-value="all">All Trails</button>
-                <button className="text-extra-small" data-value="oregon-trail">Oregon Trail</button>
-                <button className="text-extra-small" data-value="california-trail">Califonia trail</button>
-                <button className="text-extra-small" data-value="mormon-trail">Mormon trail</button>
-              </ButtonGroup>
+              <div id="trail-selector-panel">
+                <ButtonGroup onChange={this.trailSelectorChange} selectedIndex={0} selectedValue={this.state.trail}>
+                  <button className="text-extra-small" data-value="all">All Trails</button>
+                  <button className="text-extra-small" data-value="oregon-trail">Oregon Trail</button>
+                  <button className="text-extra-small" data-value="california-trail">Califonia trail</button>
+                  <button className="text-extra-small" data-value="mormon-trail">Mormon trail</button>
+                </ButtonGroup>
+                <button id="trails-info-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}><Icon iconName="info"/></button>
+              </div>
             </div>
 
             <div id="marey-chart-wrapper" className='row'>
@@ -360,14 +364,14 @@ var App = React.createClass({
 
             <div id="narrative-wrapper" className='row' ref="diaries" style={{height: this.state.dimensions.heights.diaries + "px"}}>
               <div className='columns twelve full-height'>
-                <div className="component-header rockett-bold"><button id="diarist-help-btn" className="link text-small" data-step="0" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
+                <div className="component-header rockett-bold"><button id="diarist-help-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>Diarists<Icon iconName="info"/></button></div>
                 <DiaristList items={this.state.diaryData} selectedDate={this.state.currentDate} selectedKey={DiaryEntriesStore.selectedDiarist} height={this.state.dimensions.heights.diariesInner} onListItemClick={this.onDiaryClick} onStoryItemClick={this.onStoryItemClick} onStoryScroll={this.onStoryScroll} />
               </div>
             </div>
 
             <div id="flow-map-wrapper" className='row flow-map'>
               <div className='columns twelve full-height'>
-                <div className="component-header overlaid rockett-bold"><button id="flow-map-info-btn" className="link text-small" data-step="1" onClick={this.triggerIntro}>{"How Many People Traveled in " + this.state.year + "?"}<Icon iconName="info"/></button></div>
+                <div className="component-header overlaid rockett-bold"><button id="flow-map-info-btn" className="link text-small" data-step="3" onClick={this.triggerIntro}>{"How Many People Traveled in " + this.state.year + "?"}<Icon iconName="info"/></button></div>
                 <FlowMap flowdata={this.state.emigrationData} year={this.state.year}/>
               </div>
             </div>

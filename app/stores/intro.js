@@ -11,20 +11,26 @@ var IntroManager = {
     this.intro.setOptions({
       "steps": [
         {
+          element: "#map-wrapper .button-group",
+          intro: OverlandTrailsCopy.trails,
+          position: "bottom"
+        },
+        {
           element: "#narrative-wrapper",
           intro: OverlandTrailsCopy.diaristPanel,
           position: "left"
         },
         {
-          element: "#flow-map-wrapper",
-          intro: OverlandTrailsCopy.flowMap,
-          position: "top"
-        },
-        {
           element: "#marey-chart-wrapper",
           intro: OverlandTrailsCopy.mareyChart,
           position: "top"
+        },
+        {
+          element: "#flow-map-wrapper",
+          intro: OverlandTrailsCopy.flowMap,
+          position: "top"
         }
+
       ],
       "showStepNumbers": false,
       'skipLabel': '×',
