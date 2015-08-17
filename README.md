@@ -55,6 +55,6 @@ Copy code from [build directory](./build) to server.  It's all **static files**,
 
 ##Deploy(Stamen Only)
 ```bash
-scp -prq ./build/. studio.stamen.com:www/richmond/show/foreignborn/
+scp -prq ./build/. studio.stamen.com:www/richmond/show/overland-trails/
 scp -prq ./build/. studio.stamen.com:www/richmond/show/yyyy-mm-dd/
 ```
