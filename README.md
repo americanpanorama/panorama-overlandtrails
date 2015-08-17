@@ -50,9 +50,6 @@ This will create a `dist` directory. Move this directory to your server.
 
 Both directories are all **static files**, so no special server requirements needed.
 
-##Deploy
-Copy code from [build directory](./build) to server.  It's all **static files**, so no special server requirements needed.
-
 ##Deploy(Stamen Only)
 ```bash
 scp -prq ./build/. studio.stamen.com:www/richmond/show/overland-trails/
