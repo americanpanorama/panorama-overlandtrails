@@ -4,7 +4,8 @@
   "description": "Overland trails",
   "main": "index.js",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "dist": "gulp dist"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "watchify": "^3.1.0",
     "main-bower-files": "~2.5.0",
     "object-assign": "^2.0.0",
+    "classnames": "^1.2.0",
     "react": "^0.13.1",
     "react-addons": "^0.9.1-deprecated",
     "flux": "^2.0.1",
