@@ -10,8 +10,8 @@ A list of all base datasets for this project in CartoDB.  Each one these should 
 Dataset Name | Description
 ------------ | -----------
 site_overland_trails_emigration_numbers | NTD
-site_overland_trails_journal_entries | `SELECT cartodb_id, the_geom, date, entry, journal_id, lat, location, long, name FROM master_overland_trails_journal_entries WHERE the_geom is not null`
-site_overland_trails_journal_source | `SELECT cartodb_id, the_geom, abbreviation, full_citation, gender, journal_id, trail, url, year FROM overland_trails_journal_source`
+site_overland_trails_journal_entries | `SELECT cartodb_id, ST_Transform(ST_SetSRID(ST_Transform(the_geom,2163),3857),4326) as the_geom, date, entry, journal_id, lat, location, long, name FROM master_overland_trails_journal_entries WHERE the_geom is not null`
+site_overland_trails_journal_source | `SELECT cartodb_id, abbreviation, full_citation, gender, journal_id, trail, url, year FROM overland_trails_journal_source`
 
 ##Dependencies
 * [NPM](https://www.npmjs.com/)
