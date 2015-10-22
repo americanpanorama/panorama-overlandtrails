@@ -4,7 +4,7 @@ var dslClient     = require("../lib/dslClient");
 var assign        = require("object-assign");
 
 var CHANGE_EVENT  = "change";
-var QUERY         = "SELECT * FROM site_diarylines_materialized";
+var QUERY         = "SELECT * FROM site_overland_trails_diarylines_materialized";
 
 var data = null;
 var state = {
