@@ -76,6 +76,13 @@ var App = React.createClass({
     return initial;
   },
 
+  getDefaultProps: function() {
+    var overrides = (typeof RICHMOND_OVERRIDES !== 'undefined') ? RICHMOND_OVERRIDES : {};
+    return {
+      showIntroOnStart: overrides.showIntroOnStart || false
+    };
+  },
+
   componentWillMount: function() {
     this.computeDimensions();
     if (this.hashParams.diarist) {
@@ -96,6 +103,8 @@ var App = React.createClass({
 
     Intro.init();
     d3.select(window).on('resize', helpers.debounce(this.onResize, 250));
+
+    if (this.props.showIntroOnStart) Intro.open();
   },
 
   componentWillUnmount: function() {
