@@ -418,7 +418,8 @@ var App = React.createClass({
 
           <p>Katie Burke, Lily Calaycay, Anna Ellison, Erica Havens, Erica Ott, Barbie Savani, Beaumont Smith, and Shayna Webb transcribed and georeferenced journals.</p>
 
-          <p>The developers, designers, and staff at Stamen Design Studio have been exceptional partners on this project. Our thanks to Sean Connelley, Kai Chang, Jon Christensen, Seth Fitzsimmons, Heather Grates, Alan McConchie, Michael Neuman, Dan Rademacher, and Eric Rodenbeck.</p>
+          <p>The developers, designers, and staff at <a href='http://stamen.com'>Stamen Design</a> have been exceptional partners on this project. Our thanks to Kai Chang, Jon Christensen, Sean Connelley, Seth Fitzsimmons, Eric Gelinas, Heather Grates, Nicolette Hayes, Alan McConchie, Michael Neuman, Dan Rademacher, Eric Rodenbeck, and Eric Socolofsky.</p>
+
         </Modal>
       </div>
     );
