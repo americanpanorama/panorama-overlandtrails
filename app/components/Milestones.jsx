@@ -1,5 +1,6 @@
 var React   = require("react");
 var Leaflet = require("leaflet");
+var d3      = require("d3");
 
 var Milestones = React.createClass({
   pathOptions: {

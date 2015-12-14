@@ -2,6 +2,7 @@ var AppDispatcher = require("../dispatchers/app");
 var EventEmitter  = require("events").EventEmitter;
 var dslClient     = require("../lib/dslClient");
 var assign        = require("object-assign");
+var d3            = require("d3");
 
 var CHANGE_EVENT  = "change";
 

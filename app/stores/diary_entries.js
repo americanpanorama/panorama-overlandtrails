@@ -4,7 +4,8 @@ var deepcopy      = require('deepcopy');
 var dslClient     = require("../lib/dslClient");
 var assign        = require("object-assign");
 var CONSTANTS     = require('../Constants.json');
-var helpers = require("../utils/helpers");
+var helpers       = require("../utils/helpers");
+var d3            = require("d3");
 
 
 var CHANGE_EVENT  = "change";
