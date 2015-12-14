@@ -3,6 +3,7 @@
 // NPM Modules
 var React = require("react");
 var Modal = require('react-modal');
+var d3    = require("d3");
 
 // Constants
 var CONSTANTS = require('./Constants.json');
@@ -36,6 +37,10 @@ var DiaristList = require("./components/ListView/List.jsx");
 var Icon = require("./components/Icon.jsx");
 var Longitudes = require("./components/LongitudeLines.jsx");
 var Milestones = require("./components/Milestones.jsx");
+var Navigation = require('./components/PanoramaNavigation.jsx');
+
+// config
+var PanoramaNavData = require("../data/panorama_nav.json");
 
 
 var currentPath = {};
@@ -66,7 +71,8 @@ var App = React.createClass({
       mareyChartData: [],
       dairylinesData: [],
       emigrationData: [],
-      milestoneData: []
+      milestoneData: [],
+      showMenu: false
     };
 
     initial.year = initial.currentDate.getFullYear();
@@ -291,6 +297,21 @@ var App = React.createClass({
     return (marker['journal_id'] == this.state.diarist);
   },
 
+  onPanoramaMenuClick: function() {
+    this.setState({showMenu: !this.state.showMenu});
+  },
+
+  getNavData: function() {
+    // remove the current map from the list
+    PanoramaNavData.map(function(item, i) {
+      if (item.url.indexOf('overlandtrails') > -1) {
+          PanoramaNavData.splice(i, 1);
+      }
+    }); 
+
+    return PanoramaNavData;
+  },
+
   render: function(params) {
 
     var mapOptions = {
@@ -315,6 +336,9 @@ var App = React.createClass({
     return (
 
       <div className='container full-height'>
+         <Navigation show_panorama_menu={ this.state.showMenu } on_hamburger_click={ this.onPanoramaMenuClick } nav_data={ this.getNavData() }  />
+
+
         <div className='row full-height'>
           <div className='columns eight full-height'>
 
