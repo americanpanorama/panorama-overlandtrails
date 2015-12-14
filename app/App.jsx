@@ -42,7 +42,6 @@ var Navigation = require('./components/PanoramaNavigation.jsx');
 // config
 var PanoramaNavData = require("../data/panorama_nav.json");
 
-
 var currentPath = {};
 var App = React.createClass({
 
@@ -199,7 +198,37 @@ var App = React.createClass({
         // Faster to assign data to state, than putting function into component properties
         switch(obj.caller) {
           case "DiaryEntriesStore":
-            this.setState({'mareyChartData': DiaryEntriesStore.getData(), 'diaryData': DiaryEntriesStore.getDiarists()});
+            var entries = DiaryEntriesStore.getDiarists();
+            var selected = [];
+            var diarist = this.state.diarist;
+
+            if (diarist) {
+              selected = entries.filter(function(row){
+                return diarist === row.key;
+              });
+            }
+
+            if (selected.length && this.state.currentDate <= selected[0].ends && this.state.currentDate >= selected[0].begins) {
+              this.setState({
+                mareyChartData: DiaryEntriesStore.getData(),
+                diaryData: entries,
+                diaristStarts: selected[0].begins,
+                diaristEnds: selected[0].ends
+              });
+            } else if (diarist) {
+              DiaryEntriesStore.selectedDiarist = DiaryLinesStore.selectedDiarist = null;
+              this.hashParams.diarist = null;
+              this.updateURL({diarist: null}, true);
+              this.setState({
+                mareyChartData: DiaryEntriesStore.getData(),
+                diaryData: entries,
+                diarist: null,
+                diaristStarts: null,
+                diaristEnds: null
+                });
+            } else {
+              this.setState({mareyChartData: DiaryEntriesStore.getData(), diaryData: entries});
+            }
           break;
           case 'DiaryLinesStore':
             this.setState({'dairylinesData': DiaryLinesStore.getData()});
@@ -258,20 +287,32 @@ var App = React.createClass({
   },
 
   mareySliderChange: function(date) {
-    this.updateURL({date: hashUtils.formatDate(date)}, true);
-    this.centralStateSetter({year: date.getFullYear(), currentDate: date});
+    if (this.state.diarist && this.state.diaristEnds && this.state.diaristStarts && (date > this.state.diaristEnds || date < this.state.diaristStarts)) {
+      this.setDiarist(null, date);
+    } else {
+      this.updateURL({date: hashUtils.formatDate(date)}, true);
+      this.centralStateSetter({year: date.getFullYear(), currentDate: date});
+    }
   },
 
   onDiaryClick: function(item, selected) {
     var key = (selected) ? item.key : null;
-    this.setDiarist(key, item.begins);
+    this.setDiarist(key, item.begins, item.ends);
   },
 
-  setDiarist: function(key, date) {
+  setDiarist: function(key, beginDate, endDate) {
     DiaryEntriesStore.selectedDiarist = DiaryLinesStore.selectedDiarist = key;
     this.hashParams.diarist = key;
-    this.updateURL({diarist: key, date: hashUtils.formatDate(date)}, true);
-    this.centralStateSetter({diarist: key, year: date.getFullYear(), currentDate: date});
+    this.updateURL({diarist: key, date: hashUtils.formatDate(beginDate)}, true);
+
+    var diaristStarts = beginDate;
+    var diaristEnds = endDate;
+    if (key === null) {
+      diaristStarts = null;
+      diaristEnds = null;
+    }
+
+    this.centralStateSetter({diarist: key, year: beginDate.getFullYear(), currentDate: beginDate, diaristStarts: diaristStarts, diaristEnds: diaristEnds});
   },
 
   onMarkerClick: function(marker) {
@@ -307,7 +348,7 @@ var App = React.createClass({
       if (item.url.indexOf('overlandtrails') > -1) {
           PanoramaNavData.splice(i, 1);
       }
-    }); 
+    });
 
     return PanoramaNavData;
   },

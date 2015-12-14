@@ -249,6 +249,7 @@ var DiaryEntriesStore = assign({}, EventEmitter.prototype, {
       row.gender = (row.values[0].gender === 'M') ? "male" : "female";
       row.name = row.values[0].name || 'Unknown';
       row.begins = d3.min(row.values, function(d){return d.date});
+      row.ends = d3.max(row.values, function(d){return d.date});
       row.citation = {
         text: data.source[row.key]['full_citation'],
         url: data.source[row.key]['url']
