@@ -1,0 +1,53 @@
+#map-wrapper .button-group {
+  position: relative;
+  display: inline-block;
+  zoom: 1;
+}
+
+#trails-info-btn {
+  margin-left: 5px;
+}
+
+.button-group button {
+  color: #fff;
+  opacity: 1;
+  border: 0 !important;
+}
+
+.button-group button:hover {
+  opacity: 1 !important;
+}
+
+button[data-value="all"] {
+  @include background-opacity(#3E3531, 1);
+}
+
+button[data-value="oregon-trail"] {
+  @include background-opacity($oregon, 1);
+}
+
+button[data-value="california-trail"] {
+  @include background-opacity($california, 1);
+}
+
+button[data-value="mormon-trail"] {
+  @include background-opacity($mormon, 1);
+}
+
+.trail-show-oregon-trail button[data-value="california-trail"],
+.trail-show-oregon-trail button[data-value="mormon-trail"],
+.trail-show-oregon-trail button[data-value="all"] {
+ opacity: 0.5;
+}
+
+.trail-show-california-trail button[data-value="oregon-trail"],
+.trail-show-california-trail button[data-value="mormon-trail"],
+.trail-show-california-trail button[data-value="all"] {
+ opacity: 0.5;
+}
+
+.trail-show-mormon-trail button[data-value="california-trail"],
+.trail-show-mormon-trail button[data-value="oregon-trail"],
+.trail-show-mormon-trail button[data-value="all"] {
+ opacity: 0.5;
+}

@@ -1,0 +1,45 @@
+ $i: 0;
+.loading-component {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+  z-index: 999999;
+  overflow: hidden;
+  text-align: center;
+}
+.mounted.loading-component {
+  display: none;
+}
+
+.loading-component-inner {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 100%;
+  transform: translateY(-50%);
+
+  -webkit-animation-duration: 3s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: wave;
+  -webkit-animation-timing-function: linear;
+}
+
+.loading-component--s {
+  $i: $i + 5px;
+  position: relative;
+  width: 90%;
+  height: 5px;
+  left: 5%;
+  top: $i;
+  background: #fff;
+  margin-top: 5px;
+}
+
+@-webkit-keyframes wave {
+  0% { opacity:0.5; }
+  100% { opacity: 1.0; }
+}

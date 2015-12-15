@@ -1,0 +1,82 @@
+#marey-info-btn {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  z-index: 10;
+}
+
+.marey-chart {
+  position: relative;
+  height: 100%;
+}
+.marey-chart .axis path,
+.marey-chart .axis line {
+  fill: none;
+}
+.marey-chart .axis path {
+  stroke: none;
+}
+.marey-chart .axis line {
+  stroke: #d1cfcd;
+  stroke-width: 1;
+}
+
+.marey-chart text {
+  fill: $medium-grey;
+  font-size: 11px;
+}
+
+.marey-chart text.major {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.marey-chart rect {
+  fill: #fbfaf9;
+}
+.marey-chart rect.handle-bounds {
+  fill: #000;
+  opacity: 0.1;
+}
+
+.marey-chart path.journey {
+  fill: none;
+  stroke-opacity: 0.8;
+  stroke-width: 1.5px;
+}
+
+#marey-slider {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+.handle {
+  width: 10px;
+  height: 100%;
+  margin-left: -5px;
+  background-color: black;
+  cursor: pointer;
+}
+
+.handle.active {
+  background-color: grey;
+}
+
+
+.slider .handle path {
+  stroke: #686562;
+  stroke-width: 2px;
+  stroke-linecap: square;
+  pointer-events: none;
+}
+

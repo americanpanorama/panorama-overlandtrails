@@ -1,0 +1,32 @@
+.diarymarkers-layer {}
+
+
+.trail-dot {
+  stroke: #000000;
+  fill: #000000;
+  stroke-width: 4;
+  cursor:pointer;
+}
+
+.trail-dot.california-trail { stroke: $california; }
+.trail-dot.mormon-trail { stroke: $mormon; }
+.trail-dot.oregon-trail { stroke: $oregon; }
+.trail-dot.minor { stroke-width: 0 !important; }
+.trail-dot.california-trail.minor { fill: $california; }
+.trail-dot.mormon-trail.minor { fill: $mormon; }
+.trail-dot.oregon-trail.minor { fill: $oregon; }
+
+.trail-show-oregon-trail #map-wrapper .trail-dot.california-trail,
+.trail-show-oregon-trail #map-wrapper .trail-dot.mormon-trail {
+  display: none;
+}
+
+.trail-show-california-trail #map-wrapper .trail-dot.oregon-trail,
+.trail-show-california-trail #map-wrapper .trail-dot.mormon-trail {
+  display: none;
+}
+
+.trail-show-mormon-trail #map-wrapper .trail-dot.california-trail,
+.trail-show-mormon-trail #map-wrapper .trail-dot.oregon-trail {
+  display: none;
+}

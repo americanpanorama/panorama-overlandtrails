@@ -1,0 +1,22 @@
+
+@mixin calc ($attr, $value, $tb-property: false, $lr-property: false, $base: 100%, $operator: '-') {
+  @if $tb-property == 0 {
+    #{$attr}: 0 calc(#{$base} #{$operator} #{$value});
+  }
+  @elseif $lr-property == 0 {
+    #{$attr}: calc(#{$base} #{$operator} #{$value}) 0;
+  }
+  @else {
+    #{$attr}: calc(#{$base} #{$operator} #{$value});
+  }
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
+}
+
+@mixin color-opacity($color, $opacity: 0.3) {
+    color: $color; /* The Fallback */
+    color: rgba($color, $opacity);
+}

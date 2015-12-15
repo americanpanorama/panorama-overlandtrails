@@ -1,0 +1,36 @@
+body {
+  font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;
+}
+
+.headline {
+  position: relative;
+  top: -15px;
+  font-size: 32px;
+  color: $dark-brown;
+  text-align: center;
+}
+
+.rockett-bold {
+  font-family: 'Rokkitt', Georgia, Times, 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.item-name,
+.item-trail {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Rokkitt', Georgia, Times, 'Times New Roman', serif;
+}
+
+.item-meta,
+.text-small {
+  font-size: 13px;
+  font-weight: 400;
+}
+.text-extra-small {
+  font-size: 11px;
+}
+
+.item-count {
+  font-style: italic;
+}

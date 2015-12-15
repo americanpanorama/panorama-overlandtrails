@@ -1,0 +1,145 @@
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  background: $light-brown;
+  min-width: 940px;
+}
+
+#app-box {
+  height: 100%;
+}
+
+.container {
+  padding: $top-bottom-margin 20px !important;
+}
+
+header {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: $header-height;
+  background: transparent url('static/background-wagon.png') 50% 100% no-repeat;
+  background-size: 472px 61px;
+  overflow: hidden;
+}
+
+header h1 {
+  margin: 0;
+  line-height: $header-height;
+}
+
+#map-wrapper {
+  position: relative;
+  height: $map-height;
+}
+
+#trail-selector-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+}
+
+#narrative-wrapper {
+  position: relative;
+  height: ($map-height + $header-height);
+  background: #eee;
+}
+
+#narrative-wrapper .list-view {
+  height: (($map-height + $header-height) - 22);
+}
+
+#marey-chart-wrapper{
+  position: relative;
+  height: $marey-chart-height;
+  margin-top: 10px;
+}
+
+#flow-map-wrapper {
+  position: relative;
+  height: $flow-map-height;
+  margin-top: $flow-map-margin-top;
+}
+
+.component-header {
+  background: $medium-brown;
+  text-align: center;
+  height: $component-header-height;
+  overflow: hidden;
+}
+
+.component-header.overlaid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  @include background-opacity($medium-brown, 0.8);
+  z-index: 2;
+}
+
+.component-header button {
+  position: relative;
+  top: 1px;
+  color: $dark-brown-50alpha;
+}
+
+.header-wrapper {
+  position: relative;
+}
+
+.header-wrapper span:last-child {
+  font-size: 15px;
+  position: absolute;
+  width: auto;
+  white-space: nowrap;
+  line-height: 1;
+  bottom: -14px;
+  left: 100%;
+  margin-left: -30px;
+}
+
+#about-btn {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  text-decoration: underline;
+  color: $dark-brown-50alpha;
+}
+
+.introjs-tooltip {
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.introjs-tooltiptext {
+  font-size: 13px;
+}
+
+
+// 404
+.not-found {
+  text-align: center;
+}
+.hands-emoticon {
+  position: relative;
+  font-size: 150px;
+}

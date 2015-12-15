@@ -1,0 +1,73 @@
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #dee;
+}
+
+.leaflet-d3-overlay {
+  position: absolute;
+  z-index: 1;
+}
+
+.leaflet-d3-overlay svg {
+  overflow: visible;
+}
+
+.diary-lines {
+    fill: transparent;
+    stroke: black;
+    stroke-opacity: 1;
+    stroke-width: 1px;
+    cursor: default;
+
+    &.selected {
+      stroke: rgba(0,0,0,.7);
+      &.hide {
+        display: none;
+      }
+    }
+  }
+
+.diary-lines.oregon-trail {
+  stroke: $oregon;
+}
+
+.diary-lines.california-trail {
+  stroke: $california;
+}
+
+.diary-lines.mormon-trail {
+  stroke: $mormon;
+}
+
+.trail-show-oregon-trail #map-wrapper .diary-lines.california-trail,
+.trail-show-oregon-trail #map-wrapper .diary-lines.mormon-trail {
+  opacity: 0.2;
+}
+
+.trail-show-california-trail #map-wrapper .diary-lines.oregon-trail,
+.trail-show-california-trail #map-wrapper .diary-lines.mormon-trail {
+  opacity: 0.2;
+}
+
+.trail-show-mormon-trail #map-wrapper .diary-lines.california-trail,
+.trail-show-mormon-trail #map-wrapper .diary-lines.oregon-trail {
+  opacity: 0.2;
+}
+
+.diary-lines.fade-me {
+  opacity: 0.2 !important;
+}
+
+// Longitude component
+.longitude-line {
+  stroke: #8b8683;
+  stroke-width: 0.5;
+  stroke-dasharray: 3,3;
+  stroke-opacity: 0.8;
+}
+
+.longitude-text {
+  font-size: 11px;
+  fill: #8b8683;
+}

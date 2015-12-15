@@ -1,0 +1,81 @@
+.flow-map {
+  position: relative;
+  height: 100%;
+}
+.flow-map-component {
+  position: relative;
+  height: 100%;
+}
+
+
+.flow-map path {
+
+}
+
+.flow-map path.flow {
+  stroke: #777;
+  stroke-opacity: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  fill-opacity: 0;
+  opacity: 0.9;
+}
+
+.flow-map path.flow.no-weight {
+  stroke: #666 !important;
+  opacity: 0.5;
+}
+
+.flow-map .flow-label {
+  font-size: 12px;
+}
+
+.flow-map path.flow.oregon {
+  stroke: $oregon;
+}
+
+.flow-map .flow-label.oregon {
+  color: $oregon;
+}
+
+.flow-map path.flow.mormon {
+  stroke: $mormon;
+}
+
+.flow-map .flow-label.mormon  {
+  color: $mormon;
+}
+
+.flow-map path.flow.california {
+  stroke: $california;
+}
+
+.flow-map .flow-label.california {
+  color: $california;
+}
+
+
+.flow-label {
+  background: transparent;
+  background-clip: padding-box;
+  border: none;
+  color: #111;
+  display: block;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 1px 6px;
+  position: absolute;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 6;
+}
+
+.leaflet-label.leaflet-clickable {
+  cursor: pointer;
+  pointer-events: auto;
+}
