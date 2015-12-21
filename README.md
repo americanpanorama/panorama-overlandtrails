@@ -1,4 +1,7 @@
 # richmondatlas-overlandtrails
+
+**NOTE: STOP USING THIS REPO. FUTURE WORK SHOULD GO TO https://github.com/americanpanorama/panorama-overlandtrails**
+
 Overland Trails
 
 Latest build can be viewed at [http://studio.stamen.com/richmond/show/overland-trails/](http://studio.stamen.com/richmond/show/overland-trails/)
