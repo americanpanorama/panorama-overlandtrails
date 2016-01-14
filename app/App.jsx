@@ -377,7 +377,7 @@ var App = React.createClass({
     return (
 
       <div className='container full-height'>
-         <Navigation show_panorama_menu={ this.state.showMenu } on_hamburger_click={ this.onPanoramaMenuClick } nav_data={ this.getNavData() }  />
+         <Navigation show_panorama_menu={ this.state.showMenu } on_hamburger_click={ this.onPanoramaMenuClick } nav_data={ this.getNavData() } links={ [ {name: 'Digital Scholarship Lab', url: 'http://dsl.richmond.edu'}, { name: 'University of Richmond', url: 'http://www.richmond.edu' } ] } link_separator=', '  />
 
 
         <div className='row full-height'>
