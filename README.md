@@ -1,11 +1,9 @@
-# richmondatlas-overlandtrails
+# panorama-overlandtrails
+The Overland Trails 1840-1860
 
-**NOTE: STOP USING THIS REPO. FUTURE WORK SHOULD GO TO https://github.com/americanpanorama/panorama-overlandtrails**
+Latest build can be viewed at [http://dsl.richmond.edu/panorama/overlandtrails](http://dsl.richmond.edu/panorama/overlandtrails)
 
-Overland Trails
-
-Latest build can be viewed at [http://studio.stamen.com/richmond/show/overland-trails/](http://studio.stamen.com/richmond/show/overland-trails/)
-
+**NOTE: the code in this repository was developed _before_ the Panorama toolkit was complete. Therefore, it doesn't use all of the current Panorama libraries and design patterns. To see an example of a map that is built on the finalized Panorama toolkit, see [panorama-canals](https://github.com/americanpanorama/panorama-canals)**
 
 ##Data Sets
 A list of all base datasets for this project in CartoDB can be found in [data/README.md](data/README.md)
@@ -48,8 +46,3 @@ This will create a `dist` directory. Move this directory to your server.
 
 Both directories are all **static files**, so no special server requirements needed.
 
-##Deploy(Stamen Only)
-```bash
-scp -prq ./build/. studio.stamen.com:www/richmond/show/overland-trails/
-scp -prq ./build/. studio.stamen.com:www/richmond/show/yyyy-mm-dd/
-```

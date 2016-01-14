@@ -4,6 +4,7 @@ var Modal   = require('react-modal');
 
 var PanoramaNavigation = React.createClass({
 
+<<<<<<< HEAD
 	getDefaultProps: function() {
 		return {
 			title: 'American Panorama',
@@ -37,6 +38,8 @@ var PanoramaNavigation = React.createClass({
     		}
 		}
 	},
+=======
+>>>>>>> c45422df17969451d51bb54f04fc7073b8a0fd85
 
 	componentDidMount: function() {
 
@@ -74,6 +77,7 @@ var PanoramaNavigation = React.createClass({
 				  onRequestClose={ this.props.on_hamburger_click }
 				  overlayClassName='panorama-modal'
 				  className="nav_header"
+<<<<<<< HEAD
 				  style={ this.props.style }
 				>
 					<div id='nav_header'>
@@ -105,6 +109,25 @@ var PanoramaNavigation = React.createClass({
 								})
 							}
 						</div>
+=======
+				>
+					<div id='navburger'><img src='http://dsl.richmond.edu/panorama/static/images/hamburger.png' onClick={ this.props.on_hamburger_click } /></div>
+
+					<div id='nav_header'>
+						<h1><a href='/panorama/'>American Panorama</a></h1>
+						{
+							this.props.nav_data.map(function(item, i) {
+								return (
+									<div className='pan_nav_item' style={{width: that.computeDimensions() + 'px'}}>
+										<a href={ item.url }><img src={ item.screenshot } style={{width: that.computeDimensions() + 'px'}} /></a><br/>
+										<h4>
+											<a href='{ item.url }'>{ item.title }</a>
+										</h4>
+									</div>
+								)
+							})
+						}
+>>>>>>> c45422df17969451d51bb54f04fc7073b8a0fd85
 					</div>
 				</Modal>
 			</div>
