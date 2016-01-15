@@ -83,9 +83,9 @@ var PanoramaNavigation = React.createClass({
 
             			<h2>
             				{ 
-								this.props.links.map((item, i) => {
+								this.props.links.map(function(item, i) {
 									return (
-										<a href={ item.url } key={ 'pan_nav_links_' + i }>{ (i < this.props.links.length - 1) ? item.name + this.props.link_separator : item.name }</a>
+										<a href={ item.url } key={ 'pan_nav_links_' + i }>{ (i < that.props.links.length - 1) ? item.name + that.props.link_separator : item.name }</a>
 									);
 								})
 							}
