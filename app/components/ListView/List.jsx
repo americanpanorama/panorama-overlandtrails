@@ -3,6 +3,7 @@ var React   = require("react");
 var Item    = require('../ListView/Item.jsx');
 var d3      = require('d3');
 var helpers = require("../../utils/helpers");
+var StoryItem = require('../StoryItem.jsx');
 
 
 var _selectedJournal,
@@ -12,8 +13,6 @@ var _selectedJournal,
     storiesDirty,
     anchors = [],
     cached = {};
-
-var storyEntryDateFormatter = d3.time.format('%B %e, %Y');
 
 var HTMLCitations = true;
 
@@ -210,11 +209,12 @@ var List = React.createClass({
         var highlighted = (selectedDateStamp === dt) ? " highlighted" : "";
         //if (highlighted.length) currentDate = that.props.selectedDate;
         return (
-          <div key={item['cartodb_id']} className={"storyview-item " + trailCSS} data-datestamp={item.datestamp}>
-          <a name={item.datestamp} className={highlighted} data-date={item.ts} onClick={that.storyClicked}><span className="circle"></span>{storyEntryDateFormatter(item.date)}</a>
-          <p className="storyview-entry">{item.entry}</p>
-          </div>
-          );
+          <StoryItem {...item} 
+            key={item.cartodb_id}
+            highlighted={highlighted} 
+            trailCSS={trailCSS} 
+            onClick={that.storyClicked} />
+        );
       });
 
     // add citation
