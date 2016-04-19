@@ -58,8 +58,9 @@ var List = React.createClass({
       anchors = [];
       cached.anchors = {};
       d3.select(cached.storyContainer).selectAll('.storyview-item').each(function(item){
+        var that = this;
         anchors.push({
-          top: this.offsetTop,
+          getTop: function () { return that.offsetTop; },
           datestamp: this.getAttribute('data-datestamp')
         });
         cached.anchors[this.getAttribute('data-datestamp')] = d3.select(this).select('a');
@@ -125,7 +126,8 @@ var List = React.createClass({
         currentScrollDatestamp = anchors[anchors.length-1].datestamp;
       }else {
         anchors.forEach(function(item, i){
-          if (item.top > top && (item.top - top < 20) ){
+          var itemTop = item.getTop();
+          if (itemTop > top && (itemTop - top < 20) ){
             if(currentScrollDatestamp !== item.datestamp) {
               currentScrollDatestamp = item.datestamp;
             }

@@ -182,6 +182,10 @@
 
 .storyview-item.highlighted .circle {}
 
+.storyview-item-expander {
+  float: right;
+}
+
 .storyview-item.mormon-trail .highlighted .circle {
   background: black;
   border-color: $mormon;
