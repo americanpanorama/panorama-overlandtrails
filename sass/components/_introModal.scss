@@ -1,0 +1,254 @@
+$intro-text-color-light: #635e5d;
+$intro-text-color-dark: #3e3531;
+$intro-border: 2px solid white;
+$intro-background-color: #dcd3c7;
+
+// Google Fonts imported in index.html
+%rokkitt {
+	font-family: 'Rokkitt', Georgia, Times, 'Times New Roman', serif;
+	font-weight: 400;
+	color: $intro-text-color-dark;
+}
+
+%arial {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 400;
+	color: $intro-text-color-dark;
+}
+
+
+.intro-modal {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+
+	z-index: 1000000001;	// lift above hamburger menu, map controls, introjs toggle buttons
+	overflow: auto;
+
+	background-color: $intro-background-color;
+	text-align: center;
+
+	.page {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		position: relative;
+		margin: 0 auto;
+	}
+
+	.p0 {
+		$title-offset: 55px;
+
+		width: 600px;
+		margin-top: -$title-offset / 2;
+
+		.title-block {
+			transform: translateY($title-offset);
+		}
+
+		h1 {
+			@extend %rokkitt;
+			font-size: 60px;
+			margin: 0;
+		}
+
+		h3 {
+			@extend %rokkitt;
+			font-size: 24px;
+			margin: 0;
+		}
+
+		img {
+			width: 100%;
+			border: $intro-border;
+
+			&.loading {
+				height: 391px;	// avoid collapsing while loading image
+			}
+		}
+	}
+
+	.p1 {
+		$title-offset: 52px;
+
+		width: 900px;
+		margin-top: -$title-offset / 2;
+
+		.title-block {
+			transform: translateY($title-offset);
+		}
+
+		h2 {
+			@extend %rokkitt;
+			font-size: 38px;
+			margin: 0;
+		}
+
+		h3 {
+			@extend %arial;
+			font-size: 16px;
+			margin: 0;
+		}
+
+		.content {
+			width: 100%;
+			height: 480px;
+			box-sizing: border-box;
+			padding: 84px 44px 28px 44px;
+			border: 2px solid white;
+		}
+
+		ol {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-between;
+			width: 100%;
+			height: 100%;
+
+			padding: 0;
+			text-align: left;
+		}
+
+		$intro-item-height: 100px;
+		$descender-height: 0px;
+		li {
+			position: relative;
+			display: inline-block;
+			flex: 0 0 365px;
+			height: $intro-item-height;
+
+			.ordinal {
+				position: absolute;
+				left: 0;
+				top: 0;
+				line-height: $intro-item-height;
+
+				@extend %rokkitt;
+				font-size: 180px;
+				color: $intro-text-color-light;
+				opacity: 0.7;
+
+				&.descender {
+					line-height: $intro-item-height - $descender-height;
+
+					+ .item > p {
+						margin-bottom: 2px;
+					}
+				}
+			}
+
+			&.wider {
+				flex: 0 0 380px;
+			}
+
+			.item {
+				width: 250px;
+				position: absolute;
+				bottom: -12px;
+				right: 0;
+
+				p {
+					width: 100%;
+					margin: 0 0 10px 0;
+
+					@extend %rokkitt;
+					font-size: 15px;
+					color: $intro-text-color-dark;
+				}
+
+				img {
+					width: 100%;
+				}
+			}
+		}
+
+	}
+
+	p {
+		width: 400px;
+		margin: 24px 0;
+		line-height: 20px;
+
+		@extend %rokkitt;
+		font-size: 15px;
+		color: $intro-text-color-dark;
+	}
+
+	.intro-modal-button {
+		width: 100px;
+		border: $intro-border;
+		border-color: $intro-text-color-dark;
+		padding: 6px 0;
+
+		@extend %rokkitt;
+		font-size: 20px;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+
+	.footer {
+		$intro-footer-font-size: 15px;
+		margin-top: 12px;
+
+		> div {
+			display: inline-block;
+			margin-right: 24px;
+			vertical-align: baseline;
+
+			@extend %rokkitt;
+			font-size: $intro-footer-font-size;
+			cursor: pointer;
+		}
+
+		label {
+			$checkbox-size: 20px;
+			$checkbox-inner-padding: 2px;
+			$checkbox-margin-right: 6px;
+			$checkbox-offset-vert: -4px;
+
+			display: inline-block;
+			position: relative;
+			margin-left: $checkbox-size;
+
+			@extend %rokkitt;
+			font-size: $intro-footer-font-size;
+			cursor: pointer;
+
+			&::before,
+			&.checked::after {
+				display: block;
+				position: absolute;
+				box-sizing: content-box;
+				content: '';
+			}
+			&::before {
+				left: -$checkbox-size - $checkbox-margin-right;
+				top: $checkbox-offset-vert;
+				width: $intro-footer-font-size;
+				height: $intro-footer-font-size;
+				border: $intro-border;
+				border-color: $intro-text-color-dark;
+				padding: $checkbox-inner-padding;
+			}
+			&.checked::after {
+				left: -($checkbox-size - 2*$checkbox-inner-padding) - $checkbox-margin-right;
+				top: $checkbox-offset-vert + 2*$checkbox-inner-padding;
+				width: $intro-footer-font-size;
+				height: $intro-footer-font-size;
+				padding: 0;
+				background-color: $intro-text-color-dark;
+				opacity: 0.8;
+			}
+
+		}
+
+		input {
+			display: none;
+		}
+	}
+	
+}

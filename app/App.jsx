@@ -38,6 +38,8 @@ var Icon = require("./components/Icon.jsx");
 var Longitudes = require("./components/LongitudeLines.jsx");
 var Milestones = require("./components/Milestones.jsx");
 var Navigation = require('./components/PanoramaNavigation.jsx');
+var IntroModal = require('./components/IntroModal.jsx');
+
 
 // config
 var PanoramaNavData = require("../data/panorama_nav.json");
@@ -76,6 +78,8 @@ var App = React.createClass({
 
     initial.year = initial.currentDate.getFullYear();
 
+    initial.showIntroModal = window.localStorage.getItem('hasViewedIntroModal') !== 'true';
+
     this._state = initial;
 
     return initial;
@@ -89,6 +93,7 @@ var App = React.createClass({
   },
 
   componentWillMount: function() {
+    this.onDismissIntroModal = this.onDismissIntroModal.bind(this);
     this.computeDimensions();
     if (this.hashParams.diarist) {
       DiaryLinesStore.selectedDiarist = this.hashParams.diarist;
@@ -333,6 +338,15 @@ var App = React.createClass({
     }
   },
 
+  onDismissIntroModal: function(persist) {
+    if (persist) {
+      window.localStorage.setItem('hasViewedIntroModal', 'true');
+    }
+    this.setState({
+      showIntroModal: false
+    });
+  },
+
   filterMarkers: function(marker) {
     if (!this.state.diarist) return true;
     return (marker['journal_id'] == this.state.diarist);
@@ -485,6 +499,8 @@ var App = React.createClass({
           <p>The developers, designers, and staff at <a href='http://stamen.com'>Stamen Design</a> have been exceptional partners on this project. Our thanks to Kai Chang, Jon Christensen, Sean Connelley, Seth Fitzsimmons, Eric Gelinas, Heather Grates, Nicolette Hayes, Alan McConchie, Michael Neuman, Dan Rademacher, Eric Rodenbeck, and Eric Socolofsky.</p>
 
         </Modal>
+
+        { this.state.showIntroModal ? <IntroModal onDismiss={ this.onDismissIntroModal } /> : '' }
       </div>
     );
   }
