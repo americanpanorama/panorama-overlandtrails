@@ -77,7 +77,7 @@ var IntroModal = React.createClass({
 						</div>
 						<img src={ coverImgPath } className={ this.state.coverImgLoaded ? '' : 'loading' } />
 						<p>During the 1840s tens of thousands of American migrants made long journeys through the American West seeking land in Oregon, gold in California, and religious liberty in Utah.</p>
-						<div className='intro-modal-button' onClick={ () => this.setPage(1) }>Next</div>
+						<div className='intro-modal-button' onClick={ function (e) { this.setPage(1); }.bind(this) }>Next</div>
 					</div>
 				</div>
 			);
@@ -126,7 +126,7 @@ var IntroModal = React.createClass({
 						<p className='map-desc'>Lorem dim sum turnip cake leek dumplings deep fried taro turnover. Cha siu sou Cheong fan pan fried bitter melon beef dumpling mango pudding coconut milk pudding.</p>
 						<div className='intro-modal-button' onClick={ this.dismissIntro }>Enter</div>
 						<div className='footer'>
-							<div onClick={ () => this.setPage(0) }>&lt; back</div>
+							<div onClick={ function (e) { this.setPage(0); }.bind(this) }>&lt; back</div>
 							<label onChange={ this.handleInputChange } ref='muteIntroLabel'><input type='checkbox' ref='muteIntroInput' />do not show again</label>
 						</div>
 					</div>
