@@ -78,7 +78,7 @@ var App = React.createClass({
 
     initial.year = initial.currentDate.getFullYear();
 
-    initial.showIntroModal = window.localStorage.getItem('hasViewedIntroModal') !== 'true';
+    initial.showIntroModal = window.localStorage.getItem('hasViewedIntroModal-overlandtrails') !== 'true';
 
     this._state = initial;
 
@@ -340,7 +340,7 @@ var App = React.createClass({
 
   onDismissIntroModal: function(persist) {
     if (persist) {
-      window.localStorage.setItem('hasViewedIntroModal', 'true');
+      window.localStorage.setItem('hasViewedIntroModal-overlandtrails', 'true');
     }
     this.setState({
       showIntroModal: false
