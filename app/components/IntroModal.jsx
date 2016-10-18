@@ -96,7 +96,7 @@ var IntroModal = React.createClass({
 								<li>
 									<div className='ordinal'>1</div>
 									<div className='item'>
-										<p>The map traces the routes of about two dozen migrants over the Oregon, California, and Mormon Trails.</p>
+										<p>The map traces the routes of about two dozen migrants over the three trails.</p>
 										<img src='./static/introModalStep01.png' />
 									</div>
 								</li>
@@ -110,14 +110,14 @@ var IntroModal = React.createClass({
 								<li>
 									<div className='ordinal descender'>3</div>
 									<div className='item'>
-										<p>Use the timeline to select a different year and use it to see the pace of migration west from Missouri (86° W) to the west coast (123° W).</p>
+										<p>Use the timeline to select a year and see the pace of migration west from Missouri (86°W) to the west coast (123°W).</p>
 										<img src='./static/introModalStep03.png' />
 									</div>
 								</li>
 								<li className='wider'>
 									<div className='ordinal descender'>4</div>
 									<div className='item'>
-										<p>Use the flow chart to see how the number of people deciding to migrate the the west changed, sometimes enormously, from year to year.</p>
+										<p>Use the flow map to see how the number of people migrating west changed, sometimes enormously, from year to year.</p>
 										<img src='./static/introModalStep04.png' />
 									</div>
 								</li>
