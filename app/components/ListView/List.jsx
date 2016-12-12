@@ -3,6 +3,7 @@ var React   = require("react");
 var Item    = require('../ListView/Item.jsx');
 var d3      = require('d3');
 var helpers = require("../../utils/helpers");
+var StoryItem = require('../StoryItem.jsx');
 
 
 var _selectedJournal,
@@ -12,8 +13,6 @@ var _selectedJournal,
     storiesDirty,
     anchors = [],
     cached = {};
-
-var storyEntryDateFormatter = d3.time.format('%B %e, %Y');
 
 var HTMLCitations = true;
 
@@ -59,8 +58,9 @@ var List = React.createClass({
       anchors = [];
       cached.anchors = {};
       d3.select(cached.storyContainer).selectAll('.storyview-item').each(function(item){
+        var that = this;
         anchors.push({
-          top: this.offsetTop,
+          getTop: function () { return that.offsetTop; },
           datestamp: this.getAttribute('data-datestamp')
         });
         cached.anchors[this.getAttribute('data-datestamp')] = d3.select(this).select('a');
@@ -126,7 +126,8 @@ var List = React.createClass({
         currentScrollDatestamp = anchors[anchors.length-1].datestamp;
       }else {
         anchors.forEach(function(item, i){
-          if (item.top > top && (item.top - top < 20) ){
+          var itemTop = item.getTop();
+          if (itemTop > top && (itemTop - top < 20) ){
             if(currentScrollDatestamp !== item.datestamp) {
               currentScrollDatestamp = item.datestamp;
             }
@@ -210,11 +211,12 @@ var List = React.createClass({
         var highlighted = (selectedDateStamp === dt) ? " highlighted" : "";
         //if (highlighted.length) currentDate = that.props.selectedDate;
         return (
-          <div key={item['cartodb_id']} className={"storyview-item " + trailCSS} data-datestamp={item.datestamp}>
-          <a name={item.datestamp} className={highlighted} data-date={item.ts} onClick={that.storyClicked}><span className="circle"></span>{storyEntryDateFormatter(item.date)}</a>
-          <p className="storyview-entry">{item.entry}</p>
-          </div>
-          );
+          <StoryItem {...item} 
+            key={item.cartodb_id}
+            highlighted={highlighted} 
+            trailCSS={trailCSS} 
+            onClick={that.storyClicked} />
+        );
       });
 
     // add citation
