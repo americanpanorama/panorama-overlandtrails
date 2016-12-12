@@ -471,7 +471,7 @@ var App = React.createClass({
 
           <h2>A Note on Sources and Methods</h2>
 
-          <p>The most significant evidence for this map comes from 2000 individual entries from about two dozen Overland Trails diaries that we have plotted in time and space. Most diarist carefully noted the distance they had traveled that day and where they camped. Still, in many cases a location can only be estimated but not precisely identified. Citations for each journal are provided in the narratives column.</p>
+          <p>The most significant evidence for this map comes from 2000 individual entries from about two dozen Overland Trails diaries that we have plotted in time and space. Most diarists carefully noted the distance they had traveled that day and where they camped. Still, in many cases a location can only be estimated but not precisely identified. Citations for each journal are provided in the narratives column.</p>
 
           <p>Merrill J. Mattes's Platte River Road Narratives (Urbana: University of Illinois Press, 1988) was indispensible in helping us select diaries to transcribe and georeference. The National Park Services's national historic trails data was enormously helpful in helping us georeference diary entries.</p>
 

@@ -39,4 +39,6 @@ bower_components
 
 .sass-cache
 
+*.sublime-*
+
 npm-debug.log
